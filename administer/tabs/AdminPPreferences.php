@@ -30,7 +30,8 @@ class AdminPPreferences extends AdminPreferences
 					array(
 						array('id' => '0', 'name' => $this->l('Tax included').'**'),
 						array('id' => '1', 'name' => $this->l('Tax excluded').'***'),
-						array('id' => '2', 'name' => $this->l('Both excluded and included tax'))
+						array('id' => '2', 'name' => $this->l('Both excluded and included tax')),
+						array('id' => '3', 'name' => $this->l('Without price'))
 					),
 				'identifier' => 'id'
 			),

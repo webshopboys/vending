@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.20, created on 2012-05-16 00:19:36
+<?php /* Smarty version 2.6.20, created on 2013-08-13 15:34:02
          compiled from /web/vendingoutlet/vendingoutlet.org/modules/blockspecials/blockspecials.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'l', '/web/vendingoutlet/vendingoutlet.org/modules/blockspecials/blockspecials.tpl', 3, false),array('function', 'displayWtPrice', '/web/vendingoutlet/vendingoutlet.org/modules/blockspecials/blockspecials.tpl', 19, false),array('modifier', 'escape', '/web/vendingoutlet/vendingoutlet.org/modules/blockspecials/blockspecials.tpl', 14, false),)), $this); ?>
@@ -32,17 +32,20 @@ prices-drop.php" title="<?php echo smartyTranslate(array('s' => 'Specials','mod'
 " title="<?php echo ((is_array($_tmp=$this->_tpl_vars['special']['name'])) ? $this->_run_mod_handler('escape', true, $_tmp, 'htmlall', 'UTF-8') : smarty_modifier_escape($_tmp, 'htmlall', 'UTF-8')); ?>
 "><?php echo ((is_array($_tmp=$this->_tpl_vars['special']['name'])) ? $this->_run_mod_handler('escape', true, $_tmp, 'htmlall', 'UTF-8') : smarty_modifier_escape($_tmp, 'htmlall', 'UTF-8')); ?>
 </a></h5>
-				<span class="price-discount"><?php echo Product::displayWtPrice(array('p' => $this->_tpl_vars['special']['price_without_reduction']), $this);?>
+				<?php if (! $this->_tpl_vars['priceDisplay'] == 3): ?><span class="price-discount"><?php echo Product::displayWtPrice(array('p' => $this->_tpl_vars['special']['price_without_reduction']), $this);?>
 </span>
 				<?php if ($this->_tpl_vars['special']['reduction_percent']): ?><span class="reduction">(-<?php echo $this->_tpl_vars['special']['reduction_percent']; ?>
-%)</span><?php endif; ?>
+%)</span><?php endif; ?><?php endif; ?>
+				<?php if ($this->_tpl_vars['priceDisplay'] != 3): ?>
 				<?php if (! $this->_tpl_vars['priceDisplay'] || $this->_tpl_vars['priceDisplay'] == 2): ?><span class="price"><?php echo Product::displayWtPrice(array('p' => $this->_tpl_vars['special']['price']), $this);?>
 </span><?php if ($this->_tpl_vars['priceDisplay'] == 2): ?> <?php echo smartyTranslate(array('s' => '+Tx'), $this);?>
 <?php endif; ?><?php endif; ?>
 				<?php if ($this->_tpl_vars['priceDisplay'] == 2): ?><br /><?php endif; ?>
 				<?php if ($this->_tpl_vars['priceDisplay']): ?><span class="price"><?php echo Product::displayWtPrice(array('p' => $this->_tpl_vars['special']['price_tax_exc']), $this);?>
 </span><?php if ($this->_tpl_vars['priceDisplay'] == 2): ?> <?php echo smartyTranslate(array('s' => '-Tx'), $this);?>
-<?php endif; ?><?php endif; ?>
+<?php endif; ?><?php endif; ?><?php endif; ?>
+				<?php if ($this->_tpl_vars['priceDisplay'] == 3): ?><p><strong><?php echo smartyTranslate(array('s' => 'Ask for an offer!','mod' => 'blockspecials'), $this);?>
+</strong></p><?php endif; ?>
 			</li>
 		</ul>
 		<p>

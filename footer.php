@@ -16,9 +16,16 @@ echo
 '
 
 <script type="text/javascript">
-    jQuery().ready(function(){
+    
+	function insertBlocks(){
+		jQuery("#right_column").append("<div id=\'c1\'/><div id=\'c2\' class=\"\"/>");
+		jQuery("#c1").load("http://www.vendingoutlet.org/static/components-block.php");
+		jQuery("#c2").load("http://www.vendingoutlet.org/static/packages-block.php");
+	
+	}
 
-    	
+	jQuery().ready(function(){
+   	
 		jQuery(document).watermark({className:"reserved", path:"http://www.vendingoutlet.org/img/reserved-'.$ps_language->iso_code.'.png"});
 		setTimeout(function(){
 			jQuery(window).resize(function() {
@@ -62,7 +69,7 @@ echo
 			checkLogo(1);
 		}
 	    
-		
+		insertBlocks();
 	});
 	
 	var logos = new Array();

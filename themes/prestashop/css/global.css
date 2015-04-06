@@ -195,12 +195,18 @@ h1#logo {
 }
 #header {
 	float: left;
-	width: 71%;
+	width: 50%; /* 71% */
 	text-align: right;
 }
 #left_column, #center_column, #right_column {
 	float:left;
 }
+
+#home-target-logo-div {
+	float:left;
+}
+#home-target-logo { }
+
 #left_column {
 	clear:left;
 	width:190px;

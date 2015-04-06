@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.20, created on 2012-05-16 00:19:36
+<?php /* Smarty version 2.6.20, created on 2013-08-13 15:34:51
          compiled from /web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'l', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 15, false),array('function', 'convertPrice', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 31, false),array('modifier', 'escape', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 19, false),array('modifier', 'truncate', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 22, false),array('modifier', 'strip_tags', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 23, false),array('modifier', 'date_format', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 28, false),array('modifier', 'intval', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 34, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'l', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 15, false),array('function', 'convertPrice', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 32, false),array('modifier', 'escape', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 19, false),array('modifier', 'truncate', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 22, false),array('modifier', 'strip_tags', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 23, false),array('modifier', 'date_format', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 28, false),array('modifier', 'intval', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/./product-list.tpl', 36, false),)), $this); ?>
 <?php if (isset ( $this->_tpl_vars['products'] )): ?>
 	<!-- Products list -->
 	<ul id="product_list" class="clear">
@@ -51,19 +51,22 @@ if ($this->_foreach['products']['total'] > 0):
 					<span class="discount"><?php echo smartyTranslate(array('s' => 'Price lowered!'), $this);?>
 </span>
 				<?php endif; ?>
+				<?php if ($this->_tpl_vars['priceDisplay'] != 3): ?>
 				<?php if (! $this->_tpl_vars['priceDisplay'] || $this->_tpl_vars['priceDisplay'] == 2): ?><div><span class="price" style="display: inline;"><?php echo Product::convertPrice(array('price' => $this->_tpl_vars['product']['price']), $this);?>
 </span><?php if ($this->_tpl_vars['priceDisplay'] == 2): ?> <?php echo smartyTranslate(array('s' => '+Tx'), $this);?>
 <?php endif; ?></div><?php endif; ?>
 				<?php if ($this->_tpl_vars['priceDisplay']): ?><div><span class="price" style="display: inline;"><?php echo Product::convertPrice(array('price' => $this->_tpl_vars['product']['price_tax_exc']), $this);?>
 </span><?php if ($this->_tpl_vars['priceDisplay'] == 2): ?> <?php echo smartyTranslate(array('s' => '-Tx'), $this);?>
-<?php endif; ?></div><?php endif; ?>
+<?php endif; ?></div><?php endif; ?><?php endif; ?>
+				<?php if ($this->_tpl_vars['priceDisplay'] == 3): ?><strong><?php echo smartyTranslate(array('s' => 'Ask for an offer!'), $this);?>
+</strong><?php endif; ?>
 				<?php if (( $this->_tpl_vars['product']['allow_oosp'] || $this->_tpl_vars['product']['quantity'] > 0 ) && $this->_tpl_vars['product']['customizable'] != 2): ?>
-					<a class="button ajax_add_to_cart_button exclusive" rel="ajax_id_product_<?php echo ((is_array($_tmp=$this->_tpl_vars['product']['id_product'])) ? $this->_run_mod_handler('intval', true, $_tmp) : intval($_tmp)); ?>
+					<!--a class="button ajax_add_to_cart_button exclusive" rel="ajax_id_product_<?php echo ((is_array($_tmp=$this->_tpl_vars['product']['id_product'])) ? $this->_run_mod_handler('intval', true, $_tmp) : intval($_tmp)); ?>
 " href="<?php echo $this->_tpl_vars['base_dir']; ?>
 cart.php?add&amp;id_product=<?php echo ((is_array($_tmp=$this->_tpl_vars['product']['id_product'])) ? $this->_run_mod_handler('intval', true, $_tmp) : intval($_tmp)); ?>
 &amp;token=<?php echo $this->_tpl_vars['static_token']; ?>
 "><?php echo smartyTranslate(array('s' => 'Add to cart'), $this);?>
-</a>
+</a-->
 				<?php else: ?>
 						<span class="exclusive"><?php echo smartyTranslate(array('s' => 'Add to cart'), $this);?>
 </span>

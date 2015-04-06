@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.20, created on 2013-03-03 17:23:55
+<?php /* Smarty version 2.6.20, created on 2013-08-13 15:37:14
          compiled from /web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 2, false),array('modifier', 'html_entity_decode', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 7, false),array('modifier', 'floatval', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 8, false),array('modifier', 'intval', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 9, false),array('modifier', 'escape', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 23, false),array('modifier', 'default', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 25, false),array('modifier', 'date_format', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 32, false),array('modifier', 'cat', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 44, false),array('modifier', 'addslashes', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 76, false),array('modifier', 'htmlspecialchars', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 133, false),array('modifier', 'truncate', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 416, false),array('modifier', 'strip_tags', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 419, false),array('modifier', 'stripslashes', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 475, false),array('function', 'l', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 66, false),array('function', 'math', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 129, false),array('function', 'convertPrice', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 218, false),array('function', 'displayWtPrice', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 422, false),array('function', 'counter', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 454, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 2, false),array('modifier', 'html_entity_decode', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 7, false),array('modifier', 'floatval', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 8, false),array('modifier', 'intval', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 9, false),array('modifier', 'escape', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 23, false),array('modifier', 'default', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 25, false),array('modifier', 'date_format', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 32, false),array('modifier', 'cat', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 44, false),array('modifier', 'addslashes', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 76, false),array('modifier', 'htmlspecialchars', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 133, false),array('modifier', 'truncate', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 420, false),array('modifier', 'strip_tags', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 423, false),array('modifier', 'stripslashes', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 482, false),array('function', 'l', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 66, false),array('function', 'math', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 129, false),array('function', 'convertPrice', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 220, false),array('function', 'displayWtPrice', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 427, false),array('function', 'counter', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/product.tpl', 461, false),)), $this); ?>
 ﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => ($this->_tpl_vars['tpl_dir'])."./errors.tpl", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -348,6 +348,9 @@ onsale_<?php echo $this->_tpl_vars['lang_iso']; ?>
 				<?php endif; ?>
 				<br />
 				<span class="our_price_display">
+				<?php if ($this->_tpl_vars['priceDisplay'] == 3): ?><strong><?php echo smartyTranslate(array('s' => 'Ask for an offer!'), $this);?>
+</strong><?php endif; ?>
+				<?php if ($this->_tpl_vars['priceDisplay'] != 3): ?>
 				<?php if (! $this->_tpl_vars['priceDisplay'] || $this->_tpl_vars['priceDisplay'] == 2): ?>
 					<span id="our_price_display"><?php echo Product::convertPrice(array('price' => $this->_tpl_vars['product']->getPrice(true,@NULL,2)), $this);?>
 </span>
@@ -359,8 +362,10 @@ onsale_<?php echo $this->_tpl_vars['lang_iso']; ?>
 </span>
 						<?php echo smartyTranslate(array('s' => 'tax excl.'), $this);?>
 
-				<?php endif; ?>
+				<?php endif; ?><?php endif; ?>
+				
 				</span>
+				
 				<?php if ($this->_tpl_vars['priceDisplay'] == 2): ?>
 					<br />
 					<span id="pretaxe_price"><span id="pretaxe_price_display"><?php echo Product::convertPrice(array('price' => $this->_tpl_vars['product']->getPrice(false,@NULL,2)), $this);?>
@@ -490,8 +495,8 @@ onsale_<?php echo $this->_tpl_vars['lang_iso']; ?>
 			<p class="warning-inline" id="last_quantities"<?php if (( $this->_tpl_vars['product']->quantity > $this->_tpl_vars['last_qties'] || $this->_tpl_vars['product']->quantity == 0 ) || $this->_tpl_vars['allow_oosp']): ?> style="display:none;"<?php endif; ?> ><?php echo smartyTranslate(array('s' => 'Warning: Last items in stock!'), $this);?>
 </p>
 
-			<p<?php if (! $this->_tpl_vars['allow_oosp'] && $this->_tpl_vars['product']->quantity == 0): ?> style="display:none;"<?php endif; ?> id="add_to_cart" class="buttons_bottom_block"><input type="submit" name="Submit" value="<?php echo smartyTranslate(array('s' => 'Add to cart'), $this);?>
-" class="exclusive" /></p>
+			<?php if ($this->_tpl_vars['priceDisplay'] != 3): ?><p<?php if (! $this->_tpl_vars['allow_oosp'] && $this->_tpl_vars['product']->quantity == 0): ?> style="display:none;"<?php endif; ?> id="add_to_cart" class="buttons_bottom_block"><input type="submit" name="Submit" value="<?php echo smartyTranslate(array('s' => 'Add to cart'), $this);?>
+" class="exclusive" /></p><?php endif; ?>
 			<?php if ($this->_tpl_vars['HOOK_PRODUCT_ACTIONS']): ?>
 				<?php echo $this->_tpl_vars['HOOK_PRODUCT_ACTIONS']; ?>
 
@@ -650,6 +655,7 @@ if ($this->_foreach['accessories_list']['total'] > 0):
 </a>
 							</p>
 							<p class="product_accessories_price">
+							<?php if ($this->_tpl_vars['priceDisplay'] != 3): ?>
 								<span class="price"><?php echo Product::displayWtPrice(array('p' => $this->_tpl_vars['accessory']['price']), $this);?>
 </span>
 								<a class="button" href="<?php echo ((is_array($_tmp=$this->_tpl_vars['accessoryLink'])) ? $this->_run_mod_handler('escape', true, $_tmp, 'htmlall', 'UTF-8') : smarty_modifier_escape($_tmp, 'htmlall', 'UTF-8')); ?>
@@ -662,7 +668,10 @@ cart.php?qty=1&amp;id_product=<?php echo ((is_array($_tmp=$this->_tpl_vars['acce
 &amp;add" rel="ajax_id_product_<?php echo ((is_array($_tmp=$this->_tpl_vars['accessory']['id_product'])) ? $this->_run_mod_handler('intval', true, $_tmp) : intval($_tmp)); ?>
 " title="<?php echo smartyTranslate(array('s' => 'Add to cart'), $this);?>
 "><?php echo smartyTranslate(array('s' => 'Add to cart'), $this);?>
-</a>
+</a><?php endif; ?>
+							<?php if ($this->_tpl_vars['priceDisplay'] == 3): ?><bold><?php echo smartyTranslate(array('s' => 'Ask for an offer!'), $this);?>
+</bold><?php endif; ?>
+
 							</p>
 						</li>
 					<?php endforeach; endif; unset($_from); ?>

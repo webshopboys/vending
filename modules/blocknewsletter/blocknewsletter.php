@@ -181,6 +181,9 @@ class Blocknewsletter extends Module {
 		else
 		if( isset ($_GET['action']) && $_GET['action'] == Util::ACTION_TRANSPORTPOOLING){
 			Util::poolTransportMail();
+		}else
+		if( isset ($_GET['action']) && $_GET['action'] == Util::ACTION_RESERVEDUNLOCK){
+			Util::reservedUnlock();
 		}
 
 		if (Tools :: isSubmit('submitNewsletter')) {

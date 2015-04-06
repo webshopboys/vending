@@ -16,11 +16,13 @@
 			</li>
 			<li>
 				<h5><a href="{$special.link}" title="{$special.name|escape:htmlall:'UTF-8'}">{$special.name|escape:htmlall:'UTF-8'}</a></h5>
-				<span class="price-discount">{displayWtPrice p=$special.price_without_reduction}</span>
-				{if $special.reduction_percent}<span class="reduction">(-{$special.reduction_percent}%)</span>{/if}
+				{if !$priceDisplay == 3}<span class="price-discount">{displayWtPrice p=$special.price_without_reduction}</span>
+				{if $special.reduction_percent}<span class="reduction">(-{$special.reduction_percent}%)</span>{/if}{/if}
+				{if $priceDisplay != 3}
 				{if !$priceDisplay || $priceDisplay == 2}<span class="price">{displayWtPrice p=$special.price}</span>{if $priceDisplay == 2} {l s='+Tx'}{/if}{/if}
 				{if $priceDisplay == 2}<br />{/if}
-				{if $priceDisplay}<span class="price">{displayWtPrice p=$special.price_tax_exc}</span>{if $priceDisplay == 2} {l s='-Tx'}{/if}{/if}
+				{if $priceDisplay}<span class="price">{displayWtPrice p=$special.price_tax_exc}</span>{if $priceDisplay == 2} {l s='-Tx'}{/if}{/if}{/if}
+				{if $priceDisplay == 3}<p><strong>{l s='Ask for an offer!' mod='blockspecials'}</strong></p>{/if}
 			</li>
 		</ul>
 		<p>

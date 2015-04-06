@@ -214,6 +214,8 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 				{/if}
 				<br />
 				<span class="our_price_display">
+				{if $priceDisplay == 3}<strong>{l s='Ask for an offer!'}</strong>{/if}
+				{if $priceDisplay != 3}
 				{if !$priceDisplay || $priceDisplay == 2}
 					<span id="our_price_display">{convertPrice price=$product->getPrice(true, $smarty.const.NULL, 2)}</span>
 						{l s='tax incl.'}
@@ -221,8 +223,10 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 				{if $priceDisplay == 1}
 					<span id="our_price_display">{convertPrice price=$product->getPrice(false, $smarty.const.NULL, 2)}</span>
 						{l s='tax excl.'}
-				{/if}
+				{/if}{/if}
+				
 				</span>
+				
 				{if $priceDisplay == 2}
 					<br />
 					<span id="pretaxe_price"><span id="pretaxe_price_display">{convertPrice price=$product->getPrice(false, $smarty.const.NULL, 2)}</span>&nbsp;{l s='tax excl.'}</span>
@@ -310,7 +314,7 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 			
 			<p class="warning-inline" id="last_quantities"{if ($product->quantity > $last_qties || $product->quantity == 0) || $allow_oosp} style="display:none;"{/if} >{l s='Warning: Last items in stock!'}</p>
 
-			<p{if !$allow_oosp && $product->quantity == 0} style="display:none;"{/if} id="add_to_cart" class="buttons_bottom_block"><input type="submit" name="Submit" value="{l s='Add to cart'}" class="exclusive" /></p>
+			{if $priceDisplay != 3}<p{if !$allow_oosp && $product->quantity == 0} style="display:none;"{/if} id="add_to_cart" class="buttons_bottom_block"><input type="submit" name="Submit" value="{l s='Add to cart'}" class="exclusive" /></p>{/if}
 			{if $HOOK_PRODUCT_ACTIONS}
 				{$HOOK_PRODUCT_ACTIONS}
 			{/if}
@@ -419,9 +423,12 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 								<a href="{$accessoryLink|escape:'htmlall':'UTF-8'}" title="{l s='More'}" class="product_description">{$accessory.description_short|strip_tags|truncate:100:'...'}</a>
 							</p>
 							<p class="product_accessories_price">
+							{if $priceDisplay != 3}
 								<span class="price">{displayWtPrice p=$accessory.price}</span>
 								<a class="button" href="{$accessoryLink|escape:'htmlall':'UTF-8'}" title="{l s='View'}">{l s='View'}</a>
-								<a class="button ajax_add_to_cart_button" href="{$base_dir}cart.php?qty=1&amp;id_product={$accessory.id_product|intval}&amp;token={$static_token}&amp;add" rel="ajax_id_product_{$accessory.id_product|intval}" title="{l s='Add to cart'}">{l s='Add to cart'}</a>
+								<a class="button ajax_add_to_cart_button" href="{$base_dir}cart.php?qty=1&amp;id_product={$accessory.id_product|intval}&amp;token={$static_token}&amp;add" rel="ajax_id_product_{$accessory.id_product|intval}" title="{l s='Add to cart'}">{l s='Add to cart'}</a>{/if}
+							{if $priceDisplay == 3}<bold>{l s='Ask for an offer!'}</bold>{/if}
+
 							</p>
 						</li>
 					{/foreach}

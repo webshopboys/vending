@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.20, created on 2012-08-10 22:36:30
+<?php /* Smarty version 2.6.20, created on 2013-10-28 12:27:44
          compiled from /web/vendingoutlet/vendingoutlet.org/themes/prestashop/header.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/header.tpl', 4, false),array('function', 'l', '/web/vendingoutlet/vendingoutlet.org/themes/prestashop/header.tpl', 48, false),)), $this); ?>
@@ -93,6 +93,12 @@ logo.jpg" alt="<?php echo ((is_array($_tmp=$this->_tpl_vars['shop_name'])) ? $th
 				<div id="header">
 					<?php echo $this->_tpl_vars['HOOK_TOP']; ?>
 
+				</div>
+				<div id="home-target-logo-div">
+					<a href="http://www.vendingoutlet.org/static-geo.html" title="Vending Outlet Geologic Informations" target="_blank">
+						<img src="<?php echo $this->_tpl_vars['img_ps_dir']; ?>
+fejlec-parkolos-195x82.png" alt="Click Here For Direction" id="home-target-logo" />
+					</a>
 				</div>
 			</div>
 

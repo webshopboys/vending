@@ -54,6 +54,11 @@
 				<div id="header">
 					{$HOOK_TOP}
 				</div>
+				<div id="home-target-logo-div">
+					<a href="http://www.vendingoutlet.org/static-geo.html" title="Vending Outlet Geologic Informations" target="_blank">
+						<img src="{$img_ps_dir}fejlec-parkolos-195x82.png" alt="Click Here For Direction" id="home-target-logo" />
+					</a>
+				</div>
 			</div>
 
 			<!-- Left -->

@@ -13,6 +13,10 @@ if(isset($_REQUEST["call_method"]))
 	{
 		Util::poolTransportMail();
 	}
+	if($_REQUEST["call_method"]=="reservedUnlock")
+	{
+		Util::reservedUnlock();
+	}
 }
 
 /**
@@ -23,7 +27,21 @@ if(isset($_REQUEST["call_method"]))
  */
 class Util //extends ObjectModel
 {
+	/**
+	 * 
+	 * A foglalt jelzesek levetele a lejart hataridos termekekrol. 
+	 */
+	static public function reservedUnlock() {
+	
+		$sqlscript = 'UPDATE ' . _DB_PREFIX_ . 'product set reserved = 0, reserved_date = null WHERE (reserved_date is not null AND reserved_date <= DATE_SUB(NOW(), INTERVAL 1 DAY))';
+		$rowcount = Db::getInstance()->Execute($sqlscript);
+		echo 'Updated '.$rowcount.' record in ('.$sqlscript.')<BR>';
+		$sqlscript = 'DELETE FROM ' . _DB_PREFIX_ . 'category_product WHERE id_category = 99 AND `id_product` not in (SELECT id_product FROM ' . _DB_PREFIX_ . 'product WHERE reserved > 0 AND reserved_date IS NOT NULL)';
+		$rowcount = Db::getInstance()->Execute($sqlscript); 
+		echo 'Deleted '.$rowcount.' record from ('.$sqlscript.')';
+	}
 
+	const ACTION_RESERVEDUNLOCK = "reservedUnlock";
 	const ACTION_NEWSLETTER = "newsletter";
 	const ACTION_TRANSPORTPOOLING = "transportpooling";
 	const PS_MAIL_TRANSPORTERS = "PS_MAIL_TRANSPORTERS";
