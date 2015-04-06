@@ -1,0 +1,9 @@
+Kedves {lastname} {firstname},
+
+Elk&#233;sz&#252;lt a megrendel&#233;shez kapcsol&#242;d&#242; kedvezm&#233;nyes kupon.
+
+A kupon k&#242;dja: {voucher_num}, a kedvezm&#233;ny m&#233;rt&#233;ke: {voucher_amount}.
+
+A kedvezm&#233;ny a k&#246;vetkez&#337; v&#225;s&#225;rl&#225;skor vehet&#337; ig&#233;nybe, a kupon k&#242;d felhaszn&#225;l&#225;s&#225;val.
+
+{shop_name} - {shop_url}

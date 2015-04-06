@@ -1,0 +1,106 @@
+﻿#backgroundPopup{
+display:none;
+position:fixed;
+_position:absolute; /* hack for internet explorer 6*/
+height:100%;
+width:100%;
+top:0;
+left:0;
+background:#000000;
+border:1px solid #cecece;
+z-index:1;
+}
+#popupContact{
+display:none;
+position:fixed;
+_position:absolute; /* hack for internet explorer 6*/
+width:616px;
+background:url(head-bg.jpg) top left no-repeat #fff;
+border:2px solid #cecece;
+z-index:2;
+font-size:13px;
+}
+#popupContact h1{
+text-align:left;
+color:#9a1711;
+font-size:26px;
+font-weight:normal;
+padding-bottom:2px;
+margin-bottom:5px;
+}
+#popupContactClose{
+font-size:12px;
+line-height:14px;
+right:6px;
+top:4px;
+position:absolute;
+color:#9a1711;
+display:block;
+}
+#popupContact a {
+cursor: pointer;
+text-decoration:none;
+}
+#button{
+text-align:center;
+margin:100px;
+}
+
+#popupContact div#popup-list {width:576px; height:136px; overflow-y:scroll; overflow-x:hidden; padding:5px 0 0 15px; margin-right:20px; border:solid 2px #e4e6e9; background:url(list-bg.jpg) top repeat-x;}
+
+#popupContact caption,
+#popupContact caption a {color:#9a1711; font-size:16px; font-weight:bold; text-align:left; margin:15px 0 5px 0;}
+
+#popupContact a:hover {text-decoration:underline;}
+
+#popupContact a {line-height:17px;}
+
+#popupContact table,
+#popupContact tr, 
+#popupContact td {margin:0; padding:0; border:0; color:#000; font: normal 12px Arial, Helvetica, Verdana, Geneva, sans-serif; line-height:12px; text-align:left; text-decoration:none;}
+
+#popupContact #editorial_block_center,
+#popupContact .editorial_block {margin-bottom:0;}
+
+#popupContact table img {border:solid 1px #e4e6e9; margin:0 5px 0 0;}
+
+div#new-special {padding:12px; background:url(new-special-bg.jpg) no-repeat bottom right;}
+
+#popupContact h4 {font-size:16px;}
+
+#popupContact .editorial_block { margin-bottom: 2em; padding-left:0; width:586px;}
+
+#popupContact #languages_block_top li {list-style-type:none; margin-right:3px;}
+
+#popupContact #languages_block_top ul {display:inline;}
+
+#popupContact #languages_block_top a {line-height:1px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

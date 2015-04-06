@@ -37,6 +37,7 @@ class AdminCatalog extends AdminTab
 
 	public function __construct()
 	{
+		
 		/* Get current category */
 		$id_category = abs(intval(Tools::getValue('id_category')));
 		if (!$id_category) $id_category = 1;
@@ -73,12 +74,13 @@ class AdminCatalog extends AdminTab
 
 	public function postProcess()
 	{
-		if (!Tools::getValue('id_product'))
-			$this->adminCategories->postProcess();
-		elseif (isset($_GET['attributegenerator']))
-			$this->attributeGenerator->postProcess();
-		elseif (isset($_GET['imageresize']))
-			$this->imageResize->postProcess();
+		
+		if (!Tools::getValue('id_product')){
+			$this->adminCategories->postProcess();}
+		elseif (isset($_GET['attributegenerator'])){
+			$this->attributeGenerator->postProcess();}
+		elseif (isset($_GET['imageresize'])){
+			$this->imageResize->postProcess();}
 		$this->adminProducts->postProcess($this->token);
 	}
 
@@ -91,6 +93,7 @@ class AdminCatalog extends AdminTab
 	public function display()
 	{
 		global $currentIndex;
+
 
 		if (((Tools::isSubmit('submitAddcategory') OR Tools::isSubmit('submitAddcategoryAndStay')) AND sizeof($this->adminCategories->_errors)) OR isset($_GET['updatecategory']) OR isset($_GET['addcategory']))
 		{

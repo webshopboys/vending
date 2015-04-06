@@ -140,10 +140,15 @@ class BlockCategories extends Module
 		}	
 		$smarty->assign('blockCategTree', $blockCategTree);
 		
-		if (file_exists(_PS_THEME_DIR_.'modules/blockcategories/blockcategories.tpl'))
+		if (file_exists(_PS_THEME_DIR_.'modules/blockcategories/blockcategories.tpl')){
 			$smarty->assign('branche_tpl_path', _PS_THEME_DIR_.'modules/blockcategories/category-tree-branch.tpl');
+		}
 		else
+		{
 			$smarty->assign('branche_tpl_path', _PS_MODULE_DIR_.'blockcategories/category-tree-branch.tpl');
+		}
+		$smarty->assign('product_download_text', $this->l('Download products'));
+		$smarty->assign('home_category_name', $this->l('Featured Products'));
 		$smarty->assign('isDhtml', $isDhtml);
 		/* /ONLY FOR THEME OLDER THAN v1.0 */
 		

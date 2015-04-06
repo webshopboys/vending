@@ -1,0 +1,9 @@
+	Kedves {lastname} {firstname},
+		
+	A #{id_order} megrendel&#233;ssel kapcsolatos inform&#225;ci&#242;k
+	
+	A megrendel&#233;s feldolgoz&#225;s alatt &#225;ll.
+
+	Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+	
+	{shop_name} - {shop_url}

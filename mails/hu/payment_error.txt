@@ -1,0 +1,8 @@
+Kedves {lastname} {firstname},
+
+Probl&#233;ma mer&#252;lt fel a #{id_order} megrendel&#233;s fizet&#233;s&#233;vel kapcsolatban.
+
+A megrendel&#233;st a probl&#233;ma elh&#225;r&#237;t&#225;s&#225;ig nem tudjuk teljes&#237;teni. 
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+{shop_name} - {shop_url}

@@ -98,7 +98,15 @@ class		Category extends ObjectModel
 	public function getTranslationsFieldsChild()
 	{
 		parent::validateFieldsLang();
-		return parent::getTranslationsFields(array('name', 'description', 'link_rewrite', 'meta_title', 'meta_keywords', 'meta_description'));
+		$fields = array('name', 'description', 'link_rewrite', 'meta_title', 'meta_keywords', 'meta_description');
+		$fields = parent::getTranslationsFields($fields);
+		$languages = Language::getLanguages();
+		foreach ($languages as $language)
+		{
+			$fields[$language['id_lang']]['description'] = (isset($this->description[$language['id_lang']])) ? Tools::htmlentitiesDecodeUTF8(pSQL($this->description[$language['id_lang']], true)) : '';
+		}
+		
+		return $fields;
 	}
 
 	public	function add($autodate = true, $nullValues = false)
@@ -118,6 +126,9 @@ class		Category extends ObjectModel
 		foreach ($this->name AS $k => $value)
 			if (preg_match('/^[1-9]\./', $value))
 				$this->name[$k] = '0'.$value;
+		
+		
+			
 		return parent::update();
 	}
 
@@ -160,6 +171,7 @@ class		Category extends ObjectModel
 			'link' => $link->getCategoryLink($this->id, $this->link_rewrite),
 			'name' => $this->name,
 			'desc'=> $this->description,
+			//'desc'=> Tools::htmlentitiesDecodeUTF8(pSQL($this->description, true)),
 			'children' => $children
 		);
 	}

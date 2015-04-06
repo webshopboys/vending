@@ -17,7 +17,15 @@
 		{l s='The total amount of your order is' mod='cashondelivery'}
 		<span id="amount_{$currencies.0.id_currency}" class="price">{convertPrice price=$total}</span> {l s='(tax incl.)' mod='cashondelivery'}
 	</p>
-	<p>
+	
+	{if $invoice && $invoice->eu_account}
+	{else}
+		<p>{l s='It does not have EU account, therefore the price is subject to tax! It will be:' mod='cashondelivery'}
+		<span id="amount_{$currencies.0.id_currency}" class="price">{convertPrice price=$total*1.25}</span></p>
+		
+		<p>
+	{/if}
+	
 		<br /><br />
 		<br /><br />
 		<b>{l s='Please confirm your order by clicking \'I confirm my order\'' mod='cashondelivery'}.</b>

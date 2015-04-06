@@ -123,7 +123,7 @@ class Tab extends ObjectModel
 	{
 		/* Tabs selection */
 		$sql = ('
-		SELECT *
+		SELECT t.*, tl.`name`
 		FROM `'._DB_PREFIX_.'tab` t
 		'.($id_lang ? 'LEFT JOIN `'._DB_PREFIX_.'tab_lang` tl ON (t.`id_tab` = tl.`id_tab` AND tl.`id_lang` = '.intval($id_lang).')' : '').
 		($id_parent !== NULL ? ('WHERE t.`id_parent` = '.intval($id_parent)) : '').'

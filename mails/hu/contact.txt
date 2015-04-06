@@ -1,0 +1,5 @@
+&Uuml;zenet a {shop_name} webshopb&oacute;l
+
+A k&uuml;ld&#337; email c&#237;me: {email}
+
+A k&uuml;ld&#337; email c&#237;me: {message}

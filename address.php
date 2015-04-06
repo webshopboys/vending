@@ -18,10 +18,12 @@ if ($back = Tools::getValue('back'))
 	$smarty->assign('back', Tools::safeOutput($back));
 	
 $errors = array();
+
 	
 if ($id_address = intval(Tools::getValue('id_address')))
 {
     $address = new Address(intval($id_address));
+   
     if (Validate::isLoadedObject($address) AND Customer::customerHasAddress(intval($cookie->id_customer), intval($id_address)))
     {
 		if (isset($_GET['delete']))
@@ -45,6 +47,7 @@ if ($id_address = intval(Tools::getValue('id_address')))
 
 if (Tools::isSubmit('submitAddress'))
 {
+	
 	$address = new Address();
 	$address->id_customer = intval($cookie->id_customer);
 	$errors = $address->validateControler();
@@ -84,6 +87,7 @@ if (Tools::isSubmit('submitAddress'))
 			}
 		}
 		
+				
 		if ($result = $address->save())
 		{
 			if ((bool)(Tools::getValue('select_address', false)) == true)
@@ -92,9 +96,14 @@ if (Tools::isSubmit('submitAddress'))
 				$cart->id_address_invoice = intval($address->id);
 				$cart->update();
 			}
+			/* If saving success return the list */
 			Tools::redirect($back ? $back : 'addresses.php');
+			
+		}else{
+			/** Or show the error message */
+			$errors[] = Tools::displayError('an error occurred while updating your address');	
 		}
-		$errors[] = Tools::displayError('an error occurred while updating your address');
+		
     }
 }
 elseif (!$id_address)

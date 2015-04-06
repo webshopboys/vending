@@ -56,9 +56,15 @@ class		Product extends ObjectModel
 	/** @var integer Quantity available */
 	public 		$quantity = 0;
 
+	/** @var integer Quantity reserver */
+	public 		$reserved = 0;
+	
+	/** @var string Object creation date */
+	public 		$reserved_date;
+	
 	/** @var string available_now */
 	public 		$available_now;
-	
+
 	/** @var string available_later */
 	public 		$available_later;
 
@@ -88,10 +94,10 @@ class		Product extends ObjectModel
 
 	/** @var string Reference */
 	public 		$reference;
-	
+
 	/** @var string Supplier Reference */
-	public 		$supplier_reference;	
-	
+	public 		$supplier_reference;
+
 	/** @var string Location */
 	public 		$location;
 
@@ -121,7 +127,7 @@ class		Product extends ObjectModel
 
 	/** @var boolean Product customization */
 	public		$customizable;
-	
+
 	/** @var boolean Product is new */
 	public		$new = NULL;
 
@@ -133,7 +139,7 @@ class		Product extends ObjectModel
 
 	/** @var boolean Product statuts */
 	public		$active = 1;
-	
+
 	public		$indexed = 0;
 
 	/** @var string Object creation date */
@@ -144,11 +150,11 @@ class		Product extends ObjectModel
 
 	/*** @var array Tags */
 	public		$tags;
-	
+
 	private static $_prices = array();
 
 	private static $_incat = array();
-	
+
 	/** @var array tables */
 	protected $tables = array ('product', 'product_lang');
 
@@ -161,6 +167,8 @@ class		Product extends ObjectModel
 		'id_category_default' => 'isUnsignedId',
 		'id_color_default' => 'isUnsignedInt', /* unsigned integer because its value could be 0 if the feature is disabled */
 		'quantity' => 'isUnsignedInt',
+		'reserved' => 'isUnsignedInt',
+		'reserved_date' => 'isDate',
 		'price' => 'isPrice',
 		'wholesale_price' => 'isPrice',
 		'reduction_price' => 'isPrice',
@@ -220,6 +228,8 @@ class		Product extends ObjectModel
 		$fields['id_category_default'] = intval($this->id_category_default);
 		$fields['id_color_default'] = intval($this->id_color_default);
 		$fields['quantity'] = intval($this->quantity);
+		$fields['reserved'] = intval($this->reserved);
+		$fields['reserved_date'] = pSQL($this->reserved_date);
 		$fields['price'] = floatval($this->price);
 		$fields['wholesale_price'] = floatval($this->wholesale_price);
 		$fields['reduction_price'] = floatval($this->reduction_price);
@@ -242,7 +252,7 @@ class		Product extends ObjectModel
 		$fields['ean13'] = pSQL($this->ean13);
 		$fields['date_add'] = pSQL($this->date_add);
 		$fields['date_upd'] = pSQL($this->date_upd);
-
+		
 		return $fields;
 	}
 
@@ -279,21 +289,22 @@ class		Product extends ObjectModel
 					$fields[$language['id_lang']][$field] = '';
 			}
 		}
+
 		return $fields;
 	}
 
 	/**
 	 * Move a product inside its category
 	 * @param boolean $way Up (1)  or Down (0)
-	 * * @param intger $position* 
+	 * * @param intger $position*
 	 * return boolean Update result
 	 */
 	public function updatePosition($way, $position = NULL)
 	{
 		if (!$res = Db::getInstance()->ExecuteS('
-		SELECT cp.`id_product`, cp.`position`, cp.`id_category` 
+		SELECT cp.`id_product`, cp.`position`, cp.`id_category`
 		FROM `'._DB_PREFIX_.'category_product` cp
-		WHERE cp.`id_category` = '.intval(Tools::getValue('id_category')).' 
+		WHERE cp.`id_category` = '.intval(Tools::getValue('id_category')).'
 		ORDER BY cp.`position` '.(intval($way) ? 'ASC' : 'DESC')))
 			return false;
 		foreach ($res AS $key => $values)
@@ -309,7 +320,7 @@ class		Product extends ObjectModel
 
 		if (isset($position))
 			$to['position'] = intval($position);
-					
+
 		return (Db::getInstance()->Execute('
 		UPDATE `'._DB_PREFIX_.'category_product`
 		SET `position`= position '.($way ? '-1' : '+1').'
@@ -323,7 +334,7 @@ class		Product extends ObjectModel
 		WHERE `'.pSQL($this->identifier).'` = '.intval($from[$this->identifier]).'
 		AND `id_category`='.intval($to['id_category'])));
 	}
-	
+
 	/*
 	 * Reorder product position
 	 *
@@ -367,7 +378,7 @@ class		Product extends ObjectModel
 			$result = Db::getInstance()->getRow('
 			SELECT `id_product_attribute`
 			FROM `'._DB_PREFIX_.'product_attribute`
-			WHERE `id_product` = '.intval($id_product));			
+			WHERE `id_product` = '.intval($id_product));
 		return $result['id_product_attribute'];
 	}
 
@@ -536,9 +547,13 @@ class		Product extends ObjectModel
 	* @param integer $limit Number of products to return
 	* @param string $orderBy Field for ordering
 	* @param string $orderWay Way for ordering (ASC or DESC)
+	* @param string $id_category In category Id (optional)
+	* @param string $only_active Only Active (optional)
+	* @param string $filter_where Free WHERE AND clause with "AND" keyword (optional)
+	*
 	* @return array Products details
 	*/
-	static public function getProducts($id_lang, $start, $limit, $orderBy, $orderWay, $id_category = false, $only_active = false)
+	static public function getProducts($id_lang, $start, $limit, $orderBy, $orderWay, $id_category = false, $only_active = false, $filter_where = false)
 	{
 		if (!Validate::isOrderBy($orderBy) OR !Validate::isOrderWay($orderWay))
 			die (Tools::displayError());
@@ -549,7 +564,7 @@ class		Product extends ObjectModel
 		elseif ($orderBy == 'position')
 			$orderByPrefix = 'c';
 
-		$rq = Db::getInstance()->ExecuteS('
+		$sql = '
 		SELECT p.*, pl.* , t.`rate` AS tax_rate, m.`name` AS manufacturer_name, s.`name` AS supplier_name
 		FROM `'._DB_PREFIX_.'product` p
 		LEFT JOIN `'._DB_PREFIX_.'product_lang` pl ON (p.`id_product` = pl.`id_product`)
@@ -559,10 +574,16 @@ class		Product extends ObjectModel
 		($id_category ? 'LEFT JOIN `'._DB_PREFIX_.'category_product` c ON (c.`id_product` = p.`id_product`)' : '').'
 		WHERE pl.`id_lang` = '.intval($id_lang).
 		($id_category ? ' AND c.`id_category` = '.intval($id_category) : '').
-		($only_active ? ' AND p.`active` = 1' : '').'
+		($only_active ? ' AND p.`active` = 1' : '').
+		($filter_where ? ' '.$filter_where : '').
+		'
 		ORDER BY '.(isset($orderByPrefix) ? pSQL($orderByPrefix).'.' : '').'`'.pSQL($orderBy).'` '.pSQL($orderWay).
 		($limit > 0 ? ' LIMIT '.intval($start).','.intval($limit) : '')
-		);
+		;
+
+		//echo $sql;
+
+		$rq = Db::getInstance()->ExecuteS($sql);
 		if($orderBy == 'price')
 			Tools::orderbyPrice($rq,$orderWay);
 
@@ -664,7 +685,7 @@ class		Product extends ObjectModel
 		$weight = str_replace(',', '.', $weight);
 		Db::getInstance()->AutoExecute(_DB_PREFIX_.'product_attribute',
 		array('id_product' => intval($this->id), 'price' => floatval($price), 'ecotax' => floatval($ecotax), 'quantity' => intval($quantity),
-		'weight' => ($weight ? floatval($weight) : 0), 'reference' => pSQL($reference), 'supplier_reference' => pSQL($supplier_reference), 
+		'weight' => ($weight ? floatval($weight) : 0), 'reference' => pSQL($reference), 'supplier_reference' => pSQL($supplier_reference),
 		'location' => pSQL($location), 'ean13' => pSQL($ean13), 'default_on' => intval($default)),
 		'INSERT');
 		if (!$id_product_attribute = Db::getInstance()->Insert_ID())
@@ -765,7 +786,7 @@ class		Product extends ObjectModel
 		'ecotax' => floatval($ecotax),
 		'quantity' => intval($quantity),
 		'weight' => ($weight ? floatval($weight) : 0),
-		'reference' => pSQL($reference), 
+		'reference' => pSQL($reference),
 		'supplier_reference' => pSQL($supplier_reference),
 		'location' => pSQL($location),
 		'ean13' => pSQL($ean13),
@@ -1244,7 +1265,7 @@ class		Product extends ObjectModel
 
 		// Getting price
 		$result = Db::getInstance()->getRow('
-		SELECT p.`price`, p.`reduction_price`, p.`reduction_percent`, p.`reduction_from`, p.`reduction_to`, p.`id_tax`, t.`rate`, 
+		SELECT p.`price`, p.`reduction_price`, p.`reduction_percent`, p.`reduction_from`, p.`reduction_to`, p.`id_tax`, t.`rate`,
 		'.($id_product_attribute ? 'pa.`price`' : 'IFNULL((SELECT pa.price FROM `'._DB_PREFIX_.'product_attribute` pa WHERE id_product = '.intval($id_product).' AND default_on = 1), 0)').' AS attribute_price
 		FROM `'._DB_PREFIX_.'product` p
 		'.($id_product_attribute ? 'LEFT JOIN `'._DB_PREFIX_.'product_attribute` pa ON pa.`id_product_attribute` = '.intval($id_product_attribute) : '').'
@@ -1271,7 +1292,7 @@ class		Product extends ObjectModel
 		// Only reduction
 		if ($only_reduc)
 			return $reduc;
-		
+
 		// Reduction
 		if ($usereduc)
 			$price -= $reduc;
@@ -1563,7 +1584,7 @@ class		Product extends ObjectModel
 		FROM `'._DB_PREFIX_.'accessory`
 		LEFT JOIN `'._DB_PREFIX_.'product` p ON p.`id_product` = `id_product_2`
 		LEFT JOIN `'._DB_PREFIX_.'product_lang` pl ON (p.`id_product` = pl.`id_product` AND pl.`id_lang` = '.intval($id_lang).')
-		LEFT JOIN `'._DB_PREFIX_.'category_lang` cl ON (p.`id_category_default` = cl.`id_category` AND cl.`id_lang` = '.intval($id_lang).')		
+		LEFT JOIN `'._DB_PREFIX_.'category_lang` cl ON (p.`id_category_default` = cl.`id_category` AND cl.`id_lang` = '.intval($id_lang).')
 		LEFT JOIN `'._DB_PREFIX_.'image` i ON (i.`id_product` = p.`id_product` AND i.`cover` = 1)
 		LEFT JOIN `'._DB_PREFIX_.'image_lang` il ON (i.`id_image` = il.`id_image` AND il.`id_lang` = '.intval($id_lang).')
 		LEFT JOIN `'._DB_PREFIX_.'manufacturer` m ON (p.`id_manufacturer`= m.`id_manufacturer`)
@@ -1615,7 +1636,7 @@ class		Product extends ObjectModel
 		if ($id_value)
 			return ($id_value);
 	}
-	
+
 	static public function addFeatureProductImport($id_product, $id_feature, $id_feature_value)
 	{
 		return Db::getInstance()->Execute('
@@ -1882,7 +1903,7 @@ class		Product extends ObjectModel
 				$query = 'INSERT INTO `'._DB_PREFIX_.'customization_field_lang` (`id_customization_field`, `id_lang`, `name`) VALUES ';
 				foreach ($customizations['labels'][$oldCustomizationFieldId] AS $customizationLabel)
 					$query .= '('.intval($customizationFieldId).', '.$customizationLabel['id_lang'].', \''.$customizationLabel['name'].'\'), ';
-				$query = rtrim($query, ', ');			
+				$query = rtrim($query, ', ');
 				if (!Db::getInstance()->Execute($query))
 					return false;
 			}
@@ -1923,24 +1944,24 @@ class		Product extends ObjectModel
 	}
 
 	private static $producPropertiesCache = array();
-	
+
 	static public function getProductProperties($id_lang, $row)
 	{
 		if (!$row['id_product'])
 			return false;
-		
+
 		$row['allow_oosp'] = Product::isAvailableWhenOutOfStock($row['out_of_stock']);
 		if ((!isset($row['id_product_attribute']) OR !$row['id_product_attribute']) AND $ipa_default = Product::getDefaultAttribute($row['id_product'], !$row['allow_oosp']))
 			$row['id_product_attribute'] = $ipa_default;
 		if (!isset($row['id_product_attribute']))
 			$row['id_product_attribute'] = 0;
-		
+
 		// Tax
 		$usetax = true;
 		$tax = floatval(Tax::getApplicableTax(intval($row['id_tax']), floatval($row['rate'])));
 		if (Tax::excludeTaxeOption() OR !$tax)
 			$usetax = false;
-		
+
 		$cacheKey = $row['id_product'].'-'.$row['id_product_attribute'].'-'.$id_lang.'-'.intval($usetax);
 		if (array_key_exists($cacheKey, self::$producPropertiesCache))
 			return self::$producPropertiesCache[$cacheKey];
@@ -1961,7 +1982,7 @@ class		Product extends ObjectModel
 		$row['pack'] = Pack::isPack($row['id_product']);
 		$row['packItems'] = $row['pack'] ? Pack::getItemTable($row['id_product'], $id_lang) : array();
 		$row['nopackprice'] = $row['pack'] ? Pack::noPackPrice($row['id_product']) : 0;
-		
+
 		self::$producPropertiesCache[$cacheKey] = $row;
 		return self::$producPropertiesCache[$cacheKey];
 	}
@@ -1995,7 +2016,7 @@ class		Product extends ObjectModel
 	{
 		return self::getFrontFeaturesStatic($id_lang, $this->id);
 	}
-	
+
 	static public function getAttachmentsStatic($id_lang, $id_product)
 	{
 		return Db::getInstance()->ExecuteS('
@@ -2207,7 +2228,7 @@ class		Product extends ObjectModel
 	{
 		return Db::getInstance()->ExecuteS('SELECT `id_customization_field`, `type` FROM `'._DB_PREFIX_.'customization_field` WHERE `id_product` = '.intval($this->id).' AND `required` = 1');
 	}
-	
+
 	public function hasAllRequiredCustomizableFields()
 	{
 		global $cookie;
@@ -2227,17 +2248,17 @@ class		Product extends ObjectModel
 	*
 	* @param $id_product Product id
 	* @return boolean
-	*/	
+	*/
 	public static function existsInDatabase($id_product)
 	{
 		$row = Db::getInstance()->getRow('
 		SELECT `id_product`
 		FROM '._DB_PREFIX_.'product p
 		WHERE p.`id_product` = '.intval($id_product));
-		
+
 		return isset($row['id_product']);
 	}
-	
+
 	public static function idIsOnCategoryId($id_product, $categories)
 	{
 		$sql = 'SELECT id_product FROM `'._DB_PREFIX_.'category_product` WHERE `id_product`='.intval($id_product).' AND `id_category` IN(';
@@ -2253,7 +2274,7 @@ class		Product extends ObjectModel
 		self::$_incat[md5($sql)] =  (Db::getInstance()->NumRows() > 0 ? true : false);
 		return self::$_incat[md5($sql)];
 	}
-	
+
 	public function getNoPackPrice()
 	{
 		return Pack::noPackPrice($this->id);

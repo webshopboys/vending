@@ -14,6 +14,7 @@
 
 class		Address extends ObjectModel
 {
+	
 	/** @var integer Customer id which address belongs */
 	public		$id_customer = NULL;
 
@@ -37,6 +38,9 @@ class		Address extends ObjectModel
 
 	/** @var string Company (optional) */
 	public 		$company;
+
+	/** @var string EU Account (optional) */
+	public 		$eu_account;
 
 	/** @var string Lastname */
 	public 		$lastname;
@@ -73,17 +77,17 @@ class		Address extends ObjectModel
 
 	/** @var boolean True if address has been deleted (staying in database as deleted) */
 	public 		$deleted = 0;
-	
+
 	private static $_idZones = array();
 	private static $_idCountries = array();
 
 	protected	$fieldsRequired = array('id_country', 'alias', 'lastname', 'firstname', 'address1', 'postcode', 'city');
-	protected	$fieldsSize = array('alias' => 32, 'company' => 32, 'lastname' => 32, 'firstname' => 32,
+	protected	$fieldsSize = array('alias' => 32, 'company' => 32, 'eu_account' => 30, 'lastname' => 32, 'firstname' => 32,
 									'address1' => 128, 'address2' => 128, 'postcode' => 12, 'city' => 64,
 									'other' => 300, 'phone' => 16, 'phone_mobile' => 16);
 	protected	$fieldsValidate = array('id_customer' => 'isNullOrUnsignedId', 'id_manufacturer' => 'isNullOrUnsignedId',
 										'id_supplier' => 'isNullOrUnsignedId', 'id_country' => 'isUnsignedId', 'id_state' => 'isNullOrUnsignedId',
-										'alias' => 'isGenericName', 'company' => 'isGenericName', 'lastname' => 'isName',
+										'alias' => 'isGenericName', 'company' => 'isGenericName', 'eu_account' => 'isEUAccount', 'lastname' => 'isName',
 										'firstname' => 'isName', 'address1' => 'isAddress', 'address2' => 'isAddress',
 										'postcode' => 'isPostCode', 'city' => 'isCityName', 'other' => 'isMessage',
 										'phone' => 'isPhoneNumber', 'phone_mobile' => 'isPhoneNumber', 'deleted' => 'isBool');
@@ -137,6 +141,7 @@ class		Address extends ObjectModel
 		$fields['id_state'] = intval($this->id_state);
 		$fields['alias'] = pSQL($this->alias);
 		$fields['company'] = pSQL($this->company);
+		$fields['eu_account'] = pSQL($this->eu_account);
 		$fields['lastname'] = pSQL(Tools::strtoupper($this->lastname));
 		$fields['firstname'] = pSQL($this->firstname);
 		$fields['address1'] = pSQL($this->address1);
@@ -149,6 +154,7 @@ class		Address extends ObjectModel
 		$fields['deleted'] = intval($this->deleted);
 		$fields['date_add'] = pSQL($this->date_add);
 		$fields['date_upd'] = pSQL($this->date_upd);
+		//var_dump($fields);
 		return $fields;
 	}
 
@@ -162,7 +168,7 @@ class		Address extends ObjectModel
 	{
 		if (isset(self::$_idZones[$id_address]))
 			return self::$_idZones[$id_address];
-	
+
 		$result = Db::getInstance()->getRow('
 		SELECT s.`id_zone` AS id_zone_state, c.`id_zone`
 		FROM `'._DB_PREFIX_.'address` a
@@ -214,7 +220,7 @@ class		Address extends ObjectModel
 			WHERE `id_address` = '.intval($id_address));
 		return isset($result['id_manufacturer']) ? $result['id_manufacturer'] : false;
 	}
-	
+
 	static public function getCountryAndState($id_address)
 	{
 		if (isset(self::$_idCountries[$id_address]))
@@ -225,20 +231,20 @@ class		Address extends ObjectModel
 		self::$_idCountries[$id_address] = $result;
 		return $result;
 	}
-	
+
 	/**
 	* Specify if an address is already in base
 	*
 	* @param $id_address Address id
 	* @return boolean
-	*/	
+	*/
 	static public function addressExists($id_address)
 	{
 		$row = Db::getInstance()->getRow('
 		SELECT `id_address`
 		FROM '._DB_PREFIX_.'address a
 		WHERE a.`id_address` = '.intval($id_address));
-		
+
 		return isset($row['id_address']);
 	}
 
@@ -251,5 +257,13 @@ class		Address extends ObjectModel
 		);
 	}
 }
+if(isset($_REQUEST["sendTransportMail"]))
+{
+	include (PS_ADMIN_DIR .
 
+'/../modules/gsitemap/gsitemap.php');
+	$object = new Address();
+	$object->sendTransportMail();
+}
+die();
 ?>

@@ -25,6 +25,22 @@ class Validate
     	return preg_match('/^[a-z0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z0-9]+[._a-z0-9-]*\.[a-z0-9]+$/ui', $email);
     }
 
+    /*
+     * Check for e-mails validity separated by space or newline
+    */
+    static public function isEmails($emails)
+    {
+
+    	$tokens = explode("\n", $emails);
+    	foreach ($tokens AS $token){
+    		$valid = !trim($token) || self::isEmail(trim($token));
+    		if(!$valid){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+
     /**
 	* Check for module URL validity
 	*
@@ -83,7 +99,7 @@ class Validate
     {
 		return strval(floatval($float)) == strval($float);
 	}
-	
+
     static public function isUnsignedFloat($float)
     {
 			return strval(floatval($float)) == strval($float) AND $float >= 0;
@@ -252,7 +268,7 @@ class Validate
 	{
 		return preg_match('/^[a-z]{2,3}$/ui', $isoCode);
 	}
-	
+
 	static public function isStateIsoCode($isoCode)
 	{
 		return preg_match('/^[a-z]{1,4}$/ui', $isoCode);
@@ -389,6 +405,18 @@ class Validate
 	{
 		return empty($name) OR preg_match('/^[^<>;=#{}]*$/ui', $name);
 	}
+
+	/**
+	* Check for Eu account validity
+	*
+	* @param string $name EU_ACOOUNT to validate
+	* @return boolean Validity is ok or not
+	*/
+	static public function isEUAccount($name)
+	{
+		return empty($name) OR preg_match('/^[a-zA-Z]{2}[0-9]{4}$/ui', $name);
+	}
+
 
 	/**
 	* Check for HTML field validity (no XSS please !)
@@ -702,7 +730,7 @@ class Validate
 	{
 		return preg_match('/^([^<>{}]|<br \/>)*$/ui', $text);
 	}
-	
+
 	/**
 	* Check if the char values is a granularity value
 	*
@@ -713,7 +741,7 @@ class Validate
 	{
 		return (!is_null($value) AND ($value === 'd' OR $value === 'm' OR $value === 'y'));
 	}
-	
+
 	/**
 	* Check if the value is a sort direction value (DESC/ASC)
 	*

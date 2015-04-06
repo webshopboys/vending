@@ -123,8 +123,9 @@ class AdminProducts extends AdminTab
 	{
 		global $currentIndex;
 		/* Add a new product */
+		
 		if (Tools::isSubmit('submitAddproduct') OR Tools::isSubmit('submitAddproductAndStay'))
-		{
+		{	
 			if ($this->tabAccess['add'] === '1')
 				$this->submitAddproduct($token);
 			elseif (Tools::getValue('id_product') AND $this->tabAccess['edit'] === '1')
@@ -144,7 +145,7 @@ class AdminProducts extends AdminTab
 		
 		/* Update attachments */
 		elseif (Tools::isSubmit('submitAttachments'))
-		{
+		{ 	
 			if ($this->tabAccess['edit'] === '1')
 				if ($id = intval(Tools::getValue($this->identifier)))
 					if (Attachment::attachToProduct($id, $_POST['attachments']))
@@ -194,7 +195,7 @@ class AdminProducts extends AdminTab
 		elseif (($id_image = intval(Tools::getValue('id_image'))) AND Validate::isUnsignedId($id_image) AND Validate::isLoadedObject($image = new Image($id_image)))
 		{
 			if ($this->tabAccess['edit'] === '1')
-			{
+			{	
 				/* Delete product image */
 				if (isset($_GET['deleteImage']))
 				{
@@ -217,7 +218,7 @@ class AdminProducts extends AdminTab
 
 				/* Update product image/legend */
 				elseif (isset($_GET['editImage']))
-				{
+				{       
 					if ($image->cover)
 						$_POST['cover'] = 1;
 					$languages = Language::getLanguages();
@@ -257,7 +258,7 @@ class AdminProducts extends AdminTab
 
 		/* Product attributes management */
 		elseif (Tools::isSubmit('submitProductAttribute'))
-		{
+		{ 
 			if (Validate::isLoadedObject($product = new Product(intval(Tools::getValue('id_product')))))
 			{
 				if (!isset($_POST['attribute_quantity']) OR $_POST['attribute_quantity'] == NULL)
@@ -277,7 +278,7 @@ class AdminProducts extends AdminTab
 						$product->deleteDefaultAttributes();
 					// Change existing one
 					if ($id_product_attribute = intval(Tools::getValue('id_product_attribute')))
-					{
+					{	
 						if ($this->tabAccess['edit'] === '1')
 						{
 							if ($product->productAttributeExists($_POST['attribute_combinaison_list'], $id_product_attribute))
@@ -346,7 +347,7 @@ class AdminProducts extends AdminTab
 		elseif (Tools::isSubmit('submitProductFeature'))
 		{
 			if ($this->tabAccess['edit'] === '1')
-			{
+			{	
 				if (Validate::isLoadedObject($product = new Product(intval(Tools::getValue('id_product')))))
 				{
 					// delete all objects
@@ -442,7 +443,7 @@ class AdminProducts extends AdminTab
 		elseif (Tools::isSubmit('submitCustomizationConfiguration'))
 		{
 			if ($this->tabAccess['edit'] === '1')
-			{
+			{	
 				if (Validate::isLoadedObject($product = new Product(intval(Tools::getValue('id_product')))))
 				{
 					if (!$product->createLabels(intval($_POST['uploadable_files']) - intval($product->uploadable_files), intval($_POST['text_fields']) - intval($product->text_fields)))
@@ -466,7 +467,7 @@ class AdminProducts extends AdminTab
 		elseif (Tools::isSubmit('submitProductCustomization'))
 		{
 			if ($this->tabAccess['edit'] === '1')
-			{
+			{	
 				if (Validate::isLoadedObject($product = new Product(intval(Tools::getValue('id_product')))))
 				{
 					foreach ($_POST AS $field => $value)
@@ -571,11 +572,13 @@ class AdminProducts extends AdminTab
 					Image::deleteCover($product->id);
 				$image->cover = !$cover ? !sizeof($product->getImages(Configuration::get('PS_LANG_DEFAULT'))) : true;
 				$this->validateRules('Image', 'image');
+				
 				$this->copyFromPost($image, 'image');
+				
 				if (!sizeof($this->_errors))
-				{
+				{		
 					if (!$image->add())
-						$this->_errors[] = Tools::displayError('error while creating additional image');
+						$this->_errors[] = Tools::displayError('error while creating additional image').'1';
 					else
 						$this->copyImage($product->id, $image->id, $method);
 				}
@@ -726,6 +729,7 @@ class AdminProducts extends AdminTab
 							if (Tools::isSubmit('submitAdd'.$this->table.'AndStay') OR ($id_image AND $id_image !== true))
 								Tools::redirectAdmin($currentIndex.'&id_product='.$object->id.'&id_category='.intval(Tools::getValue('id_category')).'&addproduct&conf=4&tabs='.intval(Tools::getValue('tabs')).'&token='.($token ? $token : $this->token));
 							// Default behavior (save and back)
+
 							Tools::redirectAdmin($currentIndex.'&id_category='.intval(Tools::getValue('id_category')).'&conf=4&token='.($token ? $token : $this->token));
 						}
 					}
@@ -1295,11 +1299,14 @@ class AdminProducts extends AdminTab
 		$divLangName = 'cname¤cdesc¤cdesc_short¤clink_rewrite¤cmeta_description¤cmeta_title¤cmeta_keywords¤ctags¤cavailable_now¤cavailable_later';
 		$qty_state = 'readonly';
 		$qty = Attribute::getAttributeQty($this->getFieldValue($obj, 'id_product'));
+		$res = 0;
 		if ($qty === false) {
-			if (Validate::isLoadedObject($obj))
+			if (Validate::isLoadedObject($obj)){
 				$qty = $this->getFieldValue($obj, 'quantity');
-			else
+				$res = $this->getFieldValue($obj, 'reserved');
+			}else{
 				$qty = 1;
+			}
 			$qty_state = '';
 		}
 		$cover = Product::getCover($obj->id);
@@ -1690,7 +1697,7 @@ class AdminProducts extends AdminTab
 							<input type="checkbox" name="on_sale" id="on_sale" style="padding-top: 5px;" '.($this->getFieldValue($obj, 'on_sale') ? 'checked="checked"' : '').'value="1" />&nbsp;<label for="on_sale" class="t">'.$this->l('Display "on sale" icon on product page and text on product listing').'</label>
 						</td>
 					</tr>
-					<tr>
+					<tr> 
 						<td class="col-left"><b>'.$this->l('Final retail price:').'</b></td>
 						<td style="padding-bottom:5px;">
 							'.($currency->format == 1 ? $currency->sign.' ' : '').'<span id="finalPrice" style="font-weight: bold;"></span>'.($currency->format == 2 ? ' '.$currency->sign : '').'
@@ -1699,8 +1706,15 @@ class AdminProducts extends AdminTab
 					<tr><td colspan="2" style="padding-bottom:5px;"><hr style="width:730px;"></td></tr>
 					<tr>
 						<td class="col-left">'.$this->l('Quantity:').'</td>
-						<td style="padding-bottom:5px;"><input size="3" maxlength="6" '.$qty_state.' name="quantity" type="text" value="'.$qty.'" '.
-						((isset($_POST['attQty']) AND $_POST['attQty']) ? 'onclick="alert(\''.$this->l('Quantity is already defined by Attributes').'.<br />'.$this->l('Delete attributes first').'.\');" readonly="readonly" ' : '').'/><sup> *</sup>
+						<td style="padding-bottom:5px;" nowrap="nowrap">
+						  <input size="3" maxlength="6" '.$qty_state.' name="quantity" type="text" value="'.$qty.'" '.
+						((isset($_POST['attQty']) AND $_POST['attQty']) ? 'onclick="alert(\''.$this->l('Quantity is already defined by Attributes').'.<br />'.
+						$this->l('Delete attributes first').'.\');" readonly="readonly" ' : '').'/><sup> *</sup>
+						
+						  <span style="margin-left:10px">'.$this->l('Reserved:').'&nbsp;<input size="3" maxlength="6" name="reserved" id="reserved" type="text" value="'.$res.'"/></span>
+						  <span style="margin-left:10px">'.$this->l('Reserve date:').'&nbsp;<input type="text" size="10" name="reserved_date" id="reserved_date" value="'.(($resdat = $this->getFieldValue($obj, 'reserved_date') AND $resdat != '0000-00-00' AND $resdat != '1942-01-01') ? $resdat : '').'" /></span>
+						</td>
+			
 					</tr>
 					<tr>
 						<td class="col-left">'.$this->l('Displayed text when in-stock:').'</td>
@@ -1732,6 +1746,23 @@ class AdminProducts extends AdminTab
 					<script type="text/javascript" src="../js/price.js"></script>
 					<script type="text/javascript">
 						calcPriceTI();
+						
+						var reservedCatId = "#categoryBox_'.Configuration::get('PS_RESERVED_CATEGORY').'";
+						/** Ha a text nem zero vagy ures akkor a kategoria hozzarandelese */
+						jQuery("#reserved").blur(function () {
+					        if (this.value != "undefined" && this.value != null) {
+					            if(this.value === "0" || this.value === ""){
+					            	jQuery(reservedCatId).attr("checked", false);
+					            	jQuery("#reserved_date").val("");
+								}else{
+									jQuery(reservedCatId).attr("checked", true);
+									if(jQuery("#reserved_date").val() === "" ){
+										jQuery("#reserved_date").val("'.date('Y-m-d').'");
+									}
+								}
+					        }
+					    });
+						
 					</script>
 
 					<tr>
@@ -1778,7 +1809,7 @@ class AdminProducts extends AdminTab
 					</tr>
 					<tr><td colspan="2" style="padding-bottom:5px;"><hr style="width:730px;"></td></tr>
 					<tr><td colspan="2">
-						<span onclick="javascript:openCloseLayer(\'seo\');" style="cursor: pointer"><img src="../img/admin/arrow.gif" alt="'.$this->l('SEO').'" title="'.$this->l('SEO').'" style="float:left; margin-right:5px;"/>'.$this->l('Click here to improve product\'s rank in search engines (SEO)').'</span><br />
+						<span><img src="../img/admin/arrow.gif" alt="'.$this->l('SEO').'" title="'.$this->l('SEO').'" style="float:left; margin-right:5px;"/>'.$this->l('Click here to improve product\'s rank in search engines (SEO)').'</span><br />
 						<div id="seo" style="display: none; padding-top: 15px;">
 							<table>
 								<tr>
@@ -1979,11 +2010,14 @@ class AdminProducts extends AdminTab
 						// General options
 						theme : "advanced",
 						plugins : "safari,pagebreak,style,layer,table,advimage,advlink,inlinepopups,media,searchreplace,contextmenu,paste,directionality,fullscreen",
+						entity_encoding: "raw",
+						paste_auto_cleanup_on_paste: true,
+						paste_remove_styles: true,
 						// Theme options
-						theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-						theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,,|,forecolor,backcolor",
-						theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,media,|,ltr,rtl,|,fullscreen",
-						theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,pagebreak",
+						theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,fontsizeselect,cut,copy,paste,|,bullist,numlist,|,undo,redo,|,link,unlink,sub,sup,charmap,|,code",
+						theme_advanced_buttons2 : "",
+						theme_advanced_buttons3 : "",
+						theme_advanced_buttons4 : "",
 						theme_advanced_toolbar_location : "top",
 						theme_advanced_toolbar_align : "left",
 						width : "100",

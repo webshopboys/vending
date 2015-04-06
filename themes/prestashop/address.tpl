@@ -39,6 +39,11 @@ $(function(){ldelim}
 			<label for="company">{l s='Company'}</label>
 			<input type="text" id="company" name="company" value="{if isset($smarty.post.company)}{$smarty.post.company}{else}{$address->company|escape:'htmlall':'UTF-8'}{/if}" />
 		</p>
+		<p class="text">
+			<font color="red"><label for="eu_account">{l s='EU Account'}</label></font>
+			<input type="text" name="eu_account" id="eu_account" value="{if isset($smarty.post.eu_account)}{$smarty.post.eu_account}{else}{$address->eu_account|escape:'htmlall':'UTF-8'}{/if}" />
+			<br/><font color="red"><b>{l s='EU Account Information'}</b></font>
+		</p>
 		<p class="required text">
 			<label for="firstname">{l s='First name'}</label>
 			<input type="text" name="firstname" id="firstname" value="{if isset($smarty.post.firstname)}{$smarty.post.firstname}{else}{$address->firstname|escape:'htmlall':'UTF-8'}{/if}" />

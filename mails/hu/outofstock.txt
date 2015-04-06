@@ -1,0 +1,9 @@
+	Kedves {lastname} {firstname},
+		
+	A #{id_order} megrendel&#233;ssel kapcsolatos inform&#225;ci&#242;k
+	
+Jelenleg sajnos nem &#225;ll rendelkez&#233;sre rakt&#225;runkban a #{id_order} megrendel&#233;s minden t&#233;tele. Ez a sz&#225;ll&#237;t&#225;si hat&#225;rid&#337; kitol&#242;d&#225;s&#225;t eredm&#233;nyezheti.  A k&#233;sedelem&#233;rt eln&#233;z&#233;s&#233;t k&#233;rj&#252;k, k&#246;zben igyeksz&#252;nk beszerezni miel&#337;bb a hi&#225;nyz&#242; t&#233;teleket.
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+		
+	{shop_name} - {shop_url}

@@ -1,0 +1,11 @@
+	Kedves {lastname} {firstname},
+
+	A megrendel&#233;s ellen&#233;rt&#233;k&#233;t visszat&#233;r&#237;tett&#252;k.
+
+	Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+
+	{shop_name} - {shop_url}
+
+
+
+	{shop_url} 

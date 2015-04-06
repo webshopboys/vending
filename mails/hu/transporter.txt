@@ -1,0 +1,37 @@
+Tisztelt címzett!
+
+Ajánlatot szeretnék kérni az alábbiakban felsorolt készülékek szállítására.
+
+Gép adatai:
+
+		A gép, termék neve: {machineTypename}
+		Darabszám: {machineCount}
+		Gép mérete: {machineDimesion}
+		Gép súlya: {machineWeight}
+
+Célország adatai:
+
+		Ország: {contactCountry}
+		Cím: {contactAddress}
+		EU adószám: {contactEutax}
+
+Kapcsolattartó adatai:
+
+		Név: {contactName}
+		Telefonszám: {contactPhone}
+
+Egyéb kérdés:
+
+{question}
+
+Köszönettel: {contactName}
+
+Válaszcímek: {contactEmail} 
+
+{shop_url}
+
+
+----------------- AZONOSÍTÓ BÉLYEG: NE MÓDOSÍTSA VAGY TÖRÖLJE! -----------------
+	[@@@@@@{contactEmailCode}@@@@@@]
+	[||||||{contactId}||||||]
+----------------- AUTHENTICATION AREA: DON'T EDIT OR DELETE IT -----------------

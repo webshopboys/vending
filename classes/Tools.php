@@ -287,14 +287,16 @@ class Tools
 	{
 		if (is_array($string))
 			return array_map(array('Tools', 'htmlentitiesUTF8'), $string);
-		return htmlentities($string, $type, 'utf-8'); 
+		return $string;
+		//return htmlentities($string, $type, 'utf-8'); 
 	}
 
 	static public function htmlentitiesDecodeUTF8($string)
 	{
 		if (is_array($string))
 			return array_map(array('Tools', 'htmlentitiesDecodeUTF8'), $string);
-		return html_entity_decode($string, ENT_QUOTES, 'utf-8'); 
+		return $string;
+		//return html_entity_decode($string, ENT_QUOTES, 'utf-8'); 
 	}
 
 	static public function safePostVars()
@@ -846,6 +848,13 @@ class Tools
 		if (function_exists('set_magic_quotes_runtime'))
 			@set_magic_quotes_runtime($var);
 	}
+	
+	
+	
+	static public function alertBox($alert_message){
+	
+		echo '<script type="text/javascript"> alert("'.$alert_message.'"); </script>';
+	}
 }
 
 /**
@@ -873,5 +882,6 @@ function cmpPriceDesc($a,$b)
 		return (-1);
 	return (0);
 }
+
 
 ?>

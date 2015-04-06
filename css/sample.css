@@ -1,0 +1,27 @@
+
+.redBorder, .wrappedElement {
+  border: solid red 1px;
+}
+
+.thickBorder {
+  border-width: 2px !important;
+  border: solid red 1px;
+}
+
+.seeThrough {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+table {
+  background-color: black;
+}
+.watermarker-div{
+	background: transparent;
+	z-index :2;
+	position: absolute;  
+	#background-size: auto;
+	background-size: 99% 99%;
+    background-origin: content-box;
+	background-repeat: no-repeat;
+}

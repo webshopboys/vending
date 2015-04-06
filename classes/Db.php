@@ -101,18 +101,21 @@ abstract class Db
 			$query = rtrim($query, ',').')';
 			if ($limit)
 				$query .= ' LIMIT '.intval($limit);
+				
 			return $this->q($query);
 		}
 		elseif (strtoupper($type) == 'UPDATE')
 		{
 			$query = 'UPDATE `'.$table.'` SET ';
 			foreach ($values AS $key => $value)
+
 				$query .= '`'.$key.'` = \''.$value.'\',';
 			$query = rtrim($query, ',');
 			if ($where)
 				$query .= ' WHERE '.$where;
 			if ($limit)
 				$query .= ' LIMIT '.intval($limit);
+			 
 			return $this->q($query);
 		}
 		

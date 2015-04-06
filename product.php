@@ -108,6 +108,7 @@ if (!isset($_GET['id_product']) OR !Validate::isUnsignedId($_GET['id_product']))
 else
 {
 	$product = new Product(intval($_GET['id_product']), true, intval($cookie->id_lang));
+	
 	if (!Validate::isLoadedObject($product) OR !$product->active)
 		$errors[] = Tools::displayError('product is no longer available');
 	elseif (!$product->checkAccess(intval($cookie->id_customer)))
@@ -182,6 +183,7 @@ else
 		$smarty->assign(array(
 			'quantity_discounts' => QuantityDiscount::getQuantityDiscounts(intval($product->id), $product->getPriceWithoutReduct()),
 			'product' => $product,
+		    'isReservedx' => $product->reserved > 0 && $product->reserved >= $product->quantity,  
 			'jqZoomEnabled' => $jqZoomEnabled,
 			'product_manufacturer' => new Manufacturer(intval($product->id_manufacturer)),
 			'token' => Tools::getToken(false),
@@ -224,7 +226,7 @@ else
 		if (sizeof($productImages))
 			$smarty->assign('images', $productImages);
 
-		// Tax
+		// Tax 
 		$tax_datas = Db::getInstance()->getRow('
 		SELECT p.`id_tax`, t.`rate`
 		FROM `'._DB_PREFIX_.'product` p
@@ -317,5 +319,7 @@ $smarty->assign(array(
 $smarty->display(_PS_THEME_DIR_.'product.tpl');
 
 include(dirname(__FILE__).'/footer.php');
+
+
 
 ?>

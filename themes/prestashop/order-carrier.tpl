@@ -88,9 +88,14 @@
 		<div style="display: none;" id="extra_carrier"></div>
 	</div>
 	{else}
-		<p class="warning">{l s='There is no carrier available that will deliver to this address!'}</td></tr>
+		<p class="warning">{l s='There is no carrier available that will deliver to this address!'}</p><br/>
 	{/if}
 
+	{if $invoice && $invoice->eu_account}
+	{else}
+		<p class="warning">{l s='It does not have EU account, therefore the price is subject to tax!'}</p>
+	{/if}
+	
 	{if $giftAllowed}
 		<h3 class="gift_title">{l s='Gift'}</h3>
 		<p class="checkbox">

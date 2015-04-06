@@ -1,4 +1,4 @@
-{include file=$tpl_dir./errors.tpl}
+﻿{include file=$tpl_dir./errors.tpl}
 {if $errors|@count == 0}
 <script type="text/javascript">
 // <![CDATA[
@@ -33,6 +33,7 @@ var currentDate = '{$smarty.now|date_format:'%Y-%m-%d'}';
 var maxQuantityToAllowDisplayOfLastQuantityMessage = {$last_qties};
 var noTaxForThisProduct = {if $no_tax == 1}true{else}false{/if};
 var displayPrice = {$priceDisplay};
+
 
 // Customizable field
 var img_ps_dir = '{$img_ps_dir}';
@@ -79,11 +80,15 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 		{if $product->id_color_default}var id_color_default = {$product->id_color_default|intval};{/if}
 	{/if}
 {/if}
-
+	
 //]]>
 </script>
 
-{include file=$tpl_dir./breadcrumb.tpl}
+{if $product->reserved > 0 AND $product->reserved >= $product->quantity}
+{assign var=isReserved value=1}
+{else}
+{assign var=isReserved value=0}
+{/if}
 
 <div id="primary_block">
 
@@ -99,11 +104,22 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 		<!-- product img-->
 		<div id="image-block">
 		{if $have_image}
-				<img src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large')}" {if $jqZoomEnabled}class="jqzoom" alt="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox')}"{else} title="{$product->name|escape:'htmlall':'UTF-8'}" alt="{$product->name|escape:'htmlall':'UTF-8'}" {/if} id="bigpic"/>
+				<img src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large')}" 
+				{if $jqZoomEnabled}
+				class="jqzoom{if $isReserved} reserved{/if}" alt="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox')}"
+				{else} 
+				title="{$product->name|escape:'htmlall':'UTF-8'}" alt="{$product->name|escape:'htmlall':'UTF-8'}" {if $isReserved}class="reserved"{/if} 
+				{/if} id="bigpic"/>
 		{else}
-			<img src="{$img_prod_dir}{$lang_iso}-default-large.jpg" alt="" title="{$product->name|escape:'htmlall':'UTF-8'}" />
+			<img src="{$img_prod_dir}{$lang_iso}-default-large.jpg" alt="" title="{$product->name|escape:'htmlall':'UTF-8'}" {if $isReserved}class="reserved"{/if}/>
 		{/if}
 		</div>
+		
+			
+		{if count($images) > 0}
+		<p><a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}.jpg" title='Kattints a jobb egérgombbal, majd Hivatkozás mentése más néven...'><b>Nagy méretű kép letöltése</b></a> <br /> 
+		<a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}.jpg" title='Right click, Save target as...'><b>Download high resolution image</b></a></p>	
+		{/if}
 
 		{if count($images) > 0}
 		<!-- thumbnails -->
@@ -155,6 +171,11 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 				{/foreach}
 			{/if}
 		</div>
+		{/if}
+		
+		{if $product->description}
+			<!-- full description -->
+			<div class="extra_block">{$product->description}</div>
 		{/if}
 
 		{if $colors}
@@ -278,6 +299,15 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 				{$HOOK_PRODUCT_OOS}
 			</p>
 
+			<p><span {if $product->reserved|intval>0}class="price-wrapping"{/if}>
+			{l s='Reserved'}:&nbsp;&nbsp;{$product->reserved|intval}&nbsp;{l s='item'}
+			</span></p>
+			{if $product->reserved|intval>0} <!-- only if reserved view date -->
+			<p><span class="price-wrapping">
+			{l s='Reserve date'}:&nbsp;&nbsp;{$product->reserved_date|date_format:'%Y-%m-%d'}
+			</span></p>
+			{/if}
+			
 			<p class="warning-inline" id="last_quantities"{if ($product->quantity > $last_qties || $product->quantity == 0) || $allow_oosp} style="display:none;"{/if} >{l s='Warning: Last items in stock!'}</p>
 
 			<p{if !$allow_oosp && $product->quantity == 0} style="display:none;"{/if} id="add_to_cart" class="buttons_bottom_block"><input type="submit" name="Submit" value="{l s='Add to cart'}" class="exclusive" /></p>
@@ -286,9 +316,28 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 			{/if}
 		</form>
 		{if $HOOK_EXTRA_RIGHT}{$HOOK_EXTRA_RIGHT}{/if}
+		
+		
+		{if $product->supplier_reference AND $product->location}
+			<div id='stock-price'>
+				<table width='216'>
+				<tr><td width='108'><p><b>{l s='Stock (pieces)'}</b></p></td><td width='108'><p><b>{l s='Price (€)'}</b></p></td></tr>
+				<tr><td><p>{$product->supplier_reference}</p></td><td><p>{$product->location}</p></td></tr>
+				</table>
+			</div><!-- stock-price -->
+		{/if}
+		
+		
+		
+		
 	</div>
 </div>
+
+
+
 <br class="clear" />
+
+
 
 {if $quantity_discounts}
 <!-- quantity discount -->

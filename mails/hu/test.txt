@@ -1,0 +1,3 @@
+	Szia!
+	
+	Ez a magyar nyelv&#369; teszt&#252;zenet a PrestaShop-b&#242;l.

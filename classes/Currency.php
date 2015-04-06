@@ -48,6 +48,7 @@ class		Currency extends ObjectModel
 	protected 	$table = 'currency';
 	protected 	$identifier = 'id_currency';
 
+	
 	public function getFields()
 	{
 		parent::validateFields();
@@ -180,18 +181,24 @@ class		Currency extends ObjectModel
 		return $result['id_currency'];
 	}
 
-	public function refreshCurrency($data, $isoCodeSource, $defaultCurrency)
+	// call every shop currencies
+	// simplexml node (array of currency), xmlcurr, shopcurr
+	public function refreshCurrency($data, $isoCodeSource, $defaultCurrency) 
 	{
+		
 		if ($this->iso_code != $isoCodeSource)
 		{
 			/* Seeking for rate in feed */
-			foreach ($data->currency AS $obj)
-				if ($this->iso_code == strval($obj['iso_code']))
+			//foreach ($data->currency AS $obj)
+			foreach ($data[0]->children() as $obj){ 
+				if ($this->iso_code == strval($obj['iso_code'])){
 					$this->conversion_rate = round(floatval($obj['rate']) /  $defaultCurrency->conversion_rate, 6);
+				}	
+			}
 		}
 		else
 		{
-			/* If currency is like isoCodeSource, setting it to default conversion rate */
+		    /* If currency is like isoCodeSource, setting it to default conversion rate */
 			$this->conversion_rate = round(1 / floatval($defaultCurrency->conversion_rate), 6);
 		}
 		$this->update();
@@ -200,27 +207,192 @@ class		Currency extends ObjectModel
 	static public function refreshCurrenciesGetDefault($data, $isoCodeSource, $idCurrency)
 	{
 		$defaultCurrency = new Currency($idCurrency);
-
+		
 		/* Change defaultCurrency rate if not as currency of feed source */
-		if ($defaultCurrency->iso_code != $isoCodeSource)
-			foreach ($data->currency AS $obj)
-				if ($defaultCurrency->iso_code == strval($obj['iso_code']))
-					$defaultCurrency->conversion_rate = round(floatval($obj['rate']), 6);
+		if ($defaultCurrency->iso_code != $isoCodeSource) { 
+			foreach ($data[0]->children() as $obj){ 
+				if ($defaultCurrency->iso_code == strval($obj['iso_code'])) {// currency node's attrib
+					//$defaultCurrency->conversion_rate = round(floatval($obj['rate']), 6); // currency node's attrib
+					$defaultCurrency->conversion_rate = floatval($obj['rate']);
+				}	
+			}		
+		}			
 		return $defaultCurrency;
 	}
 
+
+	static private function before_refreshCurrencies()
+	{
+		$updated = Configuration::get('LAST_CURRENCY_UPDATED');
+		if ( !empty($updated) )
+		{
+			$today = date("Y.m.d");
+			//return ($today != $updated);
+				
+		}
+		return true; 
+	}
+	
+	
 	static public function refreshCurrencies()
 	{
-		if (!$feed = @simplexml_load_file('http://www.prestashop.com/xml/currencies.xml'))
-			return Tools::displayError('Cannot parse feed!');
-		if (!$defaultCurrency = intval(Configuration::get('PS_CURRENCY_DEFAULT')))
+		
+		if ( !self::before_refreshCurrencies() ) 
+		{
+			return Tools::displayError('Currencies are already updated today!');
+		}
+		 
+		if (!$defaultCurrency = intval(Configuration::get('PS_CURRENCY_DEFAULT'))){
 			return Tools::displayError('No default currency!');
-		$isoCodeSource = strval($feed->source['iso_code']);
+		}
+		
+		$process = 1;
+		
+		if($process === 1){
+			
+			$mnb = self::getMNBXml();
+			
+			if (!isset($mnb) OR empty($mnb)){
+				return Tools::displayError('Cannot parse MNB feed!');
+			}
+			  
+			$feed = self::mnb2presta($mnb);
+			
+		}else{
+			$feed = self::getPrestaXml();
+		} 
+		
+		
+		 
+		if (!isset($feed) OR empty($feed)){
+			return Tools::displayError('Cannot parse feed!');
+		}
+		
+		$isoCodeSource = strval($feed->source['iso_code']);	
+			
 		$currencies = self::getCurrencies(true);
+			
 		$defaultCurrency = self::refreshCurrenciesGetDefault($feed->list, $isoCodeSource, $defaultCurrency);
-		foreach ($currencies as $currency)
-			if ($currency->iso_code != $defaultCurrency->iso_code)
+		
+			
+		if (!isset($defaultCurrency) OR $defaultCurrency == false){
+			return Tools::displayError('No default currency!');
+		}
+
+		foreach ($currencies as $currency){
+			if ($currency->iso_code != $defaultCurrency->iso_code){
 				$currency->refreshCurrency($feed->list, $isoCodeSource, $defaultCurrency);
+			}
+		}	
+		self::after_refreshCurrencies();
+		//return 'b';
+	}
+	
+	
+	static private function after_refreshCurrencies()
+	{
+		$value = date("Y.m.d");
+		Configuration::updateValue('LAST_CURRENCY_UPDATED', $value);
+		
+	}
+	
+	static private function getMNBXml()
+	{
+		$bdy = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+		$bdy.= "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">";
+		$bdy.= "<soap:Body>";
+		$bdy.= "<GetCurrentExchangeRates xmlns=\"http://www.mnb.hu/webservices/\" />";
+		$bdy.= "</soap:Body>";
+		$bdy.= "</soap:Envelope>\r\n";
+		
+		$req = "POST /arfolyamok.asmx HTTP/1.1\r\n";
+		$req.= "Host: www.mnb.hu\r\n";
+		$req.= "Connection: Close\r\n";
+		$req.= "Content-Type: text/xml; charset=utf-8\r\n";
+		$req.= "Content-Length: ".strlen($bdy)."\r\n";
+		$req.= "SOAPAction: \"http://www.mnb.hu/webservices/GetCurrentExchangeRates\"\r\n\r\n";
+		
+		$fs = fsockopen("www.mnb.hu", 80);
+		
+		$prefix = "<?xml version=";
+		$isxmldata = false;
+		$xmldata = "";
+		
+		fwrite($fs, $req.$bdy);
+		while (!feof($fs))
+		{
+			$s = fgets($fs);
+			if( StrStr( $s, $prefix ) ){
+				$isxmldata = true;
+			}
+			if ( $isxmldata ){
+				 $xmldata.= $s;
+			}
+		}
+		fclose($fs);
+		
+		$xmldata = str_replace('&lt;', '<', str_replace('&gt;', '>', $xmldata));
+		$xmldata = str_replace('soap:', '', $xmldata);
+		
+		//echo $xmldata;
+		
+		$mnbxml = simplexml_load_string ($xmldata);
+		
+		return $mnbxml;
+	}
+	
+	
+	static private function mnb2presta($mnb_feed)
+	{
+		//$body = $mnb_feed->children("http://schemas.xmlsoap.org/soap/envelope/");
+		$body = $mnb_feed->children();
+		$tags = $body[0]->children(); // response
+		$tags = $tags[0]->children(); // result
+		$tags = $tags[0]->children(); // rates
+		$tags = $tags[0]->children(); // day
+		
+		$xml = simplexml_load_string ("<?xml version='1.0' encoding='UTF-8'?><currencies></currencies>");
+		$newNode = $xml->addChild ('source');
+        $newNode->addAttribute ('iso_code', 'HUF');
+        $listNode = $xml->addChild ('list');
+        		
+		foreach ($tags[0]->children() as $tag) {
+			$attr = (array)$tag->attributes();
+			$attr = $attr["@attributes"];
+			$iso_code = (string)$attr["curr"];
+			$rate = (string)$tag;
+			$rate = str_replace(',','.',$rate);
+			$frate = floatval(1/$rate);
+			//echo $iso_code.'='.$frate.'<BR/>';
+			$newNode = $listNode->addChild ('currency ');	
+			$newNode->addAttribute ('iso_code', $iso_code);
+			$newNode->addAttribute ('rate', $frate);
+		}
+		
+		
+		return $xml;
+	}
+	
+	static private function getPrestaXml()
+	{
+		$presta_xml = 'http://www.prestashop.com/xml/currencies.xml';
+		
+		/*
+		<currencies>
+			<source iso_code='EUR' />
+			<list>
+				<currency iso_code='USD' rate='1.44' />
+				<currency iso_code='HUF' rate='272.44' />
+			</list>
+		</currencies>
+		*/
+		
+		if (!$feed = @simplexml_load_file($presta_xml)){
+			return Tools::displayError('Cannot parse presta feed!');
+		}	
+					
+		return $feed;
+	
 	}
 }
 

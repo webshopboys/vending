@@ -176,6 +176,9 @@ h2 span {
 	color: #374853;
 	margin-left: 1em;
 }
+
+h2.category_title span {visibility:hidden; display:none;}
+
 h3 { font-size: 1.1em; margin: 1em 0; }
 h4 { font-size: 1em; }
 
@@ -1213,10 +1216,13 @@ div.paiement_logo_block a { text-decoration: none; }
 div.paiement_logo_block img { margin: 0 0.5em; }
 
 /* Block editorial */
-.editorial_block { margin-bottom: 2em; }
+.editorial_block { margin-bottom: 2em; padding-left:0; width:536px;}
 .editorial_block .rte{
 	background:transparent none repeat scroll 0 0;
 }
+
+#editorial_txt {float:left; padding:0 0 0 15px;}
+
 .editorial_block h2 {
 	background: none;
 	padding: 0;
@@ -1225,6 +1231,8 @@ div.paiement_logo_block img { margin: 0 0.5em; }
 .editorial_block p { text-align: justify; padding-top: 0.4em;}
 
 #editorial_block_center p { padding-left:0px; }
+
+.editorial_block  img {float:left; max-width:536px;}
 
 /* Block advertising */
 .advertising_block { width: 191px; margin-bottom: 1em; text-align: center; }
@@ -1852,6 +1860,14 @@ div.categTree {
 	padding:0.7em;
 	margin-bottom:1.5em;
 }
+
+.extra_block{
+	background: #e5e6e7 url('../img/product-short-desc-bg.gif') repeat-x top left;
+	border: 1px #d0d3d8 solid;
+	padding:0.7em;
+	margin-bottom:1.5em;
+}
+
 #primary_block #color_picker p {
 	margin: 0 0 0.4em 0;
 	padding: 0 0 0 0;
@@ -2513,4 +2529,30 @@ div.star a:hover{
 
 #page .rte {
 	background:transparent none repeat scroll 0 0;
+}
+
+div#categories_block_left ul.tree li a[href="http://vendingoutlet.org/69-olcso-automatak"],
+div#categories_block_left ul.tree li a[href="http://vendingoutlet.org/69-cheap-machines"] {color:#da0f00;}
+
+#stock-price {
+	background: #e5e6e7 url('../img/product-short-desc-bg.gif') repeat-x top left;
+	border: 1px #d0d3d8 solid;
+	padding:0.7em;
+	margin-bottom:1.5em;
+	margin-top:1.5em;
+}
+
+#stock-price p {text-align:center; padding-left:0;}
+
+#stock-price table {border-collapse:collapse;}
+
+#stock-price table,th, td {border: 1px solid #d0d3d8;}
+
+.watermarker-div{
+	background: transparent;
+	/*z-index :2;*/
+	position: absolute;  
+	background-size: 99% 99%;
+    background-origin: content-box;
+	background-repeat: no-repeat;
 }

@@ -86,16 +86,20 @@ abstract class ObjectModel
 		/* Load object from database if object id is present */
 		if ($id)
 		{
-			$result = Db::getInstance()->getRow('
-			SELECT *
+			$sql = 'SELECT *
 			FROM `'._DB_PREFIX_.$this->table.'` a '.
 			($id_lang ? ('LEFT JOIN `'.pSQL(_DB_PREFIX_.$this->table).'_lang` b ON (a.`'.$this->identifier.'` = b.`'.$this->identifier).'` AND `id_lang` = '.intval($id_lang).')' : '')
-			.' WHERE a.`'.$this->identifier.'` = '.intval($id));
+			.' WHERE a.`'.$this->identifier.'` = '.intval($id);
+			
+			$result = Db::getInstance()->getRow($sql);
+			
 			if (!$result) return false;
 			$this->id = intval($id);
 			foreach ($result AS $key => $value)
+			{
 				if (key_exists($key, $this))
 					$this->{$key} = stripslashes($value);
+			}			
 
 			/* Join multilingual tables */
 			if (!$id_lang AND method_exists($this, 'getTranslationsFieldsChild'))
@@ -150,7 +154,7 @@ abstract class ObjectModel
 		$this->id = Db::getInstance()->Insert_ID();
 		/* Database insertion for multilingual fields related to the object */
 		if (method_exists($this, 'getTranslationsFieldsChild'))
-		{
+		{//var_dump($this); die();
 			$fields = $this->getTranslationsFieldsChild();
 			if ($fields AND is_array($fields))
 				foreach ($fields AS $field)
@@ -189,8 +193,9 @@ abstract class ObjectModel
 
 		/* Database update for multilingual fields related to the object */
 		if (method_exists($this, 'getTranslationsFieldsChild'))
-		{
+		{	
 			$fields = $this->getTranslationsFieldsChild();
+			
 			foreach ($fields as $field)
 			{
 				foreach ($field as $key => $value)
@@ -203,6 +208,7 @@ abstract class ObjectModel
 				pSQL($this->identifier).'` = '.intval($this->id).' AND `id_lang` = '.intval($field['id_lang']));
 			}
 		}
+	
 		return $result;
 	}
 
@@ -281,10 +287,12 @@ abstract class ObjectModel
 		$fields = array();
 		$languages = Language::getLanguages();
 		$defaultLanguage = Configuration::get('PS_LANG_DEFAULT');
+		
 		foreach ($languages as $language)
 		{
 			$fields[$language['id_lang']]['id_lang'] = $language['id_lang'];
 			$fields[$language['id_lang']][$this->identifier] = intval($this->id);
+			//$fields[$language['id_lang']]['description'] = (isset($this->description[$language['id_lang']])) ? Tools::htmlentitiesDecodeUTF8(pSQL($this->description[$language['id_lang']], true)) : '';
 			foreach ($fieldsArray as $field)
 			{
 	 			/* Check fields validity */
@@ -300,7 +308,7 @@ abstract class ObjectModel
 					$fields[$language['id_lang']][$field] = '';
 			}
 		}
-
+		
 		return $fields;
 	}
 
@@ -374,6 +382,7 @@ abstract class ObjectModel
 					return $errorReturn ? get_class($this).'->'.$fieldArray.' = '.$value.' '.Tools::displayError('for language').' '.$k : false;
 				}
 		}
+
 		return true;
 	}
 
@@ -403,7 +412,7 @@ abstract class ObjectModel
 		/* Checking for fields validity */
 		foreach ($this->fieldsValidate AS $field => $function)
 		{
-			// Hack for postcode required for country which does not have postcodes
+			// TODO Hack for postcode required for country which does not have postcodes 
 			if ($value = Tools::getValue($field, $this->{$field}) OR ($field == 'postcode' AND $value == '0'))
 			{
 				if (!Validate::$function($value))

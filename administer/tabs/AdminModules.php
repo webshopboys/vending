@@ -15,6 +15,12 @@ include_once(PS_ADMIN_DIR.'/../classes/AdminTab.php');
 
 class AdminModules extends AdminTab
 {
+
+	/** @var boolean visible all Module or just which is signed "visible" */
+	private $visibleAllModule = false;  
+	
+	
+	
 	/** @var array map with $_GET keywords and their callback */
 	private $map = array(
 		'install' => 'install',
@@ -24,6 +30,13 @@ class AdminModules extends AdminTab
 
 	public function postProcess()
 	{
+	
+		/* visible all module when the current user role add / delete */
+		if ($this->tabAccess['add'] == '1' OR $this->tabAccess['delete'] == '1' )
+		{
+			$this->visibleAllModule = true;
+		}
+		
 		global $currentIndex, $cookie;
 
 		/* Automatically copy a module from external URL and unarchive it in the appropriated directory */
@@ -219,50 +232,54 @@ class AdminModules extends AdminTab
 
 		$this->displayJavascript();
 
-		echo '<span onclick="openCloseLayer(\'module_install\', 0);" style="cursor: pointer;font-weight: 700; float: left;"><img src="../img/admin/add.gif" alt="'.$this->l('Add a new module').'" class="middle" /> '.$this->l('Add a new module').'</span>';
-		if (@ini_get('allow_url_fopen'))
-			echo '<script type="text/javascript">
-				function getPrestaStore(){if (getE("prestastore").style.display!=\'block\')return;$.post("'.dirname($currentIndex).'/ajax.php",{page:"prestastore"},function(a){getE("prestastore-content").innerHTML=a;})}
-			</script>
-			<span onclick="openCloseLayer(\'prestastore\', 0); getPrestaStore();" style="cursor: pointer;font-weight: 700; float: left;margin-left:20px;"><img src="../img/admin/prestastore.gif" class="middle" /> '.$this->l('PrestaStore').'</span>';
-		echo '
-		<div class="clear">&nbsp;</div>
-		<div id="module_install" style="float: left;'.((Tools::isSubmit('submitDownload') OR Tools::isSubmit('submitDownload2')) ? '' : 'display: none;').'" class="width1">
-			<fieldset>
-				<legend><img src="../img/admin/add.gif" alt="'.$this->l('Add a new module').'" class="middle" /> '.$this->l('Add a new module').'</legend>
-				<p>'.$this->l('The module must be either a zip file or a tarball.').'</p>
-				<hr />
-				<form action="'.$currentIndex.'&token='.$this->token.'" method="post">
-					<label style="width: 100px">'.$this->l('Module URL:').'</label>
-					<div class="margin-form" style="padding-left: 140px">
-						<input type="text" name="url" style="width: 200px;" value="'.(Tools::getValue('url') ? Tools::getValue('url') : 'http://').'" />
-						<p>'.$this->l('Download the module directly from a website.').'</p>
-					</div>
-					<div class="margin-form" style="padding-left: 140px">
-						<input type="submit" name="submitDownload" value="'.$this->l('Download this module').'" class="button" />
-					</div>
-				</form>
-				<hr />
-				<form action="'.$currentIndex.'&token='.$this->token.'" method="post" enctype="multipart/form-data">
-					<label style="width: 100px">'.$this->l('Module file:').'</label>
-					<div class="margin-form" style="padding-left: 140px">
-						<input type="file" name="file" />
-						<p>'.$this->l('Upload the module from your computer.').'</p>
-					</div>
-					<div class="margin-form" style="padding-left: 140px">
-						<input type="submit" name="submitDownload2" value="'.$this->l('Upload this module').'" class="button" />
-					</div>
-				</form>
-			</fieldset>
-		</div>
-		<div id="prestastore" style="margin-left:40px; display:none; float: left" class="width1">
-			<fieldset>
-				<legend><img src="http://www.prestastore.com/modules.php?'.(isset($_SERVER['SERVER_ADDR']) ? 'server='.ip2long($_SERVER['SERVER_ADDR']).'&' : '').'mods='.$serialModules.'" class="middle" />'.$this->l('Live from PrestaStore!').'</legend>
-				<div id="prestastore-content"></div>
-			</fieldset>
-		</div>
-		<div class="clear">&nbsp;</div>';
-
+		/* print add / download section when variable visibleAllModule is true */
+		if ($this->visibleAllModule) 
+		{
+			echo '<span onclick="openCloseLayer(\'module_install\', 0);" style="cursor: pointer;font-weight: 700; float: left;"><img src="../img/admin/add.gif" alt="'.$this->l('Add a new module').'" class="middle" /> '.$this->l('Add a new module').'</span>';
+			if (@ini_get('allow_url_fopen'))
+				echo '<script type="text/javascript">
+					function getPrestaStore(){if (getE("prestastore").style.display!=\'block\')return;$.post("'.dirname($currentIndex).'/ajax.php",{page:"prestastore"},function(a){getE("prestastore-content").innerHTML=a;})}
+				</script>
+				<span onclick="openCloseLayer(\'prestastore\', 0); getPrestaStore();" style="cursor: pointer;font-weight: 700; float: left;margin-left:20px;"><img src="../img/admin/prestastore.gif" class="middle" /> '.$this->l('PrestaStore').'</span>';
+			echo '
+			<div class="clear">&nbsp;</div>
+			<div id="module_install" style="float: left;'.((Tools::isSubmit('submitDownload') OR Tools::isSubmit('submitDownload2')) ? '' : 'display: none;').'" class="width1">
+				<fieldset>
+					<legend><img src="../img/admin/add.gif" alt="'.$this->l('Add a new module').'" class="middle" /> '.$this->l('Add a new module').'</legend>
+					<p>'.$this->l('The module must be either a zip file or a tarball.').'</p>
+					<hr />
+					<form action="'.$currentIndex.'&token='.$this->token.'" method="post">
+						<label style="width: 100px">'.$this->l('Module URL:').'</label>
+						<div class="margin-form" style="padding-left: 140px">
+							<input type="text" name="url" style="width: 200px;" value="'.(Tools::getValue('url') ? Tools::getValue('url') : 'http://').'" />
+							<p>'.$this->l('Download the module directly from a website.').'</p>
+						</div>
+						<div class="margin-form" style="padding-left: 140px">
+							<input type="submit" name="submitDownload" value="'.$this->l('Download this module').'" class="button" />
+						</div>
+					</form>
+					<hr />
+					<form action="'.$currentIndex.'&token='.$this->token.'" method="post" enctype="multipart/form-data">
+						<label style="width: 100px">'.$this->l('Module file:').'</label>
+						<div class="margin-form" style="padding-left: 140px">
+							<input type="file" name="file" />
+							<p>'.$this->l('Upload the module from your computer.').'</p>
+						</div>
+						<div class="margin-form" style="padding-left: 140px">
+							<input type="submit" name="submitDownload2" value="'.$this->l('Upload this module').'" class="button" />
+						</div>
+					</form>
+				</fieldset>
+			</div>
+			<div id="prestastore" style="margin-left:40px; display:none; float: left" class="width1">
+				<fieldset>
+					<legend><img src="http://www.prestastore.com/modules.php?'.(isset($_SERVER['SERVER_ADDR']) ? 'server='.ip2long($_SERVER['SERVER_ADDR']).'&' : '').'mods='.$serialModules.'" class="middle" />'.$this->l('Live from PrestaStore!').'</legend>
+					<div id="prestastore-content"></div>
+				</fieldset>
+			</div>
+			<div class="clear">&nbsp;</div>';
+		}
+		
 		/* Scan modules directories and load modules classes */
 		$warnings = array();
 		$orderModule = array();
@@ -281,52 +298,68 @@ class AdminModules extends AdminTab
 		/* Browse modules by tab type */
 		foreach ($orderModule AS $tab => $tabModule)
 		{
-			echo '<br />
-			<table cellpadding="0" cellspacing="0" class="table width3">
-				<tr>
-					<th colspan="4" class="center" style="cursor: pointer" onclick="openCloseLayer(\''.addslashes($tab).'\');"><b>'.$tab.'</b> - <span style="color: red">'.sizeof($tabModule).'</span> '.((sizeof($tabModule) > 1) ? $this->l('modules') : $this->l('module')).'</th>
-				</tr>
-			</table>
-			<div id="'.$tab.'" style="width:600px;">
-			<table cellpadding="0" cellspacing="0" class="table width3">';
+			/* print tab header when variable visibleAllModule is true */
+			if ($this->visibleAllModule) 
+			{
+				echo '<br />
+				<table cellpadding="0" cellspacing="0" class="table width3">
+					<tr>
+						<th colspan="4" class="center" style="cursor: pointer" onclick="openCloseLayer(\''.addslashes($tab).'\');"><b>'.$tab.'</b> - <span style="color: red">'.sizeof($tabModule).'</span> '.((sizeof($tabModule) > 1) ? $this->l('modules') : $this->l('module')).'</th>
+					</tr>
+				</table>
+				<div id="'.$tab.'" style="width:600px;">
+				<table cellpadding="0" cellspacing="0" class="table width3">';
+			}
+			else
+			{		
+				echo '<br />
+				<div id="'.$tab.'" style="width:600px;">
+				<table cellpadding="0" cellspacing="0" class="table width3">';
+			}
 			
 			/* Display modules for each tab type */
 			foreach ($tabModule as $module)
 			{
-				if ($module->id)
-				{
-					$img = '<img src="../img/admin/enabled.gif" alt="'.$this->l('Module enabled').'" title="'.$this->l('Module enabled').'" />';
-					if ($module->warning)
-						$img = '<img src="../img/admin/warning.gif" alt="'.$this->l('Module installed but with warnings').'" title="'.$this->l('Module installed but with warnings').'" />';
-					if (!$module->active)
-						$img = '<img src="../img/admin/disabled.gif" alt="'.$this->l('Module disabled').'" title="'.$this->l('Module disabled').'" />';
-				} else
-					$img = '<img src="../img/admin/cog.gif" alt="'.$this->l('Module not installed').'" title="'.$this->l('Module not installed').'" />';
-				echo '
-				<tr'.($irow++ % 2 ? ' class="alt_row"' : '').' style="height: 42px;">
-					<td style="padding-left: 10px;"><img src="../modules/'.$module->name.'/logo.gif" alt="" /> <b>'.stripslashes($module->displayName).'</b>'.($module->version ? ' v'.$module->version.(strpos($module->version, '.') !== false ? '' : '.0') : '').'<br />'.$module->description.'</td>
-					<td width="85">'.(($module->active AND method_exists($module, 'getContent')) ? '<a href="'.$currentIndex.'&configure='.urlencode($module->name).'&token='.$this->token.'">&gt;&gt;&nbsp;'.$this->l('Configure').'</a>' : '').'</td>
-					<td class="center" width="20">';
-				if ($module->id)
-					echo '<a href="'.$currentIndex.'&token='.$this->token.'&module_name='.$module->name.'&'.($module->active ? 'desactive' : 'active').'">';
-				echo $img;
-				if ($module->id)
-					'</a>';
-				echo '
-					</td>
-					<td class="center" width="80">'.((!$module->id)
-					? '<input type="button" class="button small" name="Install" value="'.$this->l('Install').'"
-					onclick="javascript:document.location.href=\''.$currentIndex.'&install='.urlencode($module->name).'&token='.$this->token.'\'" />'
-					: '<input type="button" class="button small" name="Uninstall" value="'.$this->l('Uninstall').'"
-					onclick="'.(empty($module->confirmUninstall) ? '' : 'if(confirm(\''.addslashes($module->confirmUninstall).'\')) ').'document.location.href=\''.$currentIndex.'&uninstall='.urlencode($module->name).'&token='.$this->token.'\';" />').'</td>
-					<td style="padding-right: 10px">
-						<input type="checkbox" name="modules" value="'.urlencode($module->name).'" '.(empty($module->confirmUninstall) ? 'rel="false"' : 'rel="'.addslashes($module->confirmUninstall).'"').' />
-					</td>
-				</tr>';
+				if ($module->visible OR $this->visibleAllModule) {
+					if ($module->id)
+					{
+						$img = '<img src="../img/admin/enabled.gif" alt="'.$this->l('Module enabled').'" title="'.$this->l('Module enabled').'" />';
+						if ($module->warning)
+							$img = '<img src="../img/admin/warning.gif" alt="'.$this->l('Module installed but with warnings').'" title="'.$this->l('Module installed but with warnings').'" />';
+						if (!$module->active)
+							$img = '<img src="../img/admin/disabled.gif" alt="'.$this->l('Module disabled').'" title="'.$this->l('Module disabled').'" />';
+					} else
+					{
+						$img = '<img src="../img/admin/cog.gif" alt="'.$this->l('Module not installed').'" title="'.$this->l('Module not installed').'" />';
+					}	
+						
+					echo '
+					<tr'.($irow++ % 2 ? ' class="alt_row"' : '').' style="height: 42px;">
+						<td style="padding-left: 10px;"><img src="../modules/'.$module->name.'/logo.gif" alt="" /> <b>'.stripslashes($module->displayName).'</b>'.($module->version ? ' v'.$module->version.(strpos($module->version, '.') !== false ? '' : '.0') : '').'<br />'.$module->description.'</td>
+						<td width="85">'.(($module->active AND method_exists($module, 'getContent')) ? '<a href="'.$currentIndex.'&configure='.urlencode($module->name).'&token='.$this->token.'">&gt;&gt;&nbsp;'.$this->l('Configure').'</a>' : '').'</td>
+						<td class="center" width="20">';
+					if ($module->id)
+						echo '<a href="'.$currentIndex.'&token='.$this->token.'&module_name='.$module->name.'&'.($module->active ? 'desactive' : 'active').'">';
+					echo $img;
+					if ($module->id)
+						'</a>';
+					echo '
+						</td>
+						<td class="center" width="80">'.((!$module->id)
+						? '<input type="button" class="button small" name="Install" value="'.$this->l('Install').'"
+						onclick="javascript:document.location.href=\''.$currentIndex.'&install='.urlencode($module->name).'&token='.$this->token.'\'" />'
+						: '<input type="button" class="button small" name="Uninstall" value="'.$this->l('Uninstall').'"
+						onclick="'.(empty($module->confirmUninstall) ? '' : 'if(confirm(\''.addslashes($module->confirmUninstall).'\')) ').'document.location.href=\''.$currentIndex.'&uninstall='.urlencode($module->name).'&token='.$this->token.'\';" />').'</td>
+						<td style="padding-right: 10px">
+							<input type="checkbox" name="modules" value="'.urlencode($module->name).'" '.(empty($module->confirmUninstall) ? 'rel="false"' : 'rel="'.addslashes($module->confirmUninstall).'"').' />
+						</td>
+					</tr>';
+				}	
 			}
 			echo '</table>
 			</div>';
 		}
+		
 		echo '
 		<div style="margin-top: 12px; width:600px;" class="center">
 			<input type="button" class="button small" value="'.$this->l('Install the selection').'" onclick="modules_management(\'install\')"/>
@@ -348,6 +381,8 @@ class AdminModules extends AdminTab
 		</tr></table>
 		</div>
 		<div style="clear:both">&nbsp;</div>';
+		
+		
 	}
 }
 

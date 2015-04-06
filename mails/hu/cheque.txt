@@ -1,0 +1,20 @@
+Hi {lastname} {firstname},
+
+Your order {order_name} has been placed successfully. Your order will be shipped as soon as payment is received.
+
+Please note that you have selected to pay by cheque. Please include on your cheque:
+
+- an amount of {total_paid}
+
+- payable to the order of {cheque_name}
+
+- mail to {cheque_address}
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+
+Thank you for shopping at {shop_name}.
+
+{shop_name} - {shop_url}
+
+
+{shop_url} 

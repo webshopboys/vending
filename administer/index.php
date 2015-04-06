@@ -15,11 +15,15 @@
 
 define('PS_ADMIN_DIR', getcwd());
 
+
 include(PS_ADMIN_DIR.'/../config/config.inc.php');
 include(PS_ADMIN_DIR.'/functions.php');
 include(PS_ADMIN_DIR.'/toolbar.php');
 include(PS_ADMIN_DIR.'/header.inc.php');
-
+//var_dump($_POST);
+//die();
+		
+		
 if ($tab)
 {
 	if ($id_tab = checkingTab($tab))
@@ -42,8 +46,8 @@ if ($tab)
 				if (is_array($adminObj->table))
 				{
 					foreach ($adminObj->table AS $table)
-						if (strncmp($key, $table.'Filter_', 7) === 0 OR strncmp($key, 'submitFilter', 12) === 0)
-							$cookie->$key = !is_array($value) ? $value : serialize($value);
+						if (strncmp($key, $table.'Filter_', 7) === 0 OR strncmp($key, 'submitFilter', 12) === 0){
+							$cookie->$key = !is_array($value) ? $value : serialize($value);}
 				}
 				elseif (strncmp($key, $adminObj->table.'Filter_', 7) === 0 OR strncmp($key, 'submitFilter', 12) === 0)
 					$cookie->$key = !is_array($value) ? $value : serialize($value);

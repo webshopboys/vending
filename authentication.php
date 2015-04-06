@@ -30,7 +30,7 @@ if (Tools::isSubmit('SubmitCreate'))
 	if (!Validate::isEmail($email = Tools::getValue('email_create')))
 		$errors[] = Tools::displayError('invalid e-mail address');
 	elseif (Customer::customerExists($email))
-		$errors[] = Tools::displayError('someone has already registered with this e-mail address');	
+		$errors[] = Tools::displayError('someone has already registered with this e-mail address');
 	else
 	{
 		$create_account = 1;
@@ -49,7 +49,7 @@ if (Tools::isSubmit('submitAccount'))
 	elseif (!Validate::isPasswd(Tools::getValue('passwd')))
 		$errors[] = Tools::displayError('invalid password');
 	elseif (Customer::customerExists($email))
-		$errors[] = Tools::displayError('someone has already registered with this e-mail address');	
+		$errors[] = Tools::displayError('someone has already registered with this e-mail address');
 	elseif (!@checkdate(Tools::getValue('months'), Tools::getValue('days'), Tools::getValue('years')) AND !(Tools::getValue('months') == '' AND Tools::getValue('days') == '' AND Tools::getValue('years') == ''))
 		$errors[] = Tools::displayError('invalid birthday');
 	else
@@ -60,7 +60,7 @@ if (Tools::isSubmit('submitAccount'))
 			$customer->ip_registration_newsletter = pSQL($_SERVER['REMOTE_ADDR']);
 			$customer->newsletter_date_add = pSQL(date('Y-m-d H:i:s'));
 		}
-		
+
 		$customer->birthday = (empty($_POST['years']) ? '' : intval($_POST['years']).'-'.intval($_POST['months']).'-'.intval($_POST['days']));
 
 		/* Customer and address, same fields, caching data */
@@ -87,12 +87,21 @@ if (Tools::isSubmit('submitAccount'))
 					$errors[] = Tools::displayError('an error occurred while creating your account');
 				else
 				{
+					if( intval($_POST['newproduct'])=== 1){
+						if( intval($_POST['newsletter'])=== 1){
+							$_POST['newsletter'] = '3';
+							$customer->newsletter = 3;
+						}else{
+							$_POST['newsletter'] = '2';
+							$customer->newsletter = 2;
+						}
+					}
 					$address->id_customer = intval($customer->id);
 					if (!$address->add())
 						$errors[] = Tools::displayError('an error occurred while creating your address');
 					else
 					{
-						if (!Mail::Send(intval($cookie->id_lang), 'account', 'Welcome!', 
+						if (!Mail::Send(intval($cookie->id_lang), 'account', 'Welcome!',
 						array('{firstname}' => $customer->firstname, '{lastname}' => $customer->lastname, '{email}' => $customer->email, '{passwd}' => Tools::getValue('passwd')), $customer->email, $customer->firstname.' '.$customer->lastname))
 							$errors[] = Tools::displayError('cannot send email');
 						$smarty->assign('confirmation', 1);
@@ -102,6 +111,7 @@ if (Tools::isSubmit('submitAccount'))
 						$cookie->passwd = $customer->passwd;
 						$cookie->logged = 1;
 						$cookie->email = $customer->email;
+						// call statsdata module
 						Module::hookExec('createAccount', array(
 							'_POST' => $_POST,
 							'newCustomer' => $customer

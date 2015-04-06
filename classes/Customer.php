@@ -34,12 +34,12 @@ class		Customer extends ObjectModel
 	/** @var string e-mail */
 	public 		$email;
 
-	/** @var boolean Newsletter subscription */
+	/** @var int Newsletter subscription (1) or Newproduct subscription (2)*/
 	public 		$newsletter;
-	
+
 	/** @var string Newsletter ip registration */
 	public		$ip_registration_newsletter;
-	
+
 	/** @var string Newsletter ip registration */
 	public		$newsletter_date_add;
 
@@ -51,10 +51,10 @@ class		Customer extends ObjectModel
 
 	/** @var datetime Password */
 	public $last_passwd_gen;
-	
+
 	/** @var boolean Status */
 	public 		$active = true;
-	
+
 	/** @var boolean True if carrier has been deleted (staying in database as deleted) */
 	public 		$deleted = 0;
 
@@ -73,7 +73,7 @@ class		Customer extends ObjectModel
  	protected 	$fieldsRequired = array('lastname', 'passwd', 'firstname', 'email');
  	protected 	$fieldsSize = array('lastname' => 32, 'passwd' => 32, 'firstname' => 32, 'email' => 128);
  	protected 	$fieldsValidate = array('secure_key' => 'isMd5', 'lastname' => 'isName', 'firstname' => 'isName', 'email' => 'isEmail', 'passwd' => 'isPasswd',
-		 'id_gender' => 'isUnsignedId', 'birthday' => 'isBirthDate', 'newsletter' => 'isBool', 'optin' => 'isBool', 'active' => 'isBool');
+		 'id_gender' => 'isUnsignedId', 'birthday' => 'isBirthDate', 'newsletter' => 'isUnsignedId', 'optin' => 'isBool', 'active' => 'isBool');
 
 	protected 	$table = 'customer';
 	protected 	$identifier = 'id_customer';
@@ -99,6 +99,7 @@ class		Customer extends ObjectModel
 		$fields['date_add'] = pSQL($this->date_add);
 		$fields['date_upd'] = pSQL($this->date_upd);
 		$fields['deleted'] = intval($this->deleted);
+
 		return $fields;
 	}
 
@@ -117,12 +118,13 @@ class		Customer extends ObjectModel
 
 	public function update($nullValues = false)
 	{
+
 		$this->birthday = (empty($this->years) ? $this->birthday : intval($this->years).'-'.intval($this->months).'-'.intval($this->days));
 		if ($this->newsletter AND !$this->newsletter_date_add)
 			$this->newsletter_date_add = date('Y-m-d H:i:s');
 	 	return parent::update(true);
 	}
-	
+
 	public function delete()
 	{
 		$addresses = $this->getAddresses(intval(Configuration::get('PS_LANG_DEFAULT')));
@@ -175,7 +177,7 @@ class		Customer extends ObjectModel
 
 		return $this;
 	}
-	
+
 	/**
 	  * Check id the customer is active or not
 	  *
@@ -212,7 +214,7 @@ class		Customer extends ObjectModel
 		SELECT `id_customer`
 		FROM `'._DB_PREFIX_.'customer`
 		WHERE `email` = \''.pSQL($email).'\'');
-		
+
 		if ($return_id)
 			return intval($result['id_customer']);
 		else
@@ -367,7 +369,7 @@ class		Customer extends ObjectModel
 	public static function searchByName($query)
 	{
 		if (!Validate::isName($query) AND !Validate::isEmail($query))
-			die (Tools::displayError()); 
+			die (Tools::displayError());
 
 		return Db::getInstance()->ExecuteS('
 		SELECT c.*
@@ -405,7 +407,7 @@ class		Customer extends ObjectModel
 		$result['age'] = $result3['age'] != date('Y') ? $result3['age'] : '--';
 		return $result;
 	}
-	
+
 public function getLastConnections()
     {
         return Db::getInstance()->ExecuteS('
@@ -417,7 +419,7 @@ public function getLastConnections()
         GROUP BY c.`id_connections`
         ORDER BY c.date_add DESC
         LIMIT 10');
-    } 
+    }
 
 	/**
 	  * Return last cart ID for this customer
@@ -439,22 +441,22 @@ public function getLastConnections()
 	*
 	* @param $id_customer Customer id
 	* @return boolean
-	*/	
+	*/
 	public function customerIdExists($id_customer)
 	{
 		$row = Db::getInstance()->getRow('
 		SELECT `id_customer`
 		FROM '._DB_PREFIX_.'customer c
 		WHERE c.`id_customer` = '.intval($id_customer));
-		
+
 		return isset($row['id_customer']);
 	}
-	
+
 	public function cleanGroups()
 	{
 		Db::getInstance()->Execute('DELETE FROM `'._DB_PREFIX_.'customer_group` WHERE `id_customer` = '.intval($this->id).' AND `id_group` != 1');
 	}
-	
+
 	public function addGroups($groups)
 	{
 		foreach ($groups as $group)
@@ -463,7 +465,7 @@ public function getLastConnections()
 			Db::getInstance()->AutoExecute(_DB_PREFIX_.'customer_group', $row, 'INSERT');
 		}
 	}
-	
+
 	public function getGroups()
 	{
 		$groups = array();
@@ -475,12 +477,12 @@ public function getLastConnections()
 			$groups[] = $group['id_group'];
 		return $groups;
 	}
-	
+
 	public function isUsed()
 	{
 		return false;
 	}
-	
+
 	public function isMemberOfGroup($id_group)
 	{
 		$result = Db::getInstance()->getRow('
@@ -490,7 +492,7 @@ public function getLastConnections()
 		AND cg.`id_group` = '.intval($id_group));
 		return $result['nb'];
 	}
-	
+
 	public function getBoughtProducts()
 	{
 		return Db::getInstance()->ExecuteS('

@@ -1,0 +1,13 @@
+Kedves {lastname} {firstname},
+
+A megrendel&#233;s sz&#225;ll&#237;t&#225;s alatt &#225;ll.
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak. 
+
+Thank you for shopping with {shop_name}!
+
+{shop_name} - {shop_url}
+
+
+
+{shop_url} 

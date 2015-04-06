@@ -122,10 +122,14 @@ function autoStep($step)
 {
 	global $cart, $isVirtualCart;
 
-	if ($step >= 2 AND (!$cart->id_address_delivery OR !$cart->id_address_invoice))
+	if ($step >= 2 AND (!$cart->id_address_delivery OR !$cart->id_address_invoice)){
 		Tools::redirect('order.php?step=1');
+	}
+		
 	$delivery = new Address(intval($cart->id_address_delivery));
 	$invoice = new Address(intval($cart->id_address_invoice));
+	
+	
 	if ($delivery->deleted OR $invoice->deleted)
 	{
 		if ($delivery->deleted)
@@ -134,15 +138,16 @@ function autoStep($step)
 			unset($cart->id_address_invoice);
 		Tools::redirect('order.php?step=1');
 	}
-	elseif ($step >= 3 AND !$cart->id_carrier AND !$isVirtualCart)
+	elseif ($step >= 3 AND !$cart->id_carrier AND !$isVirtualCart){
 		Tools::redirect('order.php?step=2');
+	}
 }
 
 /* Bypass payment step if total is 0 */
 function checkFreeOrder()
 {
 	global $cart;
-
+	
 	if ($cart->getOrderTotal() <= 0)
 	{
 		$order = new FreeOrder();
@@ -235,6 +240,9 @@ function processCarrier()
 		$cart->gift = 0;
 
 	$address = new Address(intval($cart->id_address_delivery));
+	
+	
+	
 	if (!Validate::isLoadedObject($address))
 		die(Tools::displayError());
 	if (!$id_zone = Address::getZoneById($address->id))
@@ -245,7 +253,7 @@ function processCarrier()
 		$errors[] = Tools::displayError('invalid carrier or no carrier selected');
 
 	$cart->update();
-
+	
 	if (sizeof($errors))
 	{
 		$smarty->assign('errors', $errors);
@@ -260,7 +268,7 @@ function processCarrier()
 function displayAddress()
 {
 	global $smarty, $cookie, $cart;
-
+ 
 	if (!Customer::getAddressesTotalById(intval($cookie->id_customer)))
 		Tools::redirect('address.php?back=order.php?step=1');
 	$customer = new Customer(intval($cookie->id_customer));
@@ -347,9 +355,14 @@ function displayCarrier()
 		$row['price'] = $cart->getOrderShippingCost(intval($row['id_carrier']));
 		$row['price_tax_exc'] = $cart->getOrderShippingCost(intval($row['id_carrier']), false);
 		$row['img'] = file_exists(_PS_SHIP_IMG_DIR_.intval($row['id_carrier']).'.jpg') ? _THEME_SHIP_DIR_.intval($row['id_carrier']).'.jpg' : '';
+		
 		$resultsArray[] = $row;
 	}
 
+	$invoiceAddress = new Address(intval($cart->id_address_invoice));
+	$smarty->assign('invoice', $invoiceAddress);
+		
+				
 	// Wrapping fees
 	$wrapping_fees = floatval(Configuration::get('PS_GIFT_WRAPPING_PRICE'));
 	$wrapping_fees_tax = new Tax(intval(Configuration::get('PS_GIFT_WRAPPING_TAX')));
@@ -390,15 +403,15 @@ function displayPayment()
 
 	// Redirect instead of displaying payment modules if any module are grefted on
 	Hook::backBeforePayment(strval(Tools::getValue('back')));
-
 	/* We may need to display an order summary */
 	$smarty->assign($cart->getSummaryDetails());
-
 	$cookie->checkedTOS = '1';
 	$smarty->assign(array('HOOK_PAYMENT' => Module::hookExecPayment(), 'total_price' => floatval($orderTotal)));
 
+
 	Tools::safePostVars();
 	include_once(dirname(__FILE__).'/header.php');
+	
 	$smarty->display(_PS_THEME_DIR_.'order-payment.tpl');
 }
 

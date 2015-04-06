@@ -27,7 +27,7 @@ class AdminEmails extends AdminPreferences
 		for ($i = 0; $i < sizeof($contacts); ++$i)
 			$contact_message[$i] = array('email_message' => $contacts[$i]['id_contact'], 'name' => $contacts[$i]['name']);
  		$this->_fieldsEmail = array(
-		'PS_MAIL_EMAIL_MESSAGE' => array('title' => $this->l('Send e-mail to:'), 'desc' => $this->l('When customers send message from order page'), 'validation' => 'isUnsignedId', 'type' => 'select', 'cast' => 'intval', 'identifier' => 'email_message', 'list' => $contact_message),
+		'PS_MAIL_EMAIL_MESSAGE' => array('title' => $this->l('Send e-mail to:'), 'desc' => $this->l('When customers send message from order page'), 'validation' => 'isUnsignedId', 'type' => 'select', 'cast' => 'intval', 'identifier' => 'email_message', 'list' => $contact_message, 'size => 50'),
 		'PS_MAIL_METHOD' => array('title' => '', 'validation' => 'isGenericName', 'required' => true, 'type' => 'radio', 'choices' => array(1 => $this->l('Use PHP mail() function.  Recommended; works in most cases'), 2 => $this->l('Set my own SMTP parameters. For advanced users ONLY')), 'js' => array(1 => 'onclick="javascript:toggleLayer(\'SMTP_CONTAINER\', 0);"', 2 => 'onclick="toggleLayer(\'SMTP_CONTAINER\', 1);"')),
 		'PS_MAIL_TYPE' => array('title' => '', 'validation' => 'isGenericName', 'required' => true, 'type' => 'radio', 'choices' => array(1 => $this->l('Send mail as HTML'), 2 => $this->l('Send mail as Text'), 3 => $this->l('Both'))),
 		'SMTP_CONTAINER' => array('title' => '', 'type' => 'container'),
@@ -36,12 +36,17 @@ class AdminEmails extends AdminPreferences
 		'PS_MAIL_PASSWD' => array('title' => $this->l('SMTP password:'), 'desc' => $this->l('Leave blank if not applicable'), 'validation' => 'isGenericName', 'size' => 30, 'type' => 'password'),
 		'PS_MAIL_SMTP_ENCRYPTION' => array('title' => $this->l('Encryption:'), 'desc' => $this->l('Use an encrypt protocol'), 'type' => 'select', 'cast' => 'strval', 'identifier' => 'mode', 'list' => array(array('mode' => 'off', 'name' => $this->l('None')), array('mode' => 'tls', 'name' => $this->l('TLS')), array('mode' => 'ssl', 'name' => $this->l('SSL')))),
 		'PS_MAIL_SMTP_PORT' => array('title' => $this->l('Port:'), 'desc' => $this->l('Number of port to use'), 'validation' => 'isInt', 'size' => 5, 'type' => 'text', 'cast' => 'intval'),
-		'SMTP_CONTAINER_END' => array('title' => '', 'type' => 'container_end', 'content' => '<script type="text/javascript">if (getE("PS_MAIL_METHOD2_on").checked == false) { toggleLayer(\'SMTP_CONTAINER\', 0); }</script>')
-		);
-	
+		'SMTP_CONTAINER_END' => array('title' => '', 'type' => 'container_end', 'content' => '<script type="text/javascript">if (getE("PS_MAIL_METHOD2_on").checked == false) { toggleLayer(\'SMTP_CONTAINER\', 0); }</script>'),
+
+ 		"PS_MAIL_TRANSPORTERS" => array('title' => $this->l('Transporters e-mail:'), 'desc' => $this->l('Transport partners e-mail, they get offer message'), 'validation' => 'isEmails', 'required' => true, 'size' => 45, 'type' => 'textarea', 'cols' => 30),
+ 		"PS_MAIL_TRANSPORT_REPLY" => array('title' => $this->l('Transport reply e-mail:'), 'desc' => $this->l('Transport auto-reply e-mail form tranporter'), 'validation' => 'isLabel', 'required' => true, 'size' => 50, 'type' => 'text'),
+ 		"PS_MAIL_TRANSPORT" => array('title' => $this->l('Transport shop e-mail:'), 'desc' => $this->l('Transport shop e-mail if client e-mail not recognized'), 'validation' => 'isGenericName', 'required' => true, 'size' => 50, 'type' => 'text')
+
+ 		);
+
 		parent::__construct();
 	}
-	
+
 	public function postProcess()
 	{
 		if (isset($_POST['submitEmail'.$this->table]))
@@ -52,7 +57,7 @@ class AdminEmails extends AdminPreferences
 				$this->_errors[] = Tools::displayError('You do not have permission to edit anything here.');
 		}
 	}
-	
+
 	public function display() {
 		$this->_displayForm('email', $this->_fieldsEmail, $this->l('E-mail'), 'width2', 'email');
 	}

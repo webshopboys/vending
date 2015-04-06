@@ -1,0 +1,10 @@
+&Uuml;zenet a {shop_name} web&aacute;ruh&aacute;zb&oacute;l
+
+Kedves {lastname} {firstname},
+
+Üzenet a #{id_order} megrendel&#233;ssel kapcsolatban:
+{message}
+
+
+
+{shop_url} 

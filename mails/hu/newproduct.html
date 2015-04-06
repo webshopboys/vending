@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>New product alert: {shop_name}</title>
+       <STYLE TYPE="text/css">
+       .underline{
+         	color: #000000;
+		text-decoration: none ;
+
+       }
+      </STYLE>
+</head >
+<body >
+	<table style="font-family:Verdana,sans-serif; font-size:11px; color:#374953; width: 550px;">
+		<tr>
+			<td align="left">
+				<a href="{$shop_url}" title="{shop_name}"><img src="{$shop_logo}" alt="{$shop_name}" style="border:none;"/></a>
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="center">Tisztelt {$toName}/ Dear {$toName}!</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="center" id="mainmenu"><a  href="#hun" class="underline"><b>HUN</a><a href="#eng" class="underline" >/ ENG</b></a></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left" style="background-color:#DB3484; color:#FFF; font-size: 12px; font-weight:bold; padding: 0.5em 1em;">Vending Outlet Webshop</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left" >Örömmel tájékoztatjuk, hogy áruházunkba {$newproductCount} darab új termék érkezett!</td>
+		</tr>
+
+
+		<tr>
+			<td align="left" >We are pleased to inform you that the shop received {$newproductCount} pieces of new products! </td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr><td id="hun"><b>Új termékek listája:</b></td></tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left" >{$list_hu}</td>
+		</tr>
+			<tr><td>&nbsp;</td></tr>
+		<tr><td id="eng" ><b>Just arrived:</b></td></tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left" >{$list_en} </td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+
+
+	<tr> <td>
+
+
+	Ha a továbbiakban nem szeretne értesítő levelet kapni, leiratkozhat a levelező listánkról honlapunk nyitó oldalán <a  href= "http://www.vendingoutlet.org">
+
+	(www.vendingoutlet.org)</a> vagy a személyes ügyfélfiókjában.
+	</td></tr>
+		<tr><td>&nbsp;</td></tr>
+        <tr> <td>
+	If You don't want to receive this new products notification, You can unsubscribe on Our frontpage <a  href= "http://www.vendingoutlet.org">
+
+	(www.vendingoutlet.org)</a> or in Your customer account.
+	</td></tr> </table>
+
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+Kedves {lastname} {firstname}, k&#246;sz&#246;nj&#252;k, hogy felkereste a {shop_name} web&#225;ruh&#225;zat!
+
+A megrendel&#233;s r&#233;szletei:
+
+	Megrendel&#233;s: {order_name} (id&#337;pontja: {date})
+	Fizet&#233;s: {payment}
+
+	Term&#233;kek: {total_products}
+	Kedvezm&#233;nyek: {total_discounts}
+	Sz&#225;ll&#237;t&#225;s: {total_shipping}
+	Aj&#225;nd&#233;k csomagol&#225;s: {total_wrapping}
+	&#193;r &#246;sszesen: {total_paid}
+	Bruttó &#193;r &#246;sszesen (EU számlaszám nélkül): {total_brutto_paid}
+
+
+Sz&#225;ll&#237;t&#225;s
+
+	Sz&#225;ll&#237;t&#242;: {carrier}
+
+	Sz&#225;ll&#237;t&#225;si c&#237;m:
+
+	{delivery_company}
+	{delivery_firstname} {delivery_lastname}
+	{delivery_address1}
+	{delivery_address2}
+	{delivery_postal_code} {delivery_city}
+	{delivery_country} {delivery state}
+	{delivery_other}
+
+	Sz&#225;ml&#225;z&#225;si c&#237;m:
+
+	{invoice_company}
+	EU Ad&#242;sz&#225;m: {eu_account}
+	{invoice_firstname} {invoice_lastname}
+	{invoice_address1}
+	{invoice_address2}
+	{invoice_postal_code} {invoice_city}
+	{invoice_country} {invoice state}
+	{invoice_other}
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak. 
+
+{shop_url} 

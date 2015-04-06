@@ -133,8 +133,13 @@ countries = new Array();
 				</select>
 			</p>
 			<p class="checkbox" >
-				<input type="checkbox" name="newsletter" id="newsletter" value="1" {if isset($smarty.post.newsletter) AND $smarty.post.newsletter == 1} checked="checked"{/if} />
+				<input type="checkbox" name="newsletter" id="newsletter" value="1" {if isset($smarty.post.newsletter) AND ($smarty.post.newsletter == 1 OR $smarty.post.newsletter == 3)} checked="checked"{/if} />
 				<label for="newsletter">{l s='Sign up for our newsletter'}</label>
+			</p>
+
+			<p class="checkbox">
+				<input type="checkbox" id="newproduct" name="newproduct" value="1" {if $smarty.post.newsletter == 2  OR $smarty.post.newsletter == 3} checked="checked"{/if} />
+				<label for="newproduct">{l s='Sign up for new product alert'}</label>
 			</p>
 			<p class="checkbox" >
 				<input type="checkbox"name="optin" id="optin" value="1" {if isset($smarty.post.optin) AND $smarty.post.optin == 1} checked="checked"{/if} />

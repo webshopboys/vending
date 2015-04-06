@@ -1,0 +1,7 @@
+H&#237;rlev&#233;l a {shop_name} web&#225;ruh&#225;zb&#242;l
+
+{message}
+
+
+
+{shop_url}

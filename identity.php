@@ -26,6 +26,17 @@ if (isset($_POST['years']) AND isset($_POST['months']) AND isset($_POST['days'])
 $errors = array();
 if (Tools::isSubmit('submitIdentity'))
 {
+
+	if(intval($_POST['newproduct'])==1){
+		if(intval($_POST['newsletter'])==1){
+			$customer->newsletter = 3;
+			$_POST['newsletter']='3';
+		}else{
+			$customer->newsletter = 2;
+			$_POST['newsletter']='2';
+		}
+	}
+
 	if (!@checkdate(Tools::getValue('months'), Tools::getValue('days'), Tools::getValue('years')) AND
 	!(Tools::getValue('months') == '' AND Tools::getValue('days') == '' AND Tools::getValue('years') == ''))
 		$errors[] = Tools::displayError('invalid birthday');
@@ -47,6 +58,7 @@ if (Tools::isSubmit('submitIdentity'))
 		    $customer->firstname = Tools::ucfirst(Tools::strtolower($customer->firstname));
 			if (Tools::getValue('passwd'))
 				$cookie->passwd = $customer->passwd;
+
 			if ($customer->update())
 			{
 				$cookie->customer_lastname = $customer->lastname;

@@ -11,6 +11,7 @@ class Gsitemap extends Module
         $this->name = 'gsitemap';
         $this->tab = 'Tools';
         $this->version = '1.4';
+        $this->visible = false;
 
         parent::__construct();
 

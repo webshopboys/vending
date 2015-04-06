@@ -1,5 +1,25 @@
 <?php
 
+/**
+ * 
+ * A fooldal megjelenitese es adminisztralasa.
+ * Az oldalon egy logo kep es alatta richtext tartalom jelenik meg. Admin eseten ezekhez a tinymce es a mezok.
+ * Az adatokabol egy xml-t general az lesz az "adatbazisa". Az editorial.tpl ezt rakja ki.
+ * Az xml nem tartalmazhat javascriptet. A logo lehet link is. A getContent() az admin "Back to list" linkek kozotti tartalma.
+ * Ha volt a POST-ban submitUpdate submit gomb akkor modositja az xml-t a mezokkel.
+ * A front a hookName() fuggvenyben az xml-bol rakja ossze magat az editorial.tpl-ben.
+ * Ami erdekes, hogy a foldal logot barmilyen tipus legyen homepage_logo.gif neven menti el maga melle. Ha jpg akkor is gif kiterjesztest kap!
+ * Az xml csak a title reszeket, a richtext reszt tarolja el, a kepet nem, annak neve fix.
+ * 
+ * Uj fejlesztesben megjelenik a logon a "homepage_logo" css class es a footer.php jquery utjan cserelgeti a kepeket.
+ * Nem adjuk at neki mennyi darab lehet, hanem a homepage_logo1.gif, homepage_logo2.gif.... elerhetosegi ellenorzesevel ismeri fel oket.
+ * 
+ * @see /administer/tabs/AdminModules.php
+ * @see /footer.php
+ * 
+ * @author petnehazi
+ *
+ */
 class Editorial extends Module
 {
 	/** @var max image size */
@@ -10,6 +30,7 @@ class Editorial extends Module
 		$this->name = 'editorial';
 		$this->tab = 'Tools';
 		$this->version = '1.5';
+		$this->visible = true;
 		
 		parent::__construct();
 		
@@ -94,7 +115,7 @@ class Editorial extends Module
 					$errors .= $error;
 				elseif (!$tmpName = tempnam(_PS_TMP_IMG_DIR_, 'PS') OR !move_uploaded_file($_FILES['body_homepage_logo']['tmp_name'], $tmpName))
 					return false;
-				elseif (!imageResize($tmpName, dirname(__FILE__).'/homepage_logo.jpg'))
+				elseif (!imageResize($tmpName, dirname(__FILE__).'/homepage_logo.gif'))
 					$errors .= $this->displayError($this->l('An error occurred during the image upload.'));
 				unlink($tmpName);
 			}
@@ -134,11 +155,14 @@ class Editorial extends Module
 					// General options
 					theme : "advanced",
 					plugins : "safari,pagebreak,style,layer,table,advimage,advlink,inlinepopups,media,searchreplace,contextmenu,paste,directionality,fullscreen",
+					entity_encoding: "raw",
+					paste_auto_cleanup_on_paste: true,
+					paste_remove_styles: true,
 					// Theme options
-					theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-					theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,,|,forecolor,backcolor",
-					theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,media,|,ltr,rtl,|,fullscreen",
-					theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,pagebreak",
+					theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,fontsizeselect,cut,copy,paste,|,bullist,numlist,|,undo,redo,|,link,unlink,sub,sup,charmap,|,code",
+					theme_advanced_buttons2 : "",
+					theme_advanced_buttons3 : "",
+					theme_advanced_buttons4 : "",
 					theme_advanced_toolbar_location : "top",
 					theme_advanced_toolbar_align : "left",
 					theme_advanced_statusbar_location : "bottom",
@@ -210,7 +234,7 @@ class Editorial extends Module
 				</div>
 				<label>'.$this->l('Homepage\'s logo').' </label>
 				<div class="margin-form">
-					<img src="'.$this->_path.'homepage_logo.jpg" alt="" title="" style="" /><br />
+					<img src="'.$this->_path.'homepage_logo.gif" alt="" title="" style="" /><br />
 					<input type="file" name="body_homepage_logo" />
 					<p style="clear: both">'.$this->l('Will appear next to the Introductory Text above').'</p>
 				</div>
@@ -250,7 +274,7 @@ class Editorial extends Module
 				global $cookie, $smarty;
 				$smarty->assign(array(
 					'xml' => $xml,
-					'homepage_logo' => file_exists('modules/editorial/homepage_logo.jpg'),
+					'homepage_logo' => file_exists('modules/editorial/homepage_logo.gif'),
 					'logo_subheading' => 'logo_subheading_'.$cookie->id_lang,
 					'title' => 'title_'.$cookie->id_lang,
 					'subheading' => 'subheading_'.$cookie->id_lang,

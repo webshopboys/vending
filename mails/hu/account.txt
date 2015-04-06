@@ -1,0 +1,8 @@
+Kedves {lastname} {firstname},
+
+A regisztr&#225;ci&#242; sikeres volt. A felhaszn&#225;l&#242;i fi&#242;k az al&#225;bbiak szerint elk&#233;sz&#252;lt:
+
+Email: {email}
+Jelsz&#242;: {passwd}
+ 
+Webshopunkba bel&#233;pve tov&#225;bb folytathat&#242; a v&#225;s&#225;rl&#225;s: {shop_url}

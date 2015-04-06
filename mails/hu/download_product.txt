@@ -1,0 +1,12 @@
+Kedves {lastname} {firstname}, k&#246;sz&#246;nj&#252;k, hogy felkereste webshopunkat!
+
+A let&#246;lt&#233;sre v&#225;r&#242; term&#233;kek:
+
+&#214;sszesen {nbProducts} term&#233;k
+
+K&#246;zvetlen linkek a term&#233;kekhez:
+{virtualProducts}
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+
+{shop_url}

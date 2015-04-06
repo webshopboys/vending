@@ -319,10 +319,14 @@ abstract class AdminTab
 		$this->_childValidation();
 
 		/* Checking for fields validity */
+		
 		foreach ($rules['validate'] AS $field => $function)
+		//if($field==='reserved_date'){ var_dump(Tools::getValue($field)); die();}
 			if (($value = Tools::getValue($field)) !== false AND ($field != 'passwd'))
-				if (!Validate::$function($value))
-					$this->_errors[] = $this->l('the field').' <b>'.call_user_func(array($className, 'displayFieldName'), $field, $className).'</b> '.$this->l('is invalid');
+			//var_dump(Tools::getValue('position')); die();	
+			if (!Validate::$function($value))
+				
+					$this->_errors[] = $this->l('the field').' <b>'.call_user_func(array($className, 'displayFieldName'), $field, $className).'</b> '.$this->l('is invalid').'1'.$field;
 
 		/* Checking for passwd_old validity */
 		if (($value = Tools::getValue('passwd')) != false)
@@ -378,8 +382,8 @@ abstract class AdminTab
 	 * @global string $currentIndex Current URL in order to keep current Tab
 	 */
 	public function postProcess()
-	{
-		global $currentIndex, $cookie;
+	{	
+		global $currentIndex, $cookie; //var_dump($this);
 		if (!isset($this->table))
 			return false;
 
@@ -431,7 +435,7 @@ abstract class AdminTab
 
 		/* Change object statuts (active, inactive) */
 		elseif (isset($_GET['status']) AND Tools::getValue($this->identifier))
-		{
+		{var_dump($_POST);
 			if ($this->tabAccess['edit'] === '1')
 			{
 				if (Validate::isLoadedObject($object = $this->loadObject()))
@@ -484,10 +488,10 @@ abstract class AdminTab
 			else
 				$this->_errors[] = Tools::displayError('You do not have permission to delete here.');
 		}
-
+		
 		/* Create or update an object */
 		elseif (Tools::getValue('submitAdd'.$this->table))
-		{
+		{  
 			/* Checking fields validity */
 			$this->validateRules();
 			if (!sizeof($this->_errors))
@@ -499,6 +503,7 @@ abstract class AdminTab
 				{
 					if ($this->tabAccess['edit'] === '1')
 					{
+
 						$object = new $this->className($id);
 						if (Validate::isLoadedObject($object))
 						{
@@ -525,6 +530,10 @@ abstract class AdminTab
 							else
 							{
 								$this->copyFromPost($object, $this->table);
+									echo strlen($_POST["description_3"]);
+									
+		
+		
 								$result = $object->update();
 							}
 							if (!$result)

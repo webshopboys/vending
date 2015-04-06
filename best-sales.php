@@ -7,8 +7,11 @@ include(dirname(__FILE__).'/product-sort.php');
 $nbProducts = intval(ProductSale::getNbSales());
 include(dirname(__FILE__).'/pagination.php');
 	
+$products =ProductSale::getBestSales(intval($cookie->id_lang), intval($p) - 1, intval($n), $orderBy, $orderWay);
+//var_dump($products);
+
 $smarty->assign(array(
-	'products' => ProductSale::getBestSales(intval($cookie->id_lang), intval($p) - 1, intval($n), $orderBy, $orderWay),
+	'products' => $products,
 	'nbProducts' => $nbProducts));
 	
 $smarty->display(_PS_THEME_DIR_.'best-sales.tpl');

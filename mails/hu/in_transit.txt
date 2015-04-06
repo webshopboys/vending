@@ -1,0 +1,11 @@
+Kedves {lastname} {firstname},
+
+Inform&#225;ci&#242;k a #{id_order} megrendel&#233;sr&#337;l
+
+A megrendel&#233;s st&#225;tusza: lesz&#225;ll&#237;t&#225;s alatt.
+
+A megrendel&#233;s nyomonk&#246;vethet&#337; a k&#246;vetkez&#337; linken: {followup}
+
+Tov&#225;bbi inform&#225;ci&#242;k a "Fi&#242;kom" men&#252;ponton bel&#252;l, a "Megrendel&#233;seim" r&#233;sz alatt tal&#225;lhat&#242;ak.
+
+{shop_url}

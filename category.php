@@ -46,7 +46,8 @@ else
 		}
 		
 		$category->name = Category::hideCategoryPosition($category->name);
-		$category->description = nl2br2($category->description);
+		if(!strchr($category->description,"</table>"))
+			$category->description = nl2br2($category->description);
 		$subCategories = $category->getSubCategories(intval($cookie->id_lang));
 		$smarty->assign('category', $category);
 		if (Db::getInstance()->numRows())

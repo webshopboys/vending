@@ -61,6 +61,16 @@ class AdminCategories extends AdminTab
 
 	public function displayList($token = NULL)
 	{
+		/* Prevent HTML content */
+		if ($this->_list){
+			foreach ($this->_list AS &$tr)
+			{
+				if(isset($tr["description"])){
+					$tr["description"] = strip_tags($tr["description"]);
+				}
+			}
+			unset($tr);
+		}	
 		/* Display list header (filtering, pagination and column names) */
 		$this->displayListHeader($token);
 		if (!sizeof($this->_list))
@@ -85,6 +95,10 @@ class AdminCategories extends AdminTab
 		echo '</div>';
 	}
 
+	/**
+	 * call if: AdminCatalog[submitAddcategory] [submitAddcategoryAndStay]
+	 * @see classes/AdminTab::postProcess()
+	 */
 	public function postProcess()
 	{
 		global $cookie;
@@ -113,6 +127,7 @@ class AdminCategories extends AdminTab
 						$this->_errors[] = Tools::displayError('an error occurred while updating object').' <b>'.$this->table.'</b> '.Tools::displayError('(cannot load object)');
 				}
 			}
+			
 		}
 		parent::postProcess();
 	}
@@ -159,7 +174,7 @@ class AdminCategories extends AdminTab
 		echo '		<div class="clear"></div>
 				</div>
 				<label>'.$this->l('Displayed:').' </label>
-				<div class="margin-form">
+		            <div class="margin-form">
 					<input type="radio" name="active" id="active_on" value="1" '.($active ? 'checked="checked" ' : '').'/>
 					<label class="t" for="active_on"><img src="../img/admin/enabled.gif" alt="'.$this->l('Enabled').'" title="'.$this->l('Enabled').'" /></label>
 					<input type="radio" name="active" id="active_off" value="0" '.(!$active ? 'checked="checked" ' : '').'/>
@@ -167,27 +182,32 @@ class AdminCategories extends AdminTab
 				</div>
 				<label>'.$this->l('Parent category:').' </label>
 				<div class="margin-form">
-					<select name="id_parent">';
+					<div style="float:left;"><select name="id_parent">';
 		$categories = Category::getCategories(intval($cookie->id_lang), false);
 		Category::recurseCategory($categories, $categories[0][1], 1, $this->getFieldValue($obj, 'id_parent'));
 		echo '
-					</select>
+					</select></div>';
+		$this->displayFlags($languages, $defaultLanguage, $langtags, 'cdescription'); 
+		echo '		<div class="clear"></div>
 				</div>
-				<label>'.$this->l('Description:').' </label>
+				
+				<label>'.$this->l('Description:');
+		
+		echo ' </label>
 				<div class="margin-form">';
 		foreach ($languages as $language)
 			echo '
 					<div id="cdescription_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $defaultLanguage ? 'block' : 'none').'; float: left;">
-						<textarea name="description_'.$language['id_lang'].'" rows="5" cols="40">'.htmlentities($this->getFieldValue($obj, 'description', intval($language['id_lang'])), ENT_COMPAT, 'UTF-8').'</textarea>
+						<textarea id="description_'.$language['id_lang'].'" name="description_'.$language['id_lang'].'" rows="20" cols="80" class="rte">'.htmlentities(stripslashes($this->getFieldValue($obj, 'description', intval($language['id_lang']))), ENT_COMPAT, 'UTF-8').'</textarea>
 					</div>';
-		$this->displayFlags($languages, $defaultLanguage, $langtags, 'cdescription');
+		
 		echo '		<div class="clear"></div>
 				</div>
 				<label>'.$this->l('Image:').' </label>
-				<div class="margin-form">
+				<div class="margin-form" >
 					<input type="file" name="image" />
 				</div>';
-		$this->displayImage($obj->id, _PS_IMG_DIR_.'c/'.$obj->id.'.jpg', 350, NULL, Tools::getAdminToken('AdminCatalog'.intval(Tab::getIdFromClassName('AdminCatalog')).intval($cookie->id_employee)), 'left');				
+		$this->displayImage($obj->id, _PS_IMG_DIR_.'c/'.$obj->id.'.jpg', 350, NULL, Tools::getAdminToken('AdminCatalog'.intval(Tab::getIdFromClassName('AdminCatalog')).intval($cookie->id_employee)), 'left;margin-left:20%');				
 		echo'	<div class="clear"><br /></div>	
 				<label>'.$this->l('Meta title:').' </label>
 				<div class="margin-form">';
@@ -261,11 +281,52 @@ class AdminCategories extends AdminTab
 				</div>
 				<div class="margin-form">
 					<input type="submit" value="'.$this->l('Save and back to parent category').'" name="submitAdd'.$this->table.'AndBackToParent" class="button" />
-					&nbsp;<input type="submit" class="button" name="submitAdd'.$this->table.'" value="'.$this->l('Save').'"/>
+					&nbsp;<input type="submit" class="button" name="submitAdd'.$this->table.'" value="'.$this->l('Save').'" />
 				</div>
 				<div class="small"><sup>*</sup> '.$this->l('Required field').'</div>
 			</fieldset>
 		</form>
-		<div class="clear"></div>';
+		<div class="clear"></div>
+		
+		<script type="text/javascript" src="'.__PS_BASE_URI__.'js/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
+			<script type="text/javascript">
+			function tinyMCEInit(element)
+			{
+				$().ready(function() {
+					$(element).tinymce({
+						// Location of TinyMCE script
+						script_url : \''.__PS_BASE_URI__.'js/tinymce/jscripts/tiny_mce/tiny_mce.js\',
+						// General options
+						theme : "advanced",
+						plugins : "safari,pagebreak,style,layer,table,advimage,advlink,inlinepopups,media,searchreplace,contextmenu,paste,directionality,fullscreen",
+						entity_encoding: "raw",
+						paste_auto_cleanup_on_paste: true,
+						paste_remove_styles: true,
+						// Theme options
+						theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,fontsizeselect,cut,copy,paste,|,bullist,numlist,|,undo,redo,|,link,unlink,sub,sup,charmap,|,code",
+						theme_advanced_buttons2 : "",
+						theme_advanced_buttons3 : "",
+						theme_advanced_buttons4 : "",
+						theme_advanced_toolbar_location : "top",
+						theme_advanced_toolbar_align : "left",
+						width : "100",
+						theme_advanced_statusbar_location : "bottom",
+						theme_advanced_resizing : true,
+						content_css : "'.__PS_BASE_URI__.'themes/'._THEME_NAME_.'/css/global.css",
+						// Drop lists for link/image/media/template dialogs
+						template_external_list_url : "lists/template_list.js",
+						external_link_list_url : "lists/link_list.js",
+						external_image_list_url : "lists/image_list.js",
+						media_external_list_url : "lists/media_list.js",
+						elements : "nourlconvert",
+						convert_urls : false,
+						language : "'.(file_exists(_PS_ROOT_DIR_.'/js/tinymce/jscripts/tiny_mce/langs/'.$iso.'.js') ? $iso : 'en').'"
+					});
+				});
+			}
+			tinyMCEInit(\'textarea.rte\');
+			</script>
+		
+		';
 	}
 }

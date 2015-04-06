@@ -13,17 +13,19 @@ function cacheImage($image, $cacheImage, $size, $imageType = 'jpg')
 	{
 		if (!file_exists(_PS_TMP_IMG_DIR_.$cacheImage))
 		{
+			
+			try {
+		
 			$imageGd = ($imageType == 'gif' ? imagecreatefromgif($image) : imagecreatefromjpeg($image));
 			$x = imagesx($imageGd);
 			$y = imagesy($imageGd);
-			
+				
 			/* Size is already ok */
-			if ($y < $size) 
+			if ($y < $size) {
 				copy($image, _PS_TMP_IMG_DIR_.$cacheImage);
 
 			/* We need to resize */
-			else
-			{
+			}else{
 				$ratioX = $x / ($y / $size);
 				$newImage = ($imageType == 'gif' ? imagecreate($ratioX, $size) : imagecreatetruecolor($ratioX, $size));
 				
@@ -39,6 +41,13 @@ function cacheImage($image, $cacheImage, $size, $imageType = 'jpg')
 				else
 					imagejpeg($newImage, _PS_TMP_IMG_DIR_.$cacheImage, 86);
 			}
+			
+		        
+			} catch (Exception $e) {
+				echo var_dump($e);
+				return "?e";
+			}
+			
 		}
 		return '<img src="../img/tmp/'.$cacheImage.'" alt="" class="imgm" />';
 	}

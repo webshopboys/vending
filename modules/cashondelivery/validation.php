@@ -25,6 +25,10 @@ else
 	));
 
 	$smarty->assign('this_path', __PS_BASE_URI__.'modules/cashondelivery/');
+	
+	$invoiceAddress = new Address(intval($cart->id_address_invoice));
+	$smarty->assign('invoice', $invoiceAddress);
+	
 	echo Module::display(__FILE__, 'validation.tpl');
 }
 

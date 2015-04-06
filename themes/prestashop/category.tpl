@@ -3,8 +3,7 @@
 
 {if $category->id AND $category->active}
 	<h2 class="category_title">
-		{$category->name|escape:'htmlall':'UTF-8'}
-		<span>{$nb_products|intval}&nbsp;{if $nb_products>1}{l s='products'}{else}{l s='product'}{/if}</span>
+		{$category->name}
 	</h2>
 
 	{if $scenes}

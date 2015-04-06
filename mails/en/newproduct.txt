@@ -1,0 +1,26 @@
+New product alert: {$shop_name}
+
+Tisztelt {$toName}/ Dear {$toName}!
+
+HUN/ ENG
+
+Vending Outlet Webshop
+
+Örömmel tájékoztatjuk, hogy áruházunkba {$newproductCount} darab új termék érkezett!
+
+
+We are pleased to inform you that the shop received {$newproductCount} pieces of new products!
+
+Új termékek listája:
+
+{$list_hu}
+
+Just arrived:
+
+{$list_en}
+
+Ha a továbbiakban nem szeretne értesítő levelet kapni, leiratkozhat a levelező listánkról honlapunk nyitó oldalán
+(www.vendingoutlet.org) vagy a személyes ügyfélfiókjában.
+
+If You don't want to receive this new products notification, You can unsubscribe on Our frontpage
+(www.vendingoutlet.org) or in Your customer account.

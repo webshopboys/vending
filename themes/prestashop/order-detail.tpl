@@ -116,6 +116,16 @@
 					{l s='Total:'} <span class="price">{displayWtPriceWithCurrency price=$order->total_paid currency=$currency convert=0}</span>
 				</td>
 			</tr>
+			{if $address_invoice->eu_account}
+			{else}
+			<tr class="item">
+				<td colspan="{if $return_allowed}6{else}5{/if}">
+					{l s='With the 25% VAT the total amount is:'}
+					<span class="price">{displayWtPriceWithCurrency price=$order->total_paid*1.25 currency=$currency convert=0}</span>
+				</td>
+			</tr>
+			{/if}
+			
 		</tfoot>
 		<tbody>
 		{foreach from=$products item=product name=products}
