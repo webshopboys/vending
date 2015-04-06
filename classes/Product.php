@@ -1114,6 +1114,7 @@ class		Product extends ObjectModel
 			SELECT COUNT(DISTINCT p.`id_product`) AS nb
 			FROM `'._DB_PREFIX_.'product` p
 			WHERE p.`active` = 1
+			AND (`p.reduction_price` > 0 OR `p.reduction_percent` > 0)
 			AND p.`id_product` IN (
 				SELECT cp.`id_product`
 				FROM `'._DB_PREFIX_.'category_group` cg
@@ -1123,6 +1124,7 @@ class		Product extends ObjectModel
 			$result = Db::getInstance()->getRow($sql);
 			return intval($result['nb']);
 		}
+		
 		$currentDate = date('Y-m-d');
 		$sql = '
 		SELECT p.*, pl.`description`, pl.`description_short`, pl.`link_rewrite`, pl.`meta_description`, pl.`meta_keywords`, pl.`meta_title`, pl.`name`, p.`ean13`, i.`id_image`, il.`legend`, t.`rate`, (p.`reduction_price` + (p.`reduction_percent` * p.`price`)) AS myprice, m.`name` AS manufacturer_name

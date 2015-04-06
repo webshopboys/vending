@@ -8,7 +8,7 @@ $orderWay = DESC;
 $id_category = 85;
 $id_lang = intval($cookie->id_lang); // 3,1,4
 
-$title = $id_lang==3 ? "Alkatrész automaták" : ($id_lang==4 ? "Запчасти для автоматов" : "Used parts trade");
+$title = $id_lang==3 ? "Alkatrész automaták" : ($id_lang==4 ? "Запчасти для автоматов" : "Spare parts machines");
 
 $products = Product::getProducts($id_lang, 0, $number, $orderBy, $orderWay, $id_category, true);
 

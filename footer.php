@@ -16,16 +16,55 @@ echo
 '
 
 <script type="text/javascript">
-    
+
 	function insertBlocks(){
 		jQuery("#right_column").append("<div id=\'c1\'/><div id=\'c2\' class=\"\"/>");
 		jQuery("#c1").load("http://www.vendingoutlet.org/static/components-block.php");
 		jQuery("#c2").load("http://www.vendingoutlet.org/static/packages-block.php");
-	
+		//setInterval("jQuery(\".blinking_content\").toggle();",500);
+		blink(".blinking_content");
+		blink(".pulsing_content");
 	}
 
+
+	function pulse(selector){
+	    jQuery(selector).animate({opacity:0.2}, 800, "linear");
+		jQuery(selector).animate({opacity:1.0}, 800, "linear");
+		pulse(selector);
+	}
+
+	function blink(selector){
+	    jQuery(selector).fadeOut("slow", function(){
+	        jQuery(selector).fadeIn("slow", function(){
+	            blink(selector);
+	        });
+	    });
+	}
+
+	 function fadeLogo(){
+	 	jQuery(".logo1").fadeOut(5000, function(){
+
+			jQuery(".logo2").fadeIn(1000, function(){
+
+				jQuery(".logo2").fadeOut(5000, function(){
+
+					jQuery(".logo3").fadeIn(1000, function(){
+
+						jQuery(".logo3").fadeOut(5000, function(){
+							jQuery(".logo1").fadeIn(1000, fadeLogo);
+						});
+
+					});
+
+				 });
+
+			});
+
+		});
+	 }
+
 	jQuery().ready(function(){
-   	
+
 		jQuery(document).watermark({className:"reserved", path:"http://www.vendingoutlet.org/img/reserved-'.$ps_language->iso_code.'.png"});
 		setTimeout(function(){
 			jQuery(window).resize(function() {
@@ -41,15 +80,15 @@ echo
 	      	row = arr[i].split(/[\t]/);
 	      	alert(row);
 	   	}*/
-		
+
 		jQuery("#ajanlat-submit").click(function() {
 			if(validate())
 			{
-				jQuery(this).attr("disabled", "true"); 
+				jQuery(this).attr("disabled", "true");
   				sendTransportMail();
   			}
 		});
-		
+
 		jQuery("#ajanlat-form input").keyup(function() {
 			if(this.name=="ajanlat-contact-email"){
 				if(jQuery("input[name=\"ajanlat-contact-email\"]").val().indexOf("@")>=0){
@@ -59,24 +98,26 @@ echo
 			else{
 				jQuery(this).css("border-color", "#bdc2c9");
 			}
-		}); 
-		
-		
+		});
+
+
 		if(imgtemplate && imgtemplate != "undefined"){
 			// push default
 			logos.push(imgtemplate);
-			//logic changes max 5 logos (4+default) 
+			//logic changes max 5 logos (4+default)
 			checkLogo(1);
 		}
-	    
+
 		insertBlocks();
+
+		fadeLogo();
 	});
-	
+
 	var logos = new Array();
 	var logosCount = 5;
 	var imgtemplate = jQuery(".homepage_logo").attr("src");
-	
-	// check index+1.gif and push logos if exist than call recursive  
+
+	// check index+1.gif and push logos if exist than call recursive
 	function checkLogo(gifindex){
 	 	var imgurl = "http:/www.vendingoutlet.org"+imgtemplate.replace(".gif",gifindex+".gif");
 //	 	 jQuery.ajax({url:imgurl, type:"HEAD",
@@ -93,61 +134,61 @@ echo
 //		        }
 //		});
 		jQuery(new Image()).attr("src", imgurl)
-		.load(function(){ 
-			
+		.load(function(){
+
 		})
-		.error(function(){ 
-			
+		.error(function(){
+
 		});
 	}
-	
+
 	function validate(){
 		var valid = true;
 		if(jQuery.trim(jQuery("input[name*=\"ajanlat-typename\"]").val())=="")
-		{ 
+		{
 			jQuery("input[name*=\"ajanlat-typename\"]").css("border-color", "red");
 			valid = false;
 		}
 		if(jQuery.trim(jQuery("input[name*=\"ajanlat-count\"]").val())=="")
-		{ 
+		{
 			jQuery("input[name=\"ajanlat-count\"]").css("border-color", "red");
 			valid = false;
 		}
 		if(jQuery.trim(jQuery("input[name=\"ajanlat-country\"]").val())=="")
-		{ 
-				
+		{
+
 			jQuery("input[name=\"ajanlat-country\"]").css("border-color", "red");
 			valid = false;
 		}
 		if(jQuery.trim(jQuery("input[name=\"ajanlat-address\"]").val())=="")
-		{ 
-		
+		{
+
 			jQuery("input[name=\"ajanlat-address\"]").css("border-color", "red");
 			valid = false;
 		}
 		if(jQuery.trim(jQuery("input[name=\"ajanlat-contact-nev\"]").val())=="")
-		{ 
-		
+		{
+
 			jQuery("input[name=\"ajanlat-contact-nev\"]").css("border-color", "red");
 			valid = false;
 		}
 		if(jQuery.trim(jQuery("input[name=\"ajanlat-contact-phone\"]").val())=="")
-		{ 
-		
+		{
+
 			jQuery("input[name=\"ajanlat-contact-phone\"]").css("border-color", "red");
 			valid = false;
 		}
 		if(jQuery("input[name=\"ajanlat-contact-email\"]").val()=="" || jQuery("input[name=\"ajanlat-contact-email\"]").val().indexOf("@")<=0)
-		{ 
-		
+		{
+
 			jQuery("input[name=\"ajanlat-contact-email\"]").css("border-color", "red");
 			valid = false;
 		}
 		return valid;
 	}
-	
+
 	function sendTransportMail(){
-	 	
+
 		var formData = jQuery("#ajanlat-form").serialize();
 		jQuery.ajax({
 		    type: "POST",
@@ -163,6 +204,9 @@ echo
 	var newstext = jQuery("#extranews").text();
 	jQuery("#extranews").html("<center><a href=\"/lang-'.$ps_language->iso_code.'/content/11-szallitasi-ajanlat\" class=\"extranews-item\">"+newstext+"</a></center>").show();
 	jQuery(".extranews-item").css("font-size","1.1em").css("font-weight","bold").css("color","blue");
+
+
+
 </script>';
 
 ?>

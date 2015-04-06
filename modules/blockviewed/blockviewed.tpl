@@ -1,6 +1,6 @@
 <!-- Block Viewed products -->
 <div id="viewed-products_block_left" class="block products_block">
-	<h4>{l s='Viewed products' mod='blockviewed'}</h4>
+	<h4 style="white-space:nowrap;">{l s='Viewed products' mod='blockviewed'}</h4>
 	<div class="block_content">
 		<ul class="products">
 		{foreach from=$productsViewedObj item=viewedProduct name=myLoop}

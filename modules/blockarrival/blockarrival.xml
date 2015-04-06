@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<arrivals>
+	<header>\n
+		<link_to>http://www.vendingoutlet.org/static/blockarrival_home.php</link_to>
+        <arrival_path>/modules/blockarrival/</arrival_path>
+	</header>
+	<body>
+		<title_1>EXPECTED ARRIVALS</title_1>
+		<title_3>VÁRHATÓ BEÉRKEZÉSEK</title_3>
+		<title_4>EXPECTED ARRIVALS</title_4>
+		<paragraph_1>&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;strong&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;span style=\&quot;font-size: xx-large;\&quot;&gt;EXPECTED ARRIVALS!!&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;color: #ff0000;\&quot;&gt;&lt;span style=\&quot;font-size: 32px;\&quot;&gt;&lt;span style=\&quot;font-size: xx-large;\&quot;&gt;&lt;span style=\&quot;font-size: 32px; color: #ff0000;\&quot;&gt;2015-04-03&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;4 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;Wurlitzer SL&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;3 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;Rheavendors XM Instant&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;6 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;XX OC Instant&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;7 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;FAS Spiralli&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;5 pcs Brio 200 Espresso&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;div&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 18px;\&quot;&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 11px;\&quot;&gt;&lt;span style=\&quot;font-size: 11px;\&quot;&gt;&lt;span style=\&quot;font-size: 11px;\&quot;&gt;&lt;span style=\&quot;font-size: 11px;\&quot;&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 18px;\&quot;&gt;&lt;span style=\&quot;font-style: normal; font-size: large; font-family: Verdana, Arial, Helvetica, sans-serif;\&quot;&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 18px;\&quot;&gt;&lt;span style=\&quot;font-style: normal; font-size: large; font-family: Verdana, Arial, Helvetica, sans-serif;\&quot;&gt;
+&lt;div&gt;&lt;span style=\&quot;font-style: normal; font-size: large; font-family: Verdana, Arial, Helvetica, sans-serif;\&quot;&gt; &lt;br /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;br /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;br /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 18px;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/div&gt;</paragraph_1>
+		<paragraph_3>&lt;p&gt; &lt;/p&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;VÁRHATÓ BEÉRKEZÉSEK&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;2014-02-15&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;Brio250&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;Brio200&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;BIANCHI BVM 972 ES&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;FAS DUETTO&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SPRING 700&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SPRING 850&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;CRISTALLO 600&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;VENDO V611&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SIELAFF FS 2020&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;VENEZIA LX&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;VENDO V189&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;RHEA LUCE&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;AUTOMATIC PRODUCTS A la CARTE&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;NECTA STARFOOD&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;FAS 480 TOP&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;BIANCHI POLARIS&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SAECO ROYAL OFFICE&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SIELAFF SÜ 2020&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;NECTA ASTRO ES&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SPAZIO ES&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;ASTRO INSTANT&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SPAZIO P - ES&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;FAS SPIRALI&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;FAS EVEREST&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;VENDO VUE-40&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SAECO RUBINO&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;DAMIAN FULL SHOP&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;KIKKO ES&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;XX OC INSTANT&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;ZUMEX Z-130&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;FS 2020 KOMBI&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;SMART&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;VENEZIA&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;CASHFLOW 560&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;CASHFLOW 690&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;NRI Currenza C2&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;CASHFLOW 7000&lt;/div&gt;
+&lt;div id=\&quot;_mcePaste\&quot; style=\&quot;position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\&quot;&gt;NRI G46&lt;/div&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;strong&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;VÁRHATÓ BEÉRKEZÉSEK&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal;\&quot;&gt;[pulse]&lt;/span&gt;&lt;strong&gt;&lt;span style=\&quot;font-size: xx-large;\&quot;&gt;&lt;span style=\&quot;color: #ff0000;\&quot;&gt;2015-04-03&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;span style=\&quot;font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal;\&quot;&gt;[/pulse]&lt;/span&gt;&lt;/p&gt;
+&lt;p class=\&quot;MsoNormal\&quot; style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p class=\&quot;MsoNormal\&quot; style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;4 db &lt;/span&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;Wurlitzer SL&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class=\&quot;MsoNormal\&quot; style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt; &lt;/span&gt;&lt;span style=\&quot;font-size: x-large; font-style: inherit; font-weight: inherit; text-decoration: underline;\&quot;&gt;3 db &lt;/span&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;Rheavendors XM Instant&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class=\&quot;MsoNormal\&quot; style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;6 db &lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;XX OC Instant&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class=\&quot;MsoNormal\&quot; style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;7 db &lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;FAS Spiralli&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class=\&quot;MsoNormal\&quot; style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-align: left;\&quot;&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;5 db Brio 200 Espresso&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 32px;\&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;div style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-family: Verdana, Arial, Helvetica, sans-serif; font-size: large; font-style: normal;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 18px;\&quot;&gt;&lt;span style=\&quot;font-family: Verdana, Arial, Helvetica, sans-serif; font-size: large; font-style: normal; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: 11px;\&quot;&gt;&lt;span style=\&quot;font-family: Verdana, Arial, Helvetica, sans-serif; font-size: large; font-style: normal; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: large;\&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;</paragraph_3>
+		<paragraph_4>&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;strong&gt;&lt;span style=\&quot;font-size: medium;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;EXPECTED ARRIVALS&lt;/span&gt;&lt;br /&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt;[pulse]&lt;strong&gt;&lt;span style=\&quot;font-size: xx-large;\&quot;&gt;&lt;span style=\&quot;color: #ff0000;\&quot;&gt;2015-04-03&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;[/pulse]&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;4 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;Wurlitzer SL&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;3 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;Rheavendors XM Instant&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;6 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;XX OC Instant&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;7 pcs &lt;/span&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;FAS Spiralli&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;font-style: normal; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: center;\&quot;&gt;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;span style=\&quot;font-size: x-large;\&quot;&gt;5 pcs Brio 200 Espresso&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=\&quot;text-align: center;\&quot;&gt; &lt;/p&gt;</paragraph_4>
+	</body>
+</arrivals>
