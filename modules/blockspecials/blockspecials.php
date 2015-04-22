@@ -26,12 +26,17 @@ class BlockSpecials extends Module
     function hookRightColumn($params)
     {
 		global $smarty;
-
-		if ($special = Product::getRandomSpecial(intval($params['cookie']->id_lang)))
+		// egy jelenik meg alapbol, itt megprobalunk egy masikat is talalni
+		$special = Product::getRandomSpecial(intval($params['cookie']->id_lang));
+		$special2 = Product::getRandomSpecial(intval($params['cookie']->id_lang));
+		
+		if ($special)
 			$smarty->assign(array(
 			'special' => $special,
+			'special2' => $special2,
 			'oldPrice' => number_format($special['price'] + $special['reduction'], 2, '.', ''),
 			'mediumSize' => Image::getSize('medium')));
+			
 		return $this->display(__FILE__, 'blockspecials.tpl');
 	}
 	

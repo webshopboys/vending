@@ -33,9 +33,8 @@
 <a id="popupContactClose">bezárás (x)</a>
 
 
-
 <div id="editorial_block_center" class="editorial_block">
-{if $xml->body->$paragraph}<div class="rte">{$xml->body->$paragraph|stripslashes}</div>{/if}
+  {if $xml->body->$paragraph}<div class="rte">{$xml->body->$paragraph|stripslashes}</div>{/if}
 </div>
 
 
@@ -128,5 +127,12 @@ Frissen érkezett automaták</a></caption>
 			<div id="footer">{$HOOK_FOOTER}</div>
 		</div>
 	{/if}
+	
+	
+
+<!-- A kiemelt js nyelvi beallitasa. -->
+<script>__vendingJsInitLanguage('{$ps_language}');</script>
+
+
 	</body>
 </html>

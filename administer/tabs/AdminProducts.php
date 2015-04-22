@@ -1630,9 +1630,12 @@ class AdminProducts extends AdminTab
 					echo '
 					<tr>
 						<td class="col-left">'.$this->l('Pre-tax retail price:').'</td>
-						<td style="padding-bottom:5px;">
+						<td style="padding-bottom:5px;" nowrap="nowrap" >
 							'.($currency->format == 1 ? $currency->sign.' ' : '').'<input size="11" maxlength="14" id="priceTE" name="price" type="text" value="'.$this->getFieldValue($obj, 'price').'" onKeyUp="javascript:this.value = this.value.replace(/,/g, \'.\'); calcPriceTI();" />'.($currency->format == 2 ? ' '.$currency->sign : '').'<sup> *</sup>
 							<span style="margin-left:2px">'.$this->l('The pre-tax retail price to sell this product').'</span>
+							
+							<span style="margin-left:10px">'.$this->l('Price visible to:').'&nbsp;<input type="text" size="10" name="price_date" id="price_date" value="'.(($resdat = $this->getFieldValue($obj, 'price_date') AND $resdat != '0000-00-00' AND $resdat != '1942-01-01') ? $resdat : '').'" /></span>
+						
 						</td>
 					</tr>';
 					$taxes = Tax::getTaxes(intval($cookie->id_lang));

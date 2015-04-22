@@ -1,36 +1,36 @@
 <?php
 
 class GAnalytics extends Module
-{	
+{
 	function __construct()
 	{
 	 	$this->name = 'ganalytics';
 	 	$this->tab = 'Stats';
 	 	$this->version = '1.2';
         $this->displayName = 'Google Analytics';
-		
+
 	 	parent::__construct();
-		
+
 		if (!Configuration::get('GANALYTICS_ID'))
 			$this->warning = $this->l('You have not yet set your Google Analytics ID');
         $this->description = $this->l('Integrate the Google Analytics script into your shop');
 		$this->confirmUninstall = $this->l('Are you sure you want to delete your details ?');
 	}
-	
+
     function install()
     {
         if (!parent::install() OR !$this->registerHook('footer') OR !$this->registerHook('orderConfirmation'))
 			return false;
 		return true;
     }
-	
+
 	function uninstall()
 	{
 		if (!Configuration::deleteByName('GANALYTICS_ID') OR !parent::uninstall())
 			return false;
 		return true;
 	}
-	
+
 	public function getContent()
 	{
 		$output = '<h2>Google Analytics</h2>';
@@ -60,7 +60,7 @@ class GAnalytics extends Module
 				<center><input type="submit" name="submitGAnalytics" value="'.$this->l('Update ID').'" class="button" /></center>
 			</fieldset>
 		</form>';
-		
+
 		$output .= '
 		<fieldset class="space">
 			<legend><img src="../img/admin/unknown.gif" alt="" class="middle" />'.$this->l('Help').'</legend>
@@ -116,10 +116,10 @@ class GAnalytics extends Module
 				<li>'.$this->l('Save this new goal').'</li>
 			</ol>
 		</fieldset>';
-		
+
 		return $output;
 	}
-	
+
 	function hookFooter($params)
 	{
 		global $step, $protocol_content;
@@ -136,11 +136,13 @@ class GAnalytics extends Module
 			'.(strpos($_SERVER['REQUEST_URI'], __PS_BASE_URI__.'order.php') === 0 ? 'pageTracker._trackPageview("/order/step'.intval($step).'.html");' : '').'
 		}
 		catch(err)
-			{}
+		{
+			// do nothng
+		}
 		</script>';
 		return $output;
 	}
-	
+
 	function hookOrderConfirmation($params)
 	{
 		global $protocol_content;
@@ -149,15 +151,15 @@ class GAnalytics extends Module
 		if (Validate::isLoadedObject($order))
 		{
 			$deliveryAddress = new Address(intval($order->id_address_delivery));
-			
+
 			/* Order general informations */
 			$output = '
 			<script src="'.$protocol_content.'www.google-analytics.com/ga.js" type="text/javascript"></script>
-	
+
 			<script type="text/javascript">
 			  var pageTracker = _gat._getTracker("'.Configuration::get('GANALYTICS_ID').'");
 			  pageTracker._initData();
-			
+
 			  pageTracker._addTrans(
 				"'.intval($order->id).'",               	// Order ID
 				"PrestaShop",      							// Affiliation
@@ -177,17 +179,17 @@ class GAnalytics extends Module
 				pageTracker._addItem(
 					"'.intval($order->id).'",						// Order ID
 					"'.$product['product_reference'].'",			// SKU
-					"'.$product['product_name'].'",					// Product Name 
+					"'.$product['product_name'].'",					// Product Name
 					"",												// Category
 					"'.floatval($product['product_price_wt']).'",		// Price
 					"'.intval($product['product_quantity']).'"		// Quantity
 				);';
 			}
-			
+
 			$output .= '
 			  pageTracker._trackTrans();
 			</script>';
-			
+
 			return $output;
 		}
 	}

@@ -54,10 +54,16 @@ else
 			$smarty->assign('subcategories', $subCategories);
 		if ($category->id != 1)
 		{
+			
+			Product::$producPropertiesCache = array();
+			
 			$nbProducts = $category->getProducts(NULL, NULL, NULL, $orderBy, $orderWay, true);
 			include(dirname(__FILE__).'/pagination.php');
 			$smarty->assign('nb_products', $nbProducts);
 			$cat_products = $category->getProducts(intval($cookie->id_lang), intval($p), intval($n), $orderBy, $orderWay);
+			
+			//var_dump($cat_products);
+			
 		}
 		$smarty->assign(array(
 			'products' => (isset($cat_products) AND $cat_products) ? $cat_products : NULL,

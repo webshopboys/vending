@@ -1,6 +1,6 @@
 <!-- MODULE Block new products -->
 <div id="new-products_block_right" class="block products_block">
-	<h4><a href="{$base_dir}new-products.php" title="{l s='New products' mod='blocknewproducts'}">{l s='New products' mod='blocknewproducts'}</a></h4>
+	<h4 class="pulsing_content redheader"><a href="{$base_dir}new-products.php" title="{l s='New products' mod='blocknewproducts'}">{l s='New products' mod='blocknewproducts'}</a></h4>
 	<div class="block_content">
 	{if $new_products|@count > 0}
 {if $new_products.0.reserved > 0 AND $new_products.0.reserved >= $new_products.0.quantity}
@@ -36,3 +36,5 @@
 	</div>
 </div>
 <!-- /MODULE Block new products -->
+
+

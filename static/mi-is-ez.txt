@@ -1,0 +1,124 @@
+Ezek itt a presta belső modul szerkezetét megkerülő megoldások.
+=============================================================================================
+VÍZJELEZÉS
+
+Alapban nem volt, így kéézel lett minden visszarakva. Már van, de a termék adatlapon a letöltés linka az eredetire mutatott, de a watermark-os a jó.
+product.tpl:
+	{if count($images) > 0}
+		<p><a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}-watermark.jpg" title='Kattints a jobb egérgombbal, majd Hivatkozás mentése más néven...'><b>Nagy méretű kép letöltése</b></a> <br /> 
+		<a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}-watermark.jpg" title='Right click, Save target as...'><b>Download high resolution image</b></a></p>	
+	{/if}
+
+=============================================================================================
+
+Szinte mindent a footer.tpl rak ossze, abban van a right_column.
+
+footer.tpl:	<!-- Right -->
+			<div id="right_column" class="column">
+				{$HOOK_RIGHT_COLUMN}
+			</div>
+			
+ahol a HOOK_RIGHT_COLUMN a footer.php-ból kap értéket
+
+if (isset($smarty))
+{
+	$smarty->assign(array(
+		'HOOK_RIGHT_COLUMN' => Module::hookExec('rightColumn'),
+		'HOOK_FOOTER' => Module::hookExec('footer'),
+		'content_only' => intval(Tools::getValue('content_only'))));
+	$smarty->display(_PS_THEME_DIR_.'footer.tpl');
+}
+
+
+SELECT h.`id_hook`, m.`name`, hm.`position`
+	FROM `ps_module` m
+	LEFT JOIN `ps_hook_module` hm ON hm.`id_module` = m.`id_module`
+	LEFT JOIN `ps_hook` h ON hm.`id_hook` = h.`id_hook`
+	WHERE h.`name` = 'rightColumn'
+	AND m.`active` = 1
+	ORDER BY hm.`position`, m.`name` DESC
+
+- megnézi, hogy fizikailag létezik-e a modules/nev/nev.php szabályt követve. 
+
+	if (!file_exists(_PS_MODULE_DIR_.$m.name.'/'.$m.name.'.php'))
+			return false;
+			
+- ha létezik, akkor include-olja is a modult.			
+		
+	include_once(_PS_MODULE_DIR_.$moduleName.'/'.$moduleName.'.php');
+
+- ha nincs $m.name nevű osztály, vagyishogy nem érhető el az include után, akkor a modul nem kerül be a HOOK_RIGHT_COLUMN változóba.		
+	
+	if (!class_exists($m.name, false))
+			return false;
+- ha pedig megvan, akkor hozzáadja az osztályt a HOOK_RIGHT_COLUMN kollekcióhoz.
+	
+		return (new $m.name);
+
+Érdekes, hogy a tpl-en csak meghivatkozza a HOOK_RIGHT_COLUMN változókat, és abban erre a bennefoglalt php classok renderelnek?.
+
+
+
+
+És innen megy minden szarság jquery vezérlése is.
+
+	function insertBlocks(){
+		jQuery("#right_column").append("<div id=\'c1\'/><div id=\'c2\' class=\"\"/>");
+		// jQuery("#c1").load("http://www.vendingoutlet.org/static/components-block.php");
+		jQuery("#c2").load("http://www.vendingoutlet.org/static/packages-block.php");
+		//setInterval("jQuery(\".blinking_content\").toggle();",500);
+		blink(".blinking_content");
+		blink(".pulsing_content");
+	}
+
+- a footer.php tolti fel js alapon: jQuery("#c2").load("http://www.vendingoutlet.org/static/packages-block.php");
+- right_column div-et boviti: ajQuery("#right_column").append("<div id=\'c1\'/><div id=\'c2\' class=\"\"/>");
+- a footer.php tolti fel js alapon: jQuery("#c1").load("http://www.vendingoutlet.org/static/components-block.php");
+
+----------------------------------------------------------------------------------------------------------------------
+blockarrival_home.php
+blockarrival_home.tpl
+Ezekben van blinking_content. 
+----------------------------------------------------------------------------------------------------------------------
+WATERMARK
+
+Itt minden waterre kell egy blokk, mert az egyik üti a másikat! Ebből lehet gond! Szinkronizálni kell, hogy eghszer törölje a diveket, és külön minden waterre hozza létre!
+
+<img src="..." {if $isReserved}class="reserved"{/if}/>
+
+ waterClass='water_newproduct'
+
+Minden water_newproduct-ról remove a reserved először!!!!! Akkor lehet a renderelésben együtt.
+
+
+function _initWatermark(){
+	// elsonek a fuggeseket feloldani
+	jQuery(".water_newproduct").removeClass("reserved");
+	jQuery(".water_actionproduct").removeClass("reserved");
+	jQuery(".water_packagesproduct").removeClass("reserved");
+			
+	jQuery(document).watermark({className:"reserved", path:"http://www.vendingoutlet.org/img/reserved-"+$ps_language+".png"});
+	
+	
+	setTimeout(function(){
+		jQuery(window).resize(function() {
+			jQuery(".watermarker-div").remove();
+			jQuery(document).watermark({className:"reserved", path:"http://www.vendingoutlet.org/img/reserved-"+$ps_language+".png"});
+			jQuery(document).watermark({className:"water_newproduct", path:"http://www.vendingoutlet.org/img/water_newproduct-"+$ps_language+".png"});
+			jQuery(document).watermark({className:"water_actionproduct", path:"http://www.vendingoutlet.org/img/water_actionproduct-"+$ps_language+".png"});
+			jQuery(document).watermark({className:"water_packagesproduct", path:"http://www.vendingoutlet.org/img/water_packagesproduct-"+$ps_language+".png"});
+		});
+	},1000);
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------

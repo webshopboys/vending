@@ -5,7 +5,7 @@
 
 {if $products}
 	{include file=$tpl_dir./product-sort.tpl}
-	{include file=$tpl_dir./product-list.tpl products=$products}
+	{include file=$tpl_dir./product-list.tpl products=$products waterClass='wap' priceDisplay=0}
 	{include file=$tpl_dir./pagination.tpl}
 {else}
 	<p class="warning">{l s='No price drop.'}</p>

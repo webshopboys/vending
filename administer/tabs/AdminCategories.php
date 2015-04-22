@@ -24,7 +24,7 @@ class AdminCategories extends AdminTab
 	public function __construct()
 	{
 		global $cookie;
-		
+
 		$this->table = 'category';
 	 	$this->className = 'Category';
 	 	$this->lang = true;
@@ -40,11 +40,11 @@ class AdminCategories extends AdminTab
 		'description' => array('title' => $this->l('Description'), 'width' => 480, 'maxlength' => 90, 'orderby' => false),
 		'physical_products_quantity' => array('title' => $this->l('In stock Products'), 'align' => 'center', 'width' => 50),
 		'active' => array('title' => $this->l('Displayed'), 'active' => 'status', 'align' => 'center', 'type' => 'bool', 'orderby' => false));
-		
+
 		$this->_category = AdminCatalog::getCurrentCategory();
 		$this->_filter = 'AND `id_parent` = '.intval($this->_category->id);
-		
-		
+
+
 		$children = Category::getChildren($this->_category->id, $cookie->id_lang);
 		foreach ($children as &$child)
 		{
@@ -70,7 +70,7 @@ class AdminCategories extends AdminTab
 				}
 			}
 			unset($tr);
-		}	
+		}
 		/* Display list header (filtering, pagination and column names) */
 		$this->displayListHeader($token);
 		if (!sizeof($this->_list))
@@ -98,6 +98,8 @@ class AdminCategories extends AdminTab
 	/**
 	 * call if: AdminCatalog[submitAddcategory] [submitAddcategoryAndStay]
 	 * @see classes/AdminTab::postProcess()
+	 * @see classes/Category.php->update()
+	 *
 	 */
 	public function postProcess()
 	{
@@ -127,7 +129,7 @@ class AdminCategories extends AdminTab
 						$this->_errors[] = Tools::displayError('an error occurred while updating object').' <b>'.$this->table.'</b> '.Tools::displayError('(cannot load object)');
 				}
 			}
-			
+
 		}
 		parent::postProcess();
 	}
@@ -154,7 +156,7 @@ class AdminCategories extends AdminTab
 		$langtags = 'cname¤cdescription¤clink_rewrite¤cmeta_title¤cmeta_keywords¤cmeta_description';
 		$active = $this->getFieldValue($obj, 'active');
 		$customer_groups = $obj->getGroups();
-		
+
 		echo '
 		<script type="text/javascript">
 			id_language = Number('.$defaultLanguage.');
@@ -187,12 +189,12 @@ class AdminCategories extends AdminTab
 		Category::recurseCategory($categories, $categories[0][1], 1, $this->getFieldValue($obj, 'id_parent'));
 		echo '
 					</select></div>';
-		$this->displayFlags($languages, $defaultLanguage, $langtags, 'cdescription'); 
+		$this->displayFlags($languages, $defaultLanguage, $langtags, 'cdescription');
 		echo '		<div class="clear"></div>
 				</div>
-				
+
 				<label>'.$this->l('Description:');
-		
+
 		echo ' </label>
 				<div class="margin-form">';
 		foreach ($languages as $language)
@@ -200,15 +202,15 @@ class AdminCategories extends AdminTab
 					<div id="cdescription_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $defaultLanguage ? 'block' : 'none').'; float: left;">
 						<textarea id="description_'.$language['id_lang'].'" name="description_'.$language['id_lang'].'" rows="20" cols="80" class="rte">'.htmlentities(stripslashes($this->getFieldValue($obj, 'description', intval($language['id_lang']))), ENT_COMPAT, 'UTF-8').'</textarea>
 					</div>';
-		
+
 		echo '		<div class="clear"></div>
 				</div>
 				<label>'.$this->l('Image:').' </label>
 				<div class="margin-form" >
 					<input type="file" name="image" />
 				</div>';
-		$this->displayImage($obj->id, _PS_IMG_DIR_.'c/'.$obj->id.'.jpg', 350, NULL, Tools::getAdminToken('AdminCatalog'.intval(Tab::getIdFromClassName('AdminCatalog')).intval($cookie->id_employee)), 'left;margin-left:20%');				
-		echo'	<div class="clear"><br /></div>	
+		$this->displayImage($obj->id, _PS_IMG_DIR_.'c/'.$obj->id.'.jpg', 350, NULL, Tools::getAdminToken('AdminCatalog'.intval(Tab::getIdFromClassName('AdminCatalog')).intval($cookie->id_employee)), 'left;margin-left:20%');
+		echo'	<div class="clear"><br /></div>
 				<label>'.$this->l('Meta title:').' </label>
 				<div class="margin-form">';
 		foreach ($languages as $language)
@@ -287,7 +289,7 @@ class AdminCategories extends AdminTab
 			</fieldset>
 		</form>
 		<div class="clear"></div>
-		
+
 		<script type="text/javascript" src="'.__PS_BASE_URI__.'js/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
 			<script type="text/javascript">
 			function tinyMCEInit(element)
@@ -326,7 +328,7 @@ class AdminCategories extends AdminTab
 			}
 			tinyMCEInit(\'textarea.rte\');
 			</script>
-		
+
 		';
 	}
 }

@@ -1,6 +1,7 @@
 {include file=$tpl_dir./breadcrumb.tpl} 
 {include file=$tpl_dir./errors.tpl}
 
+
 {if $category->id AND $category->active}
 	<h2 class="category_title">
 		{$category->name}
@@ -42,9 +43,14 @@
 	</div>
 	{/if}
 
+	<!-- Ha a $category.id = 149 akkor CSOMAGAJANLAT es a productra: waterClass='water_packagesproduct' priceDisplay=0 -->
 	{if $products}
 			{include file=$tpl_dir./product-sort.tpl}
-			{include file=$tpl_dir./product-list.tpl products=$products}
+			{if $category->id == 149}
+				{include file=$tpl_dir./product-list.tpl products=$products waterClass='wpp' priceDisplay=0}
+			{else}
+				{include file=$tpl_dir./product-list.tpl products=$products}
+			{/if}	
 			{include file=$tpl_dir./pagination.tpl}
 		{elseif !isset($subcategories)}
 			<p class="warning">{l s='There is no product in this category.'}</p>

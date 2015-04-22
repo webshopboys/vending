@@ -1,7 +1,7 @@
 <!-- Module Editorial -->
 <div id="editorial_block_center" class="editorial_block">
 	{if $xml->body->home_logo_link}<a href="{$xml->body->home_logo_link}" title="{$xml->body->$title|escape:'htmlall':'UTF-8'|stripslashes}">{/if}
-	<img src="{$this_path}homepage_logo.gif" alt="{$xml->body->$title|escape:'htmlall':'UTF-8'|stripslashes}" class="homepage_logo"/>
+		{if $homepage_logo}<img src="{$this_path}homepage_logo.gif" alt="{$xml->body->$title|escape:'htmlall':'UTF-8'|stripslashes}" class="homepage_logo"/>{/if}
 	{if $xml->body->home_logo_link}</a>{/if}
 	<div id="editorial_txt">
 	{if $xml->body->$logo_subheading}{$xml->body->$logo_subheading|stripslashes}{/if} 

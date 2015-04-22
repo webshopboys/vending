@@ -5,8 +5,8 @@
 
 <!-- Free Block module -->
 <div id="blockarrival_right" class="block">
-	<h4 class="pulsing_content" style="color: red !important;">
-		{$arrival_title}
+	<h4 class="pulsing_content redheader">
+		<span>{$arrival_title}</span>
 	</h4>
 	<a href="{$link_to}">
 	  <div class="arrival_launcher block_content">

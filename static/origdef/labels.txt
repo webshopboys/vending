@@ -1,0 +1,18 @@
+﻿hu-default-medium.jpg
+
+http://modernui.hu/vending/img/p/hu-default-home.jpg
+
+http://modernui.hu/vending/img/p/hu-default-large.jpg
+
+
+agyarul:
+ 
+Az  automata átvétel alatt van , képek hamarosan következnek!
+ 
+Angolul:
+ 
+ 
+The product is taken over at the moment picture soon!
+
+A termék átvétel alatt van, képek hamarosan készülnek!
+

@@ -21,6 +21,8 @@ body {
 	text-align:center;
 }
 
+
+
 /* Useful */
 .align_center { text-align:center; }
 .align_right { text-align:right; }
@@ -205,7 +207,7 @@ h1#logo {
 #home-target-logo-div {
 	float:left;
 }
-#home-target-logo { }
+.home-target-logo { }
 
 #left_column {
 	clear:left;
@@ -915,12 +917,13 @@ div.block {
 }
 div.block h4 {
 	text-transform: uppercase;
+	text-align: center;
 	font-family: Helvetica, Sans-Serif;
 	font-weight: bold;
 	font-size: 1.2em;
-	padding-left:0.5em;
+	/*padding-left:0.5em;*/
 	border-bottom:1px solid #595A5E;
-	padding-top:2px;
+	padding-top:5px;
 	line-height:1.3em;
 	color: #374853;
 	height: 19px;
@@ -2562,3 +2565,8 @@ div#categories_block_left ul.tree li a[href="http://vendingoutlet.org/69-cheap-m
     background-origin: content-box;
 	background-repeat: no-repeat;
 }
+
+
+/* blinking */
+.redheader > * {color: red !important;} /* igazan a h4-ben lévő elemnek kéne */
+

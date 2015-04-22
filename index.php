@@ -10,6 +10,7 @@ include(dirname(__FILE__).'/header.php');
 
 // Blocknewsletter.hookLeftColumn() is kiertekelesre kerul itt a hatterben, ami a cron-os kuldest megvalositja
 // @see Util::sendNewProductMail(intval($_GET['hours']), intval($_GET['lang']));
+
 if(isset($_REQUEST["call_method"]))
 {
 	if($_REQUEST["call_method"]=="mailSent")
@@ -31,7 +32,6 @@ else
 }
 
 include(dirname(__FILE__).'/footer.php');
-
 
 
 ?>

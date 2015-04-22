@@ -18,6 +18,7 @@
 	{/foreach}
 {/if}
 		<script type="text/javascript" src="{$content_dir}js/tools.js"></script>
+		
 		<script type="text/javascript">
 			var baseDir = '{$content_dir}';
 			var static_token = '{$static_token}';
@@ -33,7 +34,7 @@
 			<script type="text/javascript" src="{$content_dir}js/popup/popup.js"></script>
 			<link rel="stylesheet" href="{$content_dir}js/popup/general.css" type="text/css" media="screen" />
 		{/if}
-
+		<script type="text/javascript" src="{$content_dir}js/vending.js"></script>
 
 {if isset($js_files)}
 	{foreach from=$js_files item=js_uri}

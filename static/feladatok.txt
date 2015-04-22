@@ -1,0 +1,108 @@
+--- 2015.04.01 ---
+
+
+1.
+A főoldal alján van egy „Fő termékeink” megnevezésű „kép box”, azt ki szeretnénk törölni úgy, ahogy van.
+2.000 Ft + Áfa
+
+2.
+A jobb oldalsávot egységesíteni szeretnénk! 4 ablak legyen a mostani 5 helyett, a következőképpen:
+Tehát a sorrend: Várható beérkezések, Új termékek automaták, Akciós termékek automaták, Csomagajánlatok
+- VÁRHATÓ BEÉRKEZÉS
+(ha lehet, legyen nagyobb a betűstílus) kerüljön fel, a térkép alá, amúgy maradhat így, ahogy van Nem lehet nagyobb a betű, mert nem fér el a fejlécben.
+Rendben
+2.000 Ft + Áfa
+
+- ÚJ AUTOMATÁK
+(ha lehet, legyen nagyobb a betűstílus, illetve piros színnel villogjon, mint ahogy a „várható beérkezés”, 2 helyett 4 gépet jelenítsen meg, illetve azok a gépek, amik ebbe bekerülnek, 
+kapjanak egy vízjelet „Most érkezett”felirattal) Nem lehet nagyobb a betű, mert nem fér el a fejlécben.
+Rendben
+A vízjel a normál képeken van, ezek elevele vízjelesen kerülnek fel a shopba, a vízjel a feltöltéskor kerül rájuk. Lehet feliratot rakni a képre a megjelenítés során. 
+Ezt lehet átlósan piros, határozott, de alatta a kép eredeti sárga transzparens vízjele megmarad, illetve a kép esetleges letöltése során csak az eredeti vízjel lesz rajta.
+Rendben, kérjük a piros, átlós „most érkezett”-et
+10.000 Ft + Áfa
+Igen kernenk!
+
+- AKCIÓS AUTOMATÁK
+(ha lehet, legyen nagyobb a betűstílus, illetve piros színnel villogjon, mint ahogy a „várható beérkezés” 1 helyett 2 gépet jelenítsen meg, illetve azok a gépek, amik ebbe
+bekerülnek, kapjanak egy vízjelet „Akció”felirattal) Nem lehet nagyobb a betű, mert nem fér el a fejlécben.
+Rendben
+A vízjel a normál képeken van, ezek elevele vízjelesen kerülnek fel a shopba, a vízjel a feltöltéskor kerül rájuk. Lehet feliratot rakni
+a képre a megjelenítés során. Ezt lehet átlósan piros, határozott, de alatta a kép eredeti sárga transzparens vízjele megmarad, illetve a kép esetleges 
+letöltése során csak az eredeti vízjel lesz rajta.
+Rendben, kérjük a piros, átlós „most érkezett”-et
+10.000 Ft + Áfa
+
+- CSOMAGAJÁNLATOK
+(ha lehet, legyen nagyobb a betűstílus, illetve piros színnel villogjon, mint ahogy a „várható beérkezés”, 5 helyett 4 ajánlatot jelenítsen meg ,illetve, az ide kerülő
+csomagok kapjanak egy vízjelet „Akció”felirattal) 
+- értelemszerűen az „alkatrész automaták kis „box-ot” töröljük ki
+Nem lehet nagyobb a betű, mert nem fér el a fejlécben.
+Rendben
+A vízjel a normál képeken van, ezek elevele vízjelesen kerülnek fel a shopba, a vízjel a feltöltéskor kerül rájuk. Lehet feliratot rakni a képre a megjelenítés során. 
+Ezt lehet átlósan piros, határozott, de alatta a kép eredeti sárga transzparens vízjele megmarad, illetve a kép esetleges letöltése során csak az eredeti vízjel lesz rajta.
+Rendben, kérjük a piros, átlós „most érkezett”-et
+10.000 Ft + Áfa
+
+3.
+A főkép alatt van egy szöveg link-el, „automaták minden mennyiségben”... Teljesen felesleges funkció, töröljük ki.
+Megcsinálták ők.
+
+4.
+A bal oldalsávban a „kategóriák” alatti ablak, „Termékek megtekintése”, ez így nem jó, írjuk át „Megtekintett termékek”-re és meg lehetne oldani, hogy ne ilyen elcsúszott 
+fapados módon legyen kiírva, hanem maradjon a szöveg sávban?
+Mit jelent, hogy fapados? Kérek képet, leírást róla. Nálam teljesen a helyén van. A kicsúszási probléma pont az, ami miatta a jobb szélsők fejléc betűmérete nem nagyon növelhető.
+A fapados szót úgy értettem, hogy nem szép, nem esztétikus, nem profi, nem első osztályos megjelenésű.
+1.000 Ft + Áfa.
+Igen kernenk!
+
+5.
+A térképen a hely nem jól van megjelölve, a mellékelt képen piros pont mutatja a valós helyünket, azt javítsuk.
+Itt a cím alapján a Google Maps határozta meg a pontot. Átvariálgatom, kérdés, hogy a kapott pont vajon milyen Google szerinti címet takar.
+Nem tudom, hogy milyen Google címet takar, felsőbb utasításra kaptam ezt a feladatot, oda kérjük az elhelyezést, mert ott vagyunk...
+0 Ft
+Igen kernenk!
+
+6.
+A hírlevélre megpróbáltam regisztrálni, azt írta ki, hogy a megadott e-mail cím már regisztrálva van, ami kizárt dolog, de a másik e-mail címemre is ezt dobta vissza... 
+Orvosoljuk ha lehet... (Várjuk a Ricsi által már lekért adatokat ezzel kapcsolatban)
+Hiba, reprodukáltam, de még nem jöttem rá mi az oka. Elvileg a lehetséges regisztrálási eredmény státuszokban csak akkor lehet ilyen, ha megtalálta már az adatbázisban a címet, 
+de ellenőriztem, és nem találhatta. Sajnos az egész shoppot le kell klónoznom, hogy ki tudjam iratni minden részlépés eredményét, ezt az élesben nem lehet megtenni.
+Rendben.
+0 Ft
+Igen kernenk!
+
+7.
+Vízjel a képeken: vannak olyan képek amik letölthetők vízjel nélkül, ha a „nagy méretű kép letöltése” gombra kattintunk! (általában az újonnan feltöltött képekre jellemző)
+Itt sajnos hibás a feltöltéskori vízjelezés, ez ennek a webshop motornak simert hibája. Szerintem töröljük a nagyméretű kép linkeket?
+Jó, töröljük de amikor rákattint akkor a képnézegetőbe még rakja fel nagyobba a képet és csak onnan tölthesse le (erre gondoltál?)
+2.000 Ft + Áfa
+Igen kernenk!
+
+8.
+Kérnénk az árak szabad megjelenítését a következő kategóriáknál: Alkatrész automaták, Akciós automaták, Csomagajánlatok.
+Az “Akciós automaták” kategória merre van, én nem találtam? 
+Bal oldalsávból a múlt héten töröltem. A box-ra gondoltok? Igen, ami a jobb oldalsávban van
+
+Ezekhez lehetséges az ár megmutatása.
+
+Egy adott listában vegyesen nem lehetséges, de itt nem ez a kérés. Ehhez a 9.ponthoz is ismernem kellene, hogy nettó, bruttó, avagy miylen ár és
+hogyan jelenjen meg?
+Nettóba szerepeljen az ár, mellette zárójelben legyen feltüntetve, hogy nettó. Úgy jelenjen meg ahogy régen...
+20.000 Ft + Áfa
+Igen kernenk!
+
+9.
+Azt meg lehet oldani, hogy mondjuk 2 napig látható legyen minden gép ára? Vagy csak néha, amelyiknél szeretnénk, hogy látszódjon? Kaphatna az admin termékinformáció rész egy ilyen ikont, 
+hogy az ár látható legyen - vagy ne, és ki be tudnánk kapcsolni?
+Lehetséges egy opciós listából, amiben pl: “10 napig”, “5 napig”, “2 napig”, “Manuálisan” közzül lehetne a feltételt meghatározni.
+Ezt is kernenk!!
+
+
+10.
+Amikor a főképet cserélem, hiába van a megadott (300KB?) alatti méretben, legalább 15 percig kell azon szórakoznom, hogy „fájl kiválasztása, szöveg frissítése” mire frissíti a képet is... 
+Ezt meg tudjuk kicsit gyorsítani?
+Remélem lehetséges. A shop gyűjtöget egy csomó statisztikai információt, melyek felszabadítása nagyot tud javítani a sebességen.
+Remek!
+0 Ft
+

@@ -20,6 +20,7 @@
 		gctx = {},
 		imgQueue = [],
 		className = "reserved",
+		addHref = "#",
 		watermark = false,
 		watermarkPosition = "bottom-right",
 		watermarkPath = "img/watermark.png?"+(+(new Date())),
@@ -87,7 +88,8 @@
 					opacity = (255/(100/config["opacity"]));
 				if(config["className"])
 					className = config["className"];
-				
+				if(config["addHref"])
+					addHref = config["addHref"];
 			}
 			
 			if($('img.'+className).length>0){
@@ -131,11 +133,13 @@
 				var x = p.position().left,
 				y = p.position().top;
 				var wdiv = $('<div class="watermarker-div"></div>');
-				$('body').append(wdiv);
+				var wrapperAnchor = $('<a href="'+addHref+'"></a>');
+				wrapperAnchor.append(wdiv);
+				$('body').append(wrapperAnchor);
 				
 				wdiv.css("background-image", "url("+watermarkPath+")");
 				wdiv.css({'left':x,'top':y,'width':w,'height':h});  
-				//alert(img.attr("src")+": "+img.position().left +"/"+img.position().top);
+				
 			}			
 		},
 		setCanvasSize = function(w, h){

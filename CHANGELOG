@@ -1,3 +1,51 @@
+2015.01.27
+- A lapozósáv az akciós oldalon hibás, több oldalt mutat mint van.
+- Akciós automaták blokkban is legyen ár
+
+
+2015.01.21
+------- Akciós automaták blokkban és listában is legyen ár -------
+	blockspecials.php / blockspecials.tpl 
+	prices-drop.php / prices-drop.tpl / product-list.tpl
+
+	$priceDisplay == 3 jelzi, hogy nincs ár. 
+	init-php:148  'priceDisplay' => intval(Configuration::get('PS_PRICE_DISPLAY'))
+	
+	Itt mindig legyen ár. Valami ilyesmi az elágazás:
+
+	{if $priceDisplay == 3}
+		<strong>{l s='Ask for an offer!'}</strong>
+	{/if}
+	{if !$priceDisplay || $priceDisplay == 2}
+		<span id="our_price_display">{convertPrice price=$product->getPrice(true, $smarty.const.NULL, 2)}</span>
+			{l s='tax incl.'}
+	{/if}
+	{if $priceDisplay == 1}
+		<span id="our_price_display">{convertPrice price=$product->getPrice(false, $smarty.const.NULL, 2)}</span>
+			{l s='tax excl.'}
+	{/if}
+---------------------------------------------------------------------------------				
+------- Adatlapon az ár jelenjen meg ha a termék akciós, de ne máskor -------
+	product.php / product.tpl  
+	Akciós, ha:  (p.`reduction_price` + (p.`reduction_percent` * p.`price`)) AS myprice
+	De a többi lstában nem iylen egyszeű meghatározni, ha akciós. @see Product.php:1290
+	
+---------------------------------------------------------------------------------
+------- A lapozósáv az akciós oldalon hibás, több oldalt mutat mint van --------
+	pagination.php / pagination.tpl
+	az $nbProducts változótól függ?? 
+	price-drop.php:7  $nbProducts = Product::getPricesDrop(intval($cookie->id_lang), NULL, NULL, true);
+	Valószínűleg elég, ha a true false lesz, mert ez jelzi kb. hogy az összes termék vagy csak a fileterezett darab. 
+	
+---------------------------------------------------------------------------------
+------- Új termékeknél az intervallum helyett az 5 legfiatalabb legyen ----------
+
+
+---------------------------------------------------------------------------------
+
+
+
+
 2012.08.06. Transport mail 2
 
 1. az információk szekcióban, ahol most is van szállítási leírás a leírás oldalról közvetlenül elérhető ez ajánlatkérő űrlap

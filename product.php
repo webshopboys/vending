@@ -310,12 +310,22 @@ $smarty->assign(array(
 
 if (file_exists(_PS_THEME_DIR_.'thickbox.tpl'))
 	$smarty->display(_PS_THEME_DIR_.'thickbox.tpl');
+
 $smarty->assign(array(
 	'currencySign' => $currency->sign,
 	'currencyRate' => $currency->conversion_rate,
 	'currencyFormat' => $currency->format,
 	'currencyBlank' => $currency->blank)
 	);
+
+//$smarty->assign(array('priceDisplay' => Tools::getValue("pd", "6")));
+/*if( isset($_REQUEST['pd']) ){
+	$smarty->assign(array('priceDisplay' => $_REQUEST['pd']));
+}
+if( isset($_REQUEST['wm']) ){
+	$smarty->assign(array('waterClass' => $_REQUEST['wm']));
+}*/
+
 $smarty->display(_PS_THEME_DIR_.'product.tpl');
 
 include(dirname(__FILE__).'/footer.php');

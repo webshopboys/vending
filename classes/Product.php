@@ -62,6 +62,8 @@ class		Product extends ObjectModel
 	/** @var string Object creation date */
 	public 		$reserved_date;
 	
+	public 		$price_date;
+	
 	/** @var string available_now */
 	public 		$available_now;
 
@@ -177,6 +179,7 @@ class		Product extends ObjectModel
 		'reduction_to' => 'isDate',
 		'on_sale' => 'isBool',
 		'ecotax' => 'isPrice',
+		'price_date' => 'isDate',	
 		'reference' => 'isReference',
     	'supplier_reference' => 'isReference',
 		'location' => 'isReference',
@@ -222,6 +225,7 @@ class		Product extends ObjectModel
 		parent::validateFields();
 		if (isset($this->id))
 			$fields['id_product'] = intval($this->id);
+		
 		$fields['id_tax'] = intval($this->id_tax);
 		$fields['id_manufacturer'] = intval($this->id_manufacturer);
 		$fields['id_supplier'] = intval($this->id_supplier);
@@ -238,6 +242,8 @@ class		Product extends ObjectModel
 		$fields['reduction_to'] = pSQL($this->reduction_to);
 		$fields['on_sale'] = intval($this->on_sale);
 		$fields['ecotax'] = floatval($this->ecotax);
+		$fields['price_date'] = pSQL($this->price_date);
+		
 		$fields['reference'] = pSQL($this->reference);
 		$fields['supplier_reference'] = pSQL($this->supplier_reference);
 		$fields['location'] = pSQL($this->location);
@@ -1946,7 +1952,7 @@ class		Product extends ObjectModel
 		return $row['id_image'];
 	}
 
-	private static $producPropertiesCache = array();
+	public static $producPropertiesCache = array();
 
 	static public function getProductProperties($id_lang, $row)
 	{
@@ -1985,7 +1991,9 @@ class		Product extends ObjectModel
 		$row['pack'] = Pack::isPack($row['id_product']);
 		$row['packItems'] = $row['pack'] ? Pack::getItemTable($row['id_product'], $id_lang) : array();
 		$row['nopackprice'] = $row['pack'] ? Pack::noPackPrice($row['id_product']) : 0;
-
+		// ez kell mert amikor az admibol kiveszik akkor nullak kerulnek bele
+		$row['price_date'] = $row['price_date'] ? $row['price_date'] == "0000-00-00" ? "" : $row['price_date'] : "";
+		
 		self::$producPropertiesCache[$cacheKey] = $row;
 		return self::$producPropertiesCache[$cacheKey];
 	}

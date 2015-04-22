@@ -1,4 +1,6 @@
 <?php
+
+
 include(dirname(__FILE__).'/../config/config.inc.php');
 require_once(dirname(__FILE__).'/../init.php');
 
@@ -19,7 +21,7 @@ $link = new Link();
 
 
 <div class="block products_block exclusive">
-	<h4><a href="http://www.vendingoutlet.org/category.php?id_category=<?php echo $id_category; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h4>
+	<h4 class="pulsing_content redheader"><a href="http://www.vendingoutlet.org/category.php?id_category=<?php echo $id_category; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h4>
 	<div class="block_content">
 		<ul class="products">
 <?php

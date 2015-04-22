@@ -85,10 +85,18 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 </script>
 
 {if $product->reserved > 0 AND $product->reserved >= $product->quantity}
-{assign var=isReserved value=1}
+	{assign var=isReserved value=1}
 {else}
-{assign var=isReserved value=0}
+	{assign var=isReserved value=0}
 {/if}
+
+
+{if isset($product->price_date) AND $product->price_date|date_format:"%D" >= $smarty.now|date_format:"%D"}
+	{assign var=priceDisplay value=0}
+{/if}
+
+
+<!-- Products v150416.1 priceDisplay={$priceDisplay} waterClass={$waterClass} -->
 
 <div id="primary_block">
 
@@ -117,8 +125,8 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 		
 			
 		{if count($images) > 0}
-		<p><a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}.jpg" title='Kattints a jobb egérgombbal, majd Hivatkozás mentése más néven...'><b>Nagy méretű kép letöltése</b></a> <br /> 
-		<a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}.jpg" title='Right click, Save target as...'><b>Download high resolution image</b></a></p>	
+		<p><a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}-large.jpg" title='Kattints a jobb egérgombbal, majd Hivatkozás mentése más néven...'><b>Nagy méretű kép letöltése</b></a> <br /> 
+		<a href="http://www.vendingoutlet.org/img/p/{$cover.id_image}-large.jpg" title='Right click, Save target as...'><b>Download high resolution image</b></a></p>	
 		{/if}
 
 		{if count($images) > 0}
@@ -214,8 +222,9 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 				{/if}
 				<br />
 				<span class="our_price_display">
-				{if $priceDisplay == 3}<strong>{l s='Ask for an offer!'}</strong>{/if}
-				{if $priceDisplay != 3}
+				{if $priceDisplay == 3}
+					<strong>{l s='Ask for an offer!'}</strong>
+				{/if}
 				{if !$priceDisplay || $priceDisplay == 2}
 					<span id="our_price_display">{convertPrice price=$product->getPrice(true, $smarty.const.NULL, 2)}</span>
 						{l s='tax incl.'}
@@ -223,7 +232,7 @@ var fieldRequired = '{l s='Please fill all required fields' js=1}';
 				{if $priceDisplay == 1}
 					<span id="our_price_display">{convertPrice price=$product->getPrice(false, $smarty.const.NULL, 2)}</span>
 						{l s='tax excl.'}
-				{/if}{/if}
+				{/if}
 				
 				</span>
 				
